@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace MSPApplication.UI.Pages
 {
-    public class StaffDirectoryBase: ComponentBase
+    public partial class StaffDirectory
     {
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }

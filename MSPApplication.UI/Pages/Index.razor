@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <NewsWidget />
+        <NewsWidget  />
 
         <div id="tasks" class="widget">
             <h3>Tasks<button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button></h3>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-md-4">
-        <NewEmployeesWidget />
+        <NewEmployeesWidget HowManyToReturn="1" />
 
         <div id="reportConcern" class="widget">
             <h3>Report a Concern</h3>

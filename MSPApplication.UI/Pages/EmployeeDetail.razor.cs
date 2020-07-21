@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components;
 using MSPApplication.ComponentsLibrary.Map;
-using MSPApplication.UI.Services;
 using MSPApplication.Shared;
-using Microsoft.AspNetCore.Components;
+using MSPApplication.UI.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
 {
-    public class EmployeeDetailBase : ComponentBase
+    public partial class EmployeeDetail
     {
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }
 
         [Inject]
-        public IJobCategoryDataService JobCategoryDataService{ get; set; }
+        public IJobCategoryDataService JobCategoryDataService { get; set; }
 
         [Parameter]
         public string EmployeeId { get; set; }
@@ -21,7 +21,7 @@ namespace MSPApplication.UI.Pages
         public List<Marker> MapMarkers { get; set; } = new List<Marker>();
 
         protected string JobCategory = string.Empty;
-       
+
         public Employee Employee { get; set; } = new Employee();
 
         protected override async Task OnInitializedAsync()

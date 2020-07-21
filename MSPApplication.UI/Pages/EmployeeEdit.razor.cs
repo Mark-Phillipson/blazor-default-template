@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
 {
-    public class EmployeeEditBase : ComponentBase
+    public partial class EmployeeEdit
     {
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }

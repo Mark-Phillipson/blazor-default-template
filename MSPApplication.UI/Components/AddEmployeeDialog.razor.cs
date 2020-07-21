@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using MSPApplication.UI.Services;
+﻿using Microsoft.AspNetCore.Components;
 using MSPApplication.Shared;
-using Microsoft.AspNetCore.Components;
+using MSPApplication.UI.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Components
 {
-    public class AddEmployeeDialogBase : ComponentBase
+    public partial class AddEmployeeDialog
     {
         public bool ShowDialog { get; set; }
 
@@ -15,10 +15,10 @@ namespace MSPApplication.UI.Components
         [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 
-        [Inject] 
+        [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }
 
-      
+
 
         public void Show()
         {

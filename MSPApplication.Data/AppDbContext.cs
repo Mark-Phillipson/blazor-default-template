@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MSPApplication.Shared;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace MSPApplication.Api.Models
 {
@@ -36,7 +37,7 @@ namespace MSPApplication.Api.Models
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 8, Name = "France" });
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 9, Name = "Brazil" });
 
-            modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 1, JobCategoryName = "Pie research" });
+            modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 1, JobCategoryName = "Production" });
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 2, JobCategoryName = "Sales" });
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 3, JobCategoryName = "Management" });
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 4, JobCategoryName = "Store staff" });
@@ -44,7 +45,7 @@ namespace MSPApplication.Api.Models
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 6, JobCategoryName = "QA" });
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 7, JobCategoryName = "IT" });
             modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 8, JobCategoryName = "Cleaning" });
-            modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 9, JobCategoryName = "Bakery" });
+            modelBuilder.Entity<JobCategory>().HasData(new JobCategory() { JobCategoryId = 9, JobCategoryName = "Marketing" });
 
             modelBuilder.Entity<Employee>().HasData(new List<Employee>()
             {
@@ -54,11 +55,11 @@ namespace MSPApplication.Api.Models
                     CountryId = 1,
                     MaritalStatus = MaritalStatus.Single,
                     BirthDate = new DateTime(1979, 1, 16),
-                    City = "Brussels",
-                    Email = "bethany@bethanyspieshop.com",
-                    FirstName = "Bethany",
-                    LastName = "Smith",
-                    Gender = Gender.Female,
+                    City = "Maidstone",
+                    Email = "MPhillipson0@Gmail.com",
+                    FirstName = "Mark",
+                    LastName = "Phillipson",
+                    Gender = Gender.Male,
                     PhoneNumber = "324777888773",
                     Smoker = false,
                     Street = "Grote Markt 1",
@@ -77,9 +78,9 @@ namespace MSPApplication.Api.Models
                     MaritalStatus = MaritalStatus.Single,
                     BirthDate = new DateTime(1979, 1, 16),
                     City = "New York",
-                    Email = "bob@bethanyspieshop.com",
-                    FirstName = "Bob",
-                    LastName = "Smith",
+                    Email = "testuser@domain.co.uk",
+                    FirstName = "Test",
+                    LastName = "User",
                     Gender = Gender.Female,
                     PhoneNumber = "55512312321",
                     Smoker = false,
@@ -106,8 +107,15 @@ namespace MSPApplication.Api.Models
             {
                 Country = "Germany",
                 CurrencyId = 2,
-                Name = "Euro",
+                Name = "Euros",
                 USExchange = 1.14
+            });
+            modelBuilder.Entity<Currency>().HasData(new Currency()
+            {
+                Country = "UK",
+                CurrencyId = 3,
+                Name = "Pounds",
+                USExchange = 0.79
             });
 
             modelBuilder.Entity<Expense>().HasData(new Expense()
@@ -126,8 +134,8 @@ namespace MSPApplication.Api.Models
                 new HRTask()
                 {
                     HRTaskId = 1,
-                    Description = "Joe is having an issue with his account login, please look into it.",
-                    Title = "Employee Onboarding",
+                    Description = "Peter is having an issue with his account login, please look into it.",
+                    Title = "Employee New Start",
                     Status = HRTaskStatus.Open
                 },
                 new HRTask()
@@ -147,8 +155,8 @@ namespace MSPApplication.Api.Models
                 new HRTask()
                 {
                     HRTaskId = 4,
-                    Description = "We need to schedule intern interviews for the fall semester.",
-                    Title = "Intern interviews",
+                    Description = "We need to purchase a new IT system for the management of the business.",
+                    Title = "IT System",
                     Status = HRTaskStatus.Open
                 }
             });

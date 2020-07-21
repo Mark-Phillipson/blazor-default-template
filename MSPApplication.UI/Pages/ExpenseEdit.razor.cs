@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace MSPApplication.UI.Pages
 {
-    public class ExpenseEditBase : ComponentBase
+    public partial class ExpenseEdit
     {
         [Inject]
         public IExpenseDataService ExpenseService { get; set; }

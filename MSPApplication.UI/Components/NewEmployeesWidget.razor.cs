@@ -8,16 +8,18 @@ using Microsoft.AspNetCore.Components;
 
 namespace MSPApplication.UI.Components
 {
-    public class NewEmployeesWidgetBase : ComponentBase
+    public partial class NewEmployeesWidget
     {
         public List<Employee> NewEmployees { get; set; } = new List<Employee>();
 
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }
 
+        [Parameter] public int HowManyToReturn { get; set; } = 3;
+
         protected override async Task OnInitializedAsync()
         {
-            NewEmployees = (await EmployeeDataService.GetAllEmployees()).OrderBy(x => x.JoinedDate).Take(3).ToList();
+            NewEmployees = (await EmployeeDataService.GetAllEmployees()).OrderByDescending(x => x.JoinedDate).Take(HowManyToReturn).ToList();
         }
     }
 }

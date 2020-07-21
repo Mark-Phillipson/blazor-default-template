@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
 {
-    public class EmployeeOverviewBase : ComponentBase
+    public partial class EmployeeOverview
     {
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }
 
         [Inject]
-        public ILogger<EmployeeOverviewBase> Logger { get; set; }
+        public ILogger<EmployeeOverview> Logger { get; set; }
 
         public List<Employee> Employees { get; set; }
 
@@ -26,13 +26,12 @@ namespace MSPApplication.UI.Pages
         {
             try
             {
-                throw new Exception("blah");
+                Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
             }
             catch (Exception e)
             {
-                Logger.LogError("that wasn't good", e);
+                Logger.LogError("Exception occurred in on initialised async Employee Data Service", e);
             }
-            Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
         }
 
         public async void AddEmployeeDialog_OnDialogClose()
