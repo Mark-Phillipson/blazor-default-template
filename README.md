@@ -1,0 +1,3 @@
+# MSPApplication
+
+Blazor application template

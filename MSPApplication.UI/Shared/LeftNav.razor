@@ -1,0 +1,130 @@
+﻿<div class="bg-dark" id="sidebar-wrapper">
+    <div class="sidebar-logo">
+        <img class="img-responsive" id="logo" src="images/DefaultLogo.png"/>
+    </div>
+    @*<div class="profile-picture">
+        <img class="img-responsive" src="images/CriticalError.png" />
+    </div>*@
+    <div class="menu list-group list-group-flush">
+        <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <li>
+                    <NavLink href="/">
+                        Home
+                    </NavLink>
+                </li>
+                <li>
+                    <a @onclick="(() => ToggleNav1(1))" data-toggle="collapse" class="dropdown-toggle">Tasks</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden1 ? "toggle-hide": "toggle-show")" id="tasks">
+                        <li>
+                            <NavLink href="/tasks">
+                                View tasks
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/taskedit">
+                                Add new task
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a @onclick="(() => ToggleNav1(2))" data-toggle="collapse" class="dropdown-toggle">Employees</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden2 ? "toggle-hide": "toggle-show")" id="employees">
+                        <li>
+                            <NavLink href="/employeeoverview">
+                                View Employees
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/employeeedit">
+                                Add new employee
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a @onclick="(() => ToggleNav1(3))" data-toggle="collapse" class="dropdown-toggle">Opportunities</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden3 ? "toggle-hide": "toggle-show")" id="jobs">
+                        <li>
+                            <NavLink href="/jobs">
+                                Jobs
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/newjob">
+                                Add new job
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a @onclick="(() => ToggleNav1(4))" data-toggle="collapse" class="dropdown-toggle">Expenses</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden4 ? "toggle-hide": "toggle-show")" id="training">
+                        <li>
+                            <NavLink href="/expenses">
+                                Expenses
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/expenseedit">
+                                New Expense
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a @onclick="(() => ToggleNav1(5))" data-toggle="collapse" class="dropdown-toggle">Feedback</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden5 ? "toggle-hide": "toggle-show")" id="feedback">
+                        <li>
+                            <NavLink href="/surveys">
+                                Surveys
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/surveyedit">
+                                New Survey
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <NavLink href="/staffdirectory">
+                        Staff Directory
+                    </NavLink>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@code{
+    public bool IsHidden1 { get; set; } = true;
+    public bool IsHidden2 { get; set; } = true;
+    public bool IsHidden3 { get; set; } = true;
+    public bool IsHidden4 { get; set; } = true;
+    public bool IsHidden5 { get; set; } = true;
+
+    public void ToggleNav1(int navId)
+    {
+        switch (navId)
+        {
+            case 1:
+                IsHidden1 = !IsHidden1;
+                break;
+            case 2:
+                IsHidden2 = !IsHidden2;
+                break;
+            case 3:
+                IsHidden3 = !IsHidden3;
+                break;
+            case 4:
+                IsHidden4 = !IsHidden4;
+                break;
+            case 5:
+                IsHidden5 = !IsHidden5;
+                break;
+        }
+
+    }
+}
