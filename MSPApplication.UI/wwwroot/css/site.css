@@ -5,13 +5,15 @@
  */
 body {
     overflow-x: hidden;
-    background-image: url('../images/pattern.png');
+/*    background-image: url('../images/pattern.png');
     background-repeat: repeat;
+*/
+    background-color:blanchedalmond;
     font-family: 'Ubuntu', sans-serif;
 }
 
 nav {
-    background-color: #a593c2;
+    background-color: black;
     border-color: #a593c2;
 }
 
@@ -29,7 +31,7 @@ nav {
 
 .sidebar-logo {
     height: 80px;
-    background-color: #a593c2;
+    background-color: black;
     border-color: #a593c2;
     width: 240px;
 }
@@ -104,7 +106,7 @@ nav {
 }
 
 .title {
-    color: white;
+    color: blanchedalmond;
     padding-left: 25px;
 }
 
@@ -136,7 +138,7 @@ nav {
 }
 
 .page-title {
-    color: #23cfa7;
+    color: black;
     font-size: 28px;
     font-weight: bold;
 }
@@ -146,8 +148,8 @@ nav {
 }
 
 .table-btn {
-    background-color: #23cfa7;
-    border-color: #23cfa7;
+    background-color: darkblue;
+    border-color: black;
 }
 
     .table-btn:hover, .table-btn:active {
@@ -184,8 +186,8 @@ nav {
 }
 
 .edit-btn {
-    background-color: #23cfa7;
-    border-color: #23cfa7;
+    background-color: darkblue;
+    border-color: black;
     color: #fff;
 }
 
@@ -221,7 +223,7 @@ nav {
     }
 
 #sidebar-wrapper {
-    background: rgb(165, 147, 194) !important
+    background-color:black !important
 }
 
 .employee-box {
@@ -242,7 +244,7 @@ nav {
 
 
 #sidebar {
-    color: #fff;
+    color: blanchedalmond;
     transition: all 0.3s;
 }
 
@@ -260,7 +262,7 @@ nav {
     }
 
     #sidebar ul p {
-        color: #fff;
+        color: blanchedalmond;
         padding: 10px;
     }
 
@@ -268,7 +270,7 @@ nav {
         padding: 10px;
         font-size: 1.1em;
         display: block;
-        color: #fff;
+        color: blanchedalmond;
     }
 
         #sidebar ul li a:hover {
