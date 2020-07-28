@@ -1,6 +1,6 @@
-﻿using MSPApplication.Api.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using MSPApplication.Api.Models;
 using MSPApplication.Shared;
-using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,12 +28,30 @@ namespace MSPApplication.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTaskById(int id)
         {
-            return Ok(_taskRepository.GetTaskById(id));
+            var result = _taskRepository.GetTaskById(id);
+            return Ok(result);
         }
 
+        [HttpPut]
+        public IActionResult UpdateTask([FromBody] HRTask task)
+        {
+            if (task.HRTaskId > 0)
+            {
+                var taskToUpdate = _taskRepository.GetTaskById(task.HRTaskId);
 
+                if (taskToUpdate == null)
+                    return NotFound();
 
-        // GET api/<controller>/5
+                var updatedTask = _taskRepository.UpdateTask(task);
+                if (updatedTask == null)
+                {
+                    return NotFound();
+                }
+                return NoContent(); //success
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
         public IActionResult Post(HRTask task)
         {
@@ -42,10 +60,8 @@ namespace MSPApplication.Api.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var createdExpense = _taskRepository.AddTask(task);
-
-            return Created("Expense", createdExpense);
+            var createdTask = _taskRepository.AddTask(task);
+            return Created("Task", createdTask);
         }
     }
 }

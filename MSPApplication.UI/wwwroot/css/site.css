@@ -148,8 +148,9 @@ nav {
 }
 
 .table-btn {
-    background-color: darkblue;
+    /*background-color: dodgerblue;*/
     border-color: black;
+    color:white;
 }
 
     .table-btn:hover, .table-btn:active {
@@ -186,7 +187,7 @@ nav {
 }
 
 .edit-btn {
-    background-color: darkblue;
+    background-color: dodgerblue;
     border-color: black;
     color: #fff;
 }

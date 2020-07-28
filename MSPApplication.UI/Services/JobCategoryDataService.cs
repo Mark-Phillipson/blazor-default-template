@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MSPApplication.Shared;
@@ -26,5 +27,33 @@ namespace MSPApplication.UI.Services
             return await JsonSerializer.DeserializeAsync<JobCategory>
                 (await _httpClient.GetStreamAsync($"api/jobcategory/{jobCategoryId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
+        public async Task<JobCategory> AddJobCategory(JobCategory jobCategory)
+        {
+            var jobCategoryJson =
+                new StringContent(JsonSerializer.Serialize(jobCategory), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("api/jobcategory", jobCategoryJson);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await JsonSerializer.DeserializeAsync<JobCategory>(await response.Content.ReadAsStreamAsync());
+            }
+
+            return null;
+        }
+
+        public async Task UpdateJobCategory(JobCategory jobCategory)
+        {
+            var jobCategoryJson =
+                new StringContent(JsonSerializer.Serialize(jobCategory), Encoding.UTF8, "application/json");
+
+            await _httpClient.PutAsync("api/jobcategory", jobCategoryJson);
+        }
+
+        public async Task DeleteJobCategory(int jobCategoryId)
+        {
+            await _httpClient.DeleteAsync($"api/jobcategory/{jobCategoryId}");
+        }
+
     }
 }

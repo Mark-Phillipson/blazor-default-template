@@ -24,7 +24,7 @@ namespace MSPApplication.UI.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Parameter]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
         public InputText LastNameInputText { get; set; }
 
@@ -48,16 +48,14 @@ namespace MSPApplication.UI.Pages
             Countries = (await CountryDataService.GetAllCountries()).ToList();
             JobCategories = (await JobCategoryDataService.GetAllJobCategories()).ToList();
 
-            int.TryParse(EmployeeId, out var employeeId);
-
-            if (employeeId == 0) //new employee is being created
+            if (EmployeeId == 0) //new employee is being created
             {
                 //add some defaults
                 Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now, JoinedDate = DateTime.Now };
             }
             else
             {
-                Employee = await EmployeeDataService.GetEmployeeDetails(int.Parse(EmployeeId));
+                Employee = await EmployeeDataService.GetEmployeeDetails(EmployeeId);
             }
 
             CountryId = Employee.CountryId.ToString();

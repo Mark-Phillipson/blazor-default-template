@@ -1,14 +1,18 @@
 ﻿@page "/employeeoverview"
 
-<h1 class="page-title">All employees</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h1 class="page-title">@Title</h1>
+    </div>
+</div>
 
 @if (Employees == null)
 {
-    <p><em>Loading...</em></p>
+    <div style="display:normal;margin:auto" class="loader"></div>
 }
 else
 {
-    <table class="table">
+    <table class="table table-bordered table-striped" id="table1">
         <thead>
             <tr>
                 <th></th>
@@ -22,17 +26,18 @@ else
             @foreach (var employee in Employees)
             {
                 <tr>
-                    <td><img width="35" src="/images/professional.png" class="rounded-circle" /></td>
+                    <td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
                     <td>@employee.EmployeeId</td>
                     <td>@employee.FirstName</td>
                     <td>@employee.LastName</td>
                     <td>
-                        <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-primary table-btn">
+                        <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-info table-btn">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-primary table-btn">
+                        <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-warning table-btn">
                             <i class="fas fa-edit"></i>
                         </a>
+
                     </td>
                 </tr>
             }
@@ -40,6 +45,6 @@ else
     </table>
 }
 
-<button @onclick="QuickAddEmployee" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<button @onclick="QuickAddEmployee" class="btn btn-success table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
 
 <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>

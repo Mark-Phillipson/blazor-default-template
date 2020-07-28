@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using MSPApplication.Shared;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MSPApplication.Shared;
 
 namespace MSPApplication.UI.Services
 {
     public interface IEmployeeDataService
     {
-        Task<IEnumerable<Employee>> GetAllEmployees();
+        Task<IEnumerable<Employee>> GetAllEmployees(int? jobCategoryId = null);
         Task<Employee> GetEmployeeDetails(int employeeId);
         Task<Employee> AddEmployee(Employee employee);
         Task UpdateEmployee(Employee employee);

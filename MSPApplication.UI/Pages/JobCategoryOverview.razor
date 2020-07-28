@@ -1,0 +1,56 @@
+﻿@page "/jobcategoryoverview"
+@inject IJSRuntime JSRuntime
+
+<div class="row">
+    <div class="col-md-8"><h1 class="page-title">@title</h1></div>
+    <div class="col-md-4">
+        <input class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+    </div>
+</div>
+@if (JobCategories == null && _loadFailed)
+{
+    <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+}
+else if (JobCategories == null)
+{
+    <div style="display:normal;margin:auto" class="loader"></div>
+}
+else
+{
+<table class="table table-bordered table-striped" id="table1">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Job Category ID</th>
+            <th>Job Category Name</th>
+            <th>Employees Count</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jobCategory in JobCategories)
+        {
+            <tr>
+                <td><img width="35" src="/images/categories.png" class="rounded-right" /></td>
+                <td>@jobCategory.JobCategoryId</td>
+                <td>@jobCategory.JobCategoryName</td>
+                <td>@jobCategory.Employees.Count</td>
+                <td>
+                    @*<a href="@($"jobcategorydetail/{jobCategory.JobCategoryId}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle"></i>
+                        </a>*@
+                    <a href="@($"jobcategoryedit/{jobCategory.JobCategoryId}")" class="btn btn-primary table-btn btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<NavLink class="btn btn-success btn-lg" href="/jobcategoryedit">
+    Add New Job Category
+</NavLink>
+
+}
+

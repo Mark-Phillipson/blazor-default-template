@@ -1,6 +1,6 @@
-﻿using MSPApplication.Api.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using MSPApplication.Api.Models;
 using MSPApplication.Shared;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MSPApplication.Api.Controllers
 {
@@ -15,13 +15,16 @@ namespace MSPApplication.Api.Controllers
             _employeeRepository = employeeRepository;
         }
 
+        [Route("[action]/{jobCategoryId?}")]
         [HttpGet]
-        public IActionResult GetAllEmployees()
+        public IActionResult GetAllEmployees(int? jobCategoryId = null)
         {
-            return Ok(_employeeRepository.GetAllEmployees());
+            var result = _employeeRepository.GetAllEmployees(jobCategoryId);
+            return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [Route("[action]/{id}")]
+        [HttpGet]
         public IActionResult GetEmployeeById(int id)
         {
             return Ok(_employeeRepository.GetEmployeeById(id));
@@ -54,7 +57,7 @@ namespace MSPApplication.Api.Controllers
 
             if (employee.FirstName == string.Empty || employee.LastName == string.Empty)
             {
-                ModelState.AddModelError("Name/FirstName", "The name or first name shouldn't be empty");
+                ModelState.AddModelError("LastName/FirstName", "The first and last name are required!");
             }
 
             if (!ModelState.IsValid)

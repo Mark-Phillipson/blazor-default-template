@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MSPApplication.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MSPApplication.Shared;
 
 namespace MSPApplication.UI.Services
 {
@@ -94,7 +94,7 @@ namespace MSPApplication.UI.Services
                     Smoker = false,
                     Street = "Grote Markt 1",
                     Zip = "1000",
-                    JobCategoryId = 1, 
+                    JobCategoryId = 1,
                     Comment = "Lorem Ipsum",
                     ExitDate = null,
                     JoinedDate = new DateTime(2015, 3, 1)
@@ -134,6 +134,11 @@ namespace MSPApplication.UI.Services
         }
 
         public Task UpdateEmployee(Employee employee)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Employee>> GetAllEmployees(int? jobCategoryId = null)
         {
             throw new NotImplementedException();
         }

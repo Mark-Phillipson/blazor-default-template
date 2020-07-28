@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MSPApplication.Shared;
+using System.Collections.Generic;
 using System.Linq;
-using MSPApplication.Shared;
 
 namespace MSPApplication.Api.Models
 {
@@ -20,7 +20,8 @@ namespace MSPApplication.Api.Models
 
         public HRTask GetTaskById(int TaskId)
         {
-            return _appDbContext.Tasks.FirstOrDefault(c => c.HRTaskId == TaskId);
+            HRTask task = _appDbContext.Tasks.FirstOrDefault(c => c.HRTaskId == TaskId);
+            return task;
         }
 
         public HRTask AddTask(HRTask task)
@@ -28,6 +29,20 @@ namespace MSPApplication.Api.Models
             var addedEntity = _appDbContext.Tasks.Add(task);
             _appDbContext.SaveChanges();
             return addedEntity.Entity;
+        }
+        public HRTask UpdateTask(HRTask task)
+        {
+            var foundTask = _appDbContext.Tasks.FirstOrDefault(e => e.HRTaskId == task.HRTaskId);
+            if (foundTask != null)
+            {
+                foundTask.AssignedTo = task.AssignedTo;
+                foundTask.Description = task.Description;
+                foundTask.Status = task.Status;
+                foundTask.Title = task.Title;
+                _appDbContext.SaveChanges();
+                return foundTask;
+            }
+            return null;
         }
     }
 }

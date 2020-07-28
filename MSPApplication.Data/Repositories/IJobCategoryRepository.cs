@@ -7,5 +7,8 @@ namespace MSPApplication.Api.Models
     {
         IEnumerable<JobCategory> GetAllJobCategories();
         JobCategory GetJobCategoryById(int jobCategoryId);
+        JobCategory AddJobCategory(JobCategory jobCategory);
+        JobCategory UpdateJobCategory(JobCategory jobCategory);
+        void DeleteJobCategory(int jobCategoryId);
     }
 }

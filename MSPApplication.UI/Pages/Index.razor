@@ -14,7 +14,10 @@
         <NewsWidget  />
 
         <div id="tasks" class="widget">
-            <h3>Tasks<button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button></h3>
+            <h3>Top 3 Tasks
+                <button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button>
+                <a href="tasksoverview/"  class="btn btn-info mr-1 float-right">View All Tasks</a>
+            </h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -39,7 +42,7 @@
     </div>
 
     <div class="col-md-4">
-        <NewEmployeesWidget HowManyToReturn="1" />
+        <NewEmployeesWidget HowManyToReturn="3" />
 
         <div id="reportConcern" class="widget">
             <h3>Report a Concern</h3>
@@ -91,7 +94,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Tasks = (await taskService.GetAllTasks()).ToList();
+        Tasks = (await taskService.GetAllTasks()).OrderBy(o => o.Status).Take(3).ToList();
     }
 
     public void AddTask()

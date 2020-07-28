@@ -1,0 +1,47 @@
+﻿@page "/tasksoverview"
+
+<h1 class="page-title">All Tasks</h1>
+
+@if (Tasks == null)
+{
+    <div style="display:normal;margin:auto" class="loader"></div>
+}
+else
+{
+    <table class="table table-bordered table-striped" id="table1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Task ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Tasks)
+            {
+                <tr>
+                    <td><img width="35" src="/images/Tasks.png" class="rounded-circle" /></td>
+                    <td>@task.HRTaskId</td>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.Status</td>
+                    <td>
+                        <a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@*<button @onclick="QuickAddEmployee" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+
+    <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@

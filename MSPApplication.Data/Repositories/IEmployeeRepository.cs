@@ -1,14 +1,11 @@
-﻿using System;
+﻿using MSPApplication.Shared;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MSPApplication.Shared;
 
 namespace MSPApplication.Api.Models
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAllEmployees();
+        IEnumerable<Employee> GetAllEmployees(int? jobCategoryId = null);
         Employee GetEmployeeById(int employeeId);
         Employee AddEmployee(Employee employee);
         Employee UpdateEmployee(Employee employee);

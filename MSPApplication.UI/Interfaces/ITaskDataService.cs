@@ -9,5 +9,6 @@ namespace MSPApplication.UI.Services
         Task<IEnumerable<HRTask>> GetAllTasks();
         Task<HRTask> GetTaskById(int taskId);
         Task<HRTask> AddTask(HRTask task);
+        Task UpdateTask(HRTask task);
     }
 }

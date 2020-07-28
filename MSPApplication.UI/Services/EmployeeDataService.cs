@@ -16,16 +16,24 @@ namespace MSPApplication.UI.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployees()
+        public async Task<IEnumerable<Employee>> GetAllEmployees(int? jobCategoryId = null)
         {
-            return await JsonSerializer.DeserializeAsync<IEnumerable<Employee>>
-                (await _httpClient.GetStreamAsync($"api/employee"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            var url = $"api/employee/getallemployees/";
+            if (jobCategoryId != null)
+            {
+                url = $"api/employee/getallemployees/{jobCategoryId}/";
+            }
+            var result = await JsonSerializer.DeserializeAsync<IEnumerable<Employee>>
+                (await _httpClient.GetStreamAsync(url), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            return result;
         }
 
         public async Task<Employee> GetEmployeeDetails(int employeeId)
         {
-            return await JsonSerializer.DeserializeAsync<Employee>
-                (await _httpClient.GetStreamAsync($"api/employee/{employeeId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            var result = await JsonSerializer.DeserializeAsync<Employee>
+                (await _httpClient.GetStreamAsync($"api/employee/getemployeebyid/{employeeId}/"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+            return result;
         }
 
         public async Task<Employee> AddEmployee(Employee employee)

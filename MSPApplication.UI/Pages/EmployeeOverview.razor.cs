@@ -18,6 +18,12 @@ namespace MSPApplication.UI.Pages
         [Inject]
         public ILogger<EmployeeOverview> Logger { get; set; }
 
+        [Parameter]
+        public JobCategory JobCategory { get; set; }
+
+        public string Title { get; set; } = "All Employees";
+        public string SearchTerm { get; set; } = null;
+
         public List<Employee> Employees { get; set; }
 
         protected AddEmployeeDialog AddEmployeeDialog { get; set; }
@@ -26,7 +32,11 @@ namespace MSPApplication.UI.Pages
         {
             try
             {
-                Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
+                Employees = (await EmployeeDataService.GetAllEmployees(JobCategory?.JobCategoryId)).ToList();
+                if (JobCategory != null)
+                {
+                    Title = $"{JobCategory.JobCategoryName} Employees";
+                }
             }
             catch (Exception e)
             {

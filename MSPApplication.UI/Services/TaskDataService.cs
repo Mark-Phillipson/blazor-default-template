@@ -1,4 +1,5 @@
 ﻿using MSPApplication.Shared;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -34,13 +35,24 @@ namespace MSPApplication.UI.Services
         public async Task<IEnumerable<HRTask>> GetAllTasks()
         {
             return await JsonSerializer.DeserializeAsync<IEnumerable<HRTask>>
-                (await _httpClient.GetStreamAsync($"api/Task"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                (await _httpClient.GetStreamAsync($"api/task"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
         public async Task<HRTask> GetTaskById(int taskId)
         {
-            return await JsonSerializer.DeserializeAsync<HRTask>
-                (await _httpClient.GetStreamAsync($"api/Task/{taskId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            //        var result = await JsonSerializer.DeserializeAsync<Employee>
+            //(await _httpClient.GetStreamAsync($"api/employee/{employeeId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            var result = await JsonSerializer.DeserializeAsync<HRTask>
+                (await _httpClient.GetStreamAsync($"api/task/{taskId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            return result;
+        }
+        public async Task UpdateTask(HRTask task)
+        {
+            var taskJson =
+    new StringContent(JsonSerializer.Serialize(task), Encoding.UTF8, "application/json");
+
+            await _httpClient.PutAsync("api/task", taskJson);
+
         }
     }
 }

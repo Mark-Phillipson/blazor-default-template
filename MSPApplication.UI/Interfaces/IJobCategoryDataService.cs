@@ -8,5 +8,8 @@ namespace MSPApplication.UI.Services
     {
         Task<IEnumerable<JobCategory>> GetAllJobCategories();
         Task<JobCategory> GetJobCategoryById(int jobCategoryId);
+        Task<JobCategory> AddJobCategory(JobCategory jobCategory);
+        Task UpdateJobCategory(JobCategory jobCategory);
+        Task DeleteJobCategory(int jobCategoryId);
     }
 }

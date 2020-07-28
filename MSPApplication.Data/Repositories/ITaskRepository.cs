@@ -11,5 +11,6 @@ namespace MSPApplication.Api.Models
         IEnumerable<HRTask> GetAllTasks();
         HRTask GetTaskById(int taskId);
         HRTask AddTask(HRTask task);
+        HRTask UpdateTask(HRTask task);
     }
 }

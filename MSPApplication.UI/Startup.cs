@@ -1,11 +1,11 @@
-using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MSPApplication.UI.Services;
 using MSPApplication.UI.Data;
+using MSPApplication.UI.Services;
+using System.Net.Http;
 
 namespace MSPApplication.UI
 {
@@ -24,10 +24,10 @@ namespace MSPApplication.UI
         {
             services.AddRazorPages();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-            
+
             services.AddScoped<HttpClient>(s =>
             {
-                var client = new HttpClient { BaseAddress = new System.Uri("https://localhost:44340/") }; 
+                var client = new HttpClient { BaseAddress = new System.Uri("https://localhost:44340/") };
                 return client;
             });
 
@@ -55,7 +55,7 @@ namespace MSPApplication.UI
                 app.UseHsts();
             }
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

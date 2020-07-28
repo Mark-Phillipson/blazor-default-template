@@ -17,13 +17,13 @@
                     <a @onclick="(() => ToggleNav1(1))" data-toggle="collapse" class="dropdown-toggle">Tasks</a>
                     <ul class="list-unstyled sub-menu @( this.IsHidden1 ? "toggle-hide": "toggle-show")" id="tasks">
                         <li>
-                            <NavLink href="/tasks">
-                                View tasks
+                            <NavLink href="/tasksoverview">
+                                View Tasks
                             </NavLink>
                         </li>
                         <li>
                             <NavLink href="/taskedit">
-                                Add new task
+                                Add New Task
                             </NavLink>
                         </li>
                     </ul>
@@ -89,6 +89,22 @@
                     </ul>
                 </li>
                 <li>
+                    <a @onclick="(() => ToggleNav1(6))" data-toggle="collapse" class="dropdown-toggle">Job Categories</a>
+                    <ul class="list-unstyled sub-menu @( this.IsHidden6 ? "toggle-hide": "toggle-show")" id="jobCategories">
+                        <li>
+                            <NavLink href="/jobcategoryoverview">
+                                View Job Categories
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/jobcategoryedit">
+                                Add New Job Category
+                            </NavLink>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
                     <NavLink href="/staffdirectory">
                         Staff Directory
                     </NavLink>
@@ -104,6 +120,7 @@
     public bool IsHidden3 { get; set; } = true;
     public bool IsHidden4 { get; set; } = true;
     public bool IsHidden5 { get; set; } = true;
+    public bool IsHidden6 { get; set; } = true;
 
     public void ToggleNav1(int navId)
     {
@@ -123,6 +140,9 @@
                 break;
             case 5:
                 IsHidden5 = !IsHidden5;
+                break;
+            case 6:
+                IsHidden6 = !IsHidden6;
                 break;
         }
 

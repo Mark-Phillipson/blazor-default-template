@@ -1,11 +1,14 @@
 ﻿
 <div class="widget">
-    <h3>New Employees</h3>
+    <h3>
+        New Employees
+        <a href="employeeoverview/" class="btn btn-info btn-sm mr-1 float-right">View All</a>
+    </h3>
     <p>Make sure to say hello to our latest friends!</p>
     @foreach (var employee in NewEmployees)
     {
         <div class="float-left employee-box">
-            <img src="images/professional.png" />
+            <img src="images/Employee.png" class="rounded-circle mx-auto d-block" />
             <p>@employee.FirstName @employee.LastName</p>
         </div>
     }

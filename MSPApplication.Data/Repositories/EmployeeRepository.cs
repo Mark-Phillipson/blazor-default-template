@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MSPApplication.Shared;
+using System.Collections.Generic;
 using System.Linq;
-using MSPApplication.Shared;
 
 namespace MSPApplication.Api.Models
 {
@@ -13,8 +13,12 @@ namespace MSPApplication.Api.Models
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<Employee> GetAllEmployees(int? jobCategoryId = null)
         {
+            if (jobCategoryId != null)
+            {
+                return _appDbContext.Employees.Where(v => v.JobCategoryId == jobCategoryId);
+            }
             return _appDbContext.Employees;
         }
 
