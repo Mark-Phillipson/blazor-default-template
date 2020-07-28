@@ -1,12 +1,12 @@
-﻿<div class="bg-dark" id="sidebar-wrapper">
-    <div class="sidebar-logo">
+﻿<div class="bg-dark @SidebarOpenedClass" id="sidebar-wrapper" style="@DisplayStyle">
+    <div class="sidebar-logo d-none d-lg-block">
         <img class="img-responsive" id="logo" src="images/DefaultLogo.png"/>
     </div>
     @*<div class="profile-picture">
         <img class="img-responsive" src="images/CriticalError.png" />
     </div>*@
     <div class="menu list-group list-group-flush">
-        <nav id="sidebar">
+        <nav id="sidebar"  style="@DisplayStyle">
             <ul class="list-unstyled components">
                 <li>
                     <NavLink href="/" Match="@NavLinkMatch.All">
@@ -147,4 +147,6 @@
         }
 
     }
+    [Parameter] public string DisplayStyle { get; set; } = "display:block";
+    [Parameter] public string SidebarOpenedClass { get; set; } = "";
 }

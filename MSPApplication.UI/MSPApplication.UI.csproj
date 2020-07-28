@@ -15,4 +15,10 @@
     <ProjectReference Include="..\MSPApplication.Shared\MSPApplication.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\images\Snack-Burger-WF.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

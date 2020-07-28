@@ -4,19 +4,20 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h1 class="page-title">Welcome to Human Resource Sample Application</h1>
+        <div class="d-none d-lg-block"><h1 class="page-title">Welcome to Human Resource Sample Application</h1></div>
+        <div class="d-lg-none"><h5 class="page-title">Welcome to HRSA</h5></div>
     </div>
 </div>
 <br />
 
 <div class="row">
     <div class="col-md-8">
-        <NewsWidget  />
-
-        <div id="tasks" class="widget">
-            <h3>Top 3 Tasks
+        <div class="d-none d-lg-block"><NewsWidget /></div>
+        <div id="tasks" class="widget d-none d-md-block">
+            <h3>
+                Top 3 Tasks
                 <button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button>
-                <a href="tasksoverview/"  class="btn btn-info mr-1 float-right">View All Tasks</a>
+                <span class="d-none d-lg-inline"><a href="tasksoverview/" class="btn btn-info mr-1 float-right">View All Tasks</a></span>
             </h3>
             <table class="table table-striped">
                 <thead>
