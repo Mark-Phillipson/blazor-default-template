@@ -11,7 +11,7 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group row">
                         <label for="lastName" class="col-sm-3">Last name: </label>
                         <InputText id="lastName" class="border border-danger form-control col-sm-8" @bind-Value="@Employee.LastName" placeholder="Enter last name" @ref="LastNameInputText"></InputText>
@@ -70,7 +70,7 @@
                         <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Employee.PhoneNumber)" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
 
                     <div class="form-group row">
                         <label for="longitude" class="col-sm-3">Longitude: </label>
@@ -136,8 +136,24 @@
                         <InputTextArea id="comment" class="form-control col-sm-8" @bind-Value="@Employee.Comment" placeholder="Enter comment"></InputTextArea>
                         <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Employee.Comment)" />
                     </div>
+                    </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered table-striped table-responsive-sm" id="table1">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            @*@foreach (var item in Employee.)
+                            {
 
-                    <button type="submit" class="btn btn-primary edit-btn">Save employee</button>
+                            }*@
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary edit-btn">Save Employee</button>
                     <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
                     @if (Employee.EmployeeId > 0)
                     {

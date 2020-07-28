@@ -1,8 +1,18 @@
 ﻿@page "/tasksoverview"
+@inject IJSRuntime JSRuntime
 
-<h1 class="page-title">All Tasks</h1>
+    <div class="row">
+        <div class="col-md-8"><h1 class="page-title">@title</h1></div>
+        <div class="col-md-4">
+            <input class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+        </div>
+    </div>
 
-@if (Tasks == null)
+@if (Tasks== null && _loadFailed)
+{
+    <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+}
+else if (Tasks == null)
 {
     <div style="display:normal;margin:auto" class="loader"></div>
 }

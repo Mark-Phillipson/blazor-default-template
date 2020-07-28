@@ -33,19 +33,19 @@ nav {
     height: 80px;
     background-color: black;
     border-color: #a593c2;
-    width: 240px;
+    width: 200px;
 }
 
 
 /*profile picture*/
 .profile {
-    width: 240px;
+    width: 200px;
     overflow-y: visible;
     position: absolute;
 }
 
 .profile-bg, .profile-picture {
-    width: 240px;
+    width: 200px;
     height: 240px;
     position: absolute;
 }
@@ -80,7 +80,7 @@ nav {
 }
 
 #sidebar-wrapper {
-    width: 240px;
+    width: 200px;
     min-height: 100vh;
     margin-left: -15rem;
     -webkit-transition: margin .25s ease-out;
@@ -95,7 +95,7 @@ nav {
     }
 
     #sidebar-wrapper .list-group {
-        width: 15rem;
+        width: 10rem;
     }
 
 .list-group-item.active, .list-group-item.active:active, .list-group-item.active:focus, .list-group-item.active:visited {
@@ -269,7 +269,7 @@ nav {
 
     #sidebar ul li a {
         padding: 10px;
-        font-size: 1.1em;
+        font-size: medium;
         display: block;
         color: blanchedalmond;
     }
