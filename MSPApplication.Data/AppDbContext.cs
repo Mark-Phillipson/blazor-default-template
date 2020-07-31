@@ -4,7 +4,7 @@ using MSPApplication.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data
 {
     public class AppDbContext : DbContext
     {
@@ -21,12 +21,12 @@ namespace MSPApplication.Api.Models
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Notice> Notices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //seed categories
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 1, Name = "Belgium" });
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 2, Name = "Germany" });
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 3, Name = "Netherlands" });
@@ -136,28 +136,32 @@ namespace MSPApplication.Api.Models
                     HRTaskId = 1,
                     Description = "Peter is having an issue with his account login, please look into it.",
                     Title = "Employee New Start",
-                    Status = HRTaskStatus.Open
+                    Status = HRTaskStatus.Open,
+                    EmployeeId=1
                 },
                 new HRTask()
                 {
                     HRTaskId = 2,
                     Description = "The fridge needs to be cleaned out and people are ignoring the weekly rotation.",
                     Title = "Kitchen Duty",
-                    Status = HRTaskStatus.Open
+                    Status = HRTaskStatus.Open,
+                    EmployeeId=1
                 },
                 new HRTask()
                 {
                     HRTaskId = 3,
                     Description = "Schedule a welcome lunch for our new employees",
                     Title = "Welcome Lunch",
-                    Status = HRTaskStatus.Open
+                    Status = HRTaskStatus.Open,
+                    EmployeeId=1
                 },
                 new HRTask()
                 {
                     HRTaskId = 4,
                     Description = "We need to purchase a new IT system for the management of the business.",
                     Title = "IT System",
-                    Status = HRTaskStatus.Open
+                    Status = HRTaskStatus.Open,
+                    EmployeeId=2
                 }
             });
         }

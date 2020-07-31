@@ -1,6 +1,6 @@
-﻿using MSPApplication.Api.Models;
-using MSPApplication.Shared;
+﻿using MSPApplication.Shared;
 using Microsoft.AspNetCore.Mvc;
+using MSPApplication.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

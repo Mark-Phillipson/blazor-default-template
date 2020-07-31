@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using MSPApplication.UI.Components;
-using MSPApplication.UI.Services;
+﻿using Microsoft.AspNetCore.Components;
 using MSPApplication.Shared;
-using Microsoft.AspNetCore.Components;
+using MSPApplication.UI.Services;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
 {
@@ -32,6 +30,7 @@ namespace MSPApplication.UI.Pages
         public List<Currency> Currencies { get; set; } = new List<Currency>();
         public List<Employee> Employees { get; set; } = new List<Employee>();
 
+        public bool ShowDialog { get; set; } = false;
         protected override async Task OnInitializedAsync()
         {
             Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
@@ -39,10 +38,10 @@ namespace MSPApplication.UI.Pages
 
             int.TryParse(ExpenseId, out var expenseId);
 
-            if(expenseId != 0)
+            if (expenseId != 0)
             {
                 Expense = await ExpenseService.GetExpenseById(int.Parse(ExpenseId));
-            } 
+            }
             else
             {
                 Expense = new Expense() { EmployeeId = 1, CurrencyId = 1, Status = ExpenseStatus.Open, ExpenseType = ExpenseType.Other };
@@ -104,18 +103,33 @@ namespace MSPApplication.UI.Pages
             if (Expense.ExpenseId == 0) // New 
             {
                 await ExpenseService.AddExpense(Expense);
-                NavigationManager.NavigateTo("/expenses");
-            } 
+                NavigationManager.NavigateTo("/expensesoverview");
+            }
             else
             {
                 await ExpenseService.UpdateExpense(Expense);
-                NavigationManager.NavigateTo("/expenses");
+                NavigationManager.NavigateTo("/expensesoverview");
             }
         }
 
         protected void NavigateToOverview()
         {
-            NavigationManager.NavigateTo("/expenses");
+            NavigationManager.NavigateTo("/expensesoverview");
         }
+        protected async void DeleteExpense()
+        {
+            await ExpenseService.DeleteExpense(Expense.ExpenseId);
+            ShowDialog = false;
+            NavigationManager.NavigateTo("/expensesoverview");
+        }
+        protected void ShowDeleteConfirmation()
+        {
+            ShowDialog = true;
+        }
+        protected void CancelDelete()
+        {
+            ShowDialog = false;
+        }
+
     }
 }

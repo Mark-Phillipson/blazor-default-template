@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MSPApplication.Api.Models;
+using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -62,6 +62,20 @@ namespace MSPApplication.Api.Controllers
                 return BadRequest(ModelState);
             var createdTask = _taskRepository.AddTask(task);
             return Created("Task", createdTask);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTask(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            var taskToDelete = _taskRepository.GetTaskById(id);
+            if (taskToDelete == null)
+                return NotFound();
+
+            _taskRepository.DeleteTask(id);
+
+            return NoContent();//success
         }
     }
 }

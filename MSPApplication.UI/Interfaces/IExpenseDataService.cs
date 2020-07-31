@@ -13,5 +13,6 @@ namespace MSPApplication.UI.Services
         public Task<IEnumerable<Currency>> GetAllCurrencies();
         public Task<Expense> AddExpense(Expense editExpense);
         public Task UpdateExpense(Expense editExpense);
+        Task DeleteExpense(int expenseId);
     }
 }

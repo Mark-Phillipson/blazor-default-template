@@ -20,7 +20,7 @@ namespace MSPApplication.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
+            Employees = (await EmployeeDataService.GetAllEmployees()).OrderBy(v => v.FirstName).ThenBy(t => t.LastName).ToList();
         }
     }
 }

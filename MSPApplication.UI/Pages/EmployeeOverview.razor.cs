@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 using MSPApplication.Shared;
 using MSPApplication.UI.Components;
 using MSPApplication.UI.Services;
@@ -54,5 +55,24 @@ namespace MSPApplication.UI.Pages
         {
             AddEmployeeDialog.Show();
         }
+        private async Task CallChangeAsync(string elementId)
+        {
+            await JSRuntime.InvokeVoidAsync("CallChange", elementId);
+            await ApplyFilter();
+        }
+        private async Task ApplyFilter()
+        {
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                Employees = Employees.Where(v => v.FullName.ToLower().Contains(SearchTerm.Trim().ToLower())).ToList();
+                Title = $"Employees With {SearchTerm} Contained within the Name";
+            }
+            else
+            {
+                Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
+                Title = "All Employees";
+            }
+        }
+
     }
 }

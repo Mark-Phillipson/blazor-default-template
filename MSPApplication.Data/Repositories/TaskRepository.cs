@@ -1,8 +1,9 @@
-﻿using MSPApplication.Shared;
+﻿using Microsoft.EntityFrameworkCore;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
@@ -15,7 +16,7 @@ namespace MSPApplication.Api.Models
 
         public IEnumerable<HRTask> GetAllTasks()
         {
-            return _appDbContext.Tasks;
+            return _appDbContext.Tasks.Include(i => i.Employee);
         }
 
         public HRTask GetTaskById(int TaskId)
@@ -35,7 +36,7 @@ namespace MSPApplication.Api.Models
             var foundTask = _appDbContext.Tasks.FirstOrDefault(e => e.HRTaskId == task.HRTaskId);
             if (foundTask != null)
             {
-                foundTask.AssignedTo = task.AssignedTo;
+                foundTask.EmployeeId = task.EmployeeId;
                 foundTask.Description = task.Description;
                 foundTask.Status = task.Status;
                 foundTask.Title = task.Title;
@@ -43,6 +44,13 @@ namespace MSPApplication.Api.Models
                 return foundTask;
             }
             return null;
+        }
+
+        public void DeleteTask(int id)
+        {
+            var taskToDelete = _appDbContext.Tasks.Where(v => v.HRTaskId == id).FirstOrDefault();
+            _appDbContext.Tasks.Remove(taskToDelete);
+            _appDbContext.SaveChanges();
         }
     }
 }

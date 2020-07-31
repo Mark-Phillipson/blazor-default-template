@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MSPApplication.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class ExpenseRepository : IExpenseRepository
     {
@@ -55,6 +55,16 @@ namespace MSPApplication.Api.Models
             }
 
             return null;
+        }
+
+        public void DeleteExpense(int expenseId)
+        {
+            var foundExpense = _appDbContext.Expenses.FirstOrDefault(e => e.ExpenseId == expenseId);
+            if (foundExpense == null) return;
+
+            _appDbContext.Expenses.Remove(foundExpense);
+            _appDbContext.SaveChanges();
+
         }
     }
 }

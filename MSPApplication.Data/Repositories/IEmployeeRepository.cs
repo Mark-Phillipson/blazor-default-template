@@ -1,7 +1,7 @@
 ﻿using MSPApplication.Shared;
 using System.Collections.Generic;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public interface IEmployeeRepository
     {

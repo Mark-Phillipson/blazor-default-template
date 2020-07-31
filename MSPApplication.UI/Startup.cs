@@ -39,6 +39,8 @@ namespace MSPApplication.UI
             services.AddScoped<ITaskDataService, TaskDataService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISurveyDataService, SurveyDataService>();
+            services.AddScoped<INoticeDataService, NoticeDataService>();
+            services.AddSingleton<NotifierService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

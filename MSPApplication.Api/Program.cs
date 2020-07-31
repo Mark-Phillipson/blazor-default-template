@@ -1,4 +1,4 @@
-using MSPApplication.Api.Models;
+using MSPApplication.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

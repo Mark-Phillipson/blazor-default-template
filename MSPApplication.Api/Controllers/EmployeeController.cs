@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MSPApplication.Api.Models;
+using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 
 namespace MSPApplication.Api.Controllers
@@ -27,7 +27,8 @@ namespace MSPApplication.Api.Controllers
         [HttpGet]
         public IActionResult GetEmployeeById(int id)
         {
-            return Ok(_employeeRepository.GetEmployeeById(id));
+            var result = _employeeRepository.GetEmployeeById(id);
+            return Ok(result);
         }
 
         [HttpPost]

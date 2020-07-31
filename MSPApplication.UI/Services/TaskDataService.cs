@@ -1,5 +1,4 @@
 ﻿using MSPApplication.Shared;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -30,6 +29,11 @@ namespace MSPApplication.UI.Services
             }
 
             return null;
+        }
+
+        public async Task DeleteTask(int taskId)
+        {
+            await _httpClient.DeleteAsync($"api/task/{taskId}");
         }
 
         public async Task<IEnumerable<HRTask>> GetAllTasks()

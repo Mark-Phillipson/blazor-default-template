@@ -1,30 +1,42 @@
-﻿<div class="widget">
-    <h3>Notices</h3>
+﻿@if (Notices == null && _loadFailed)
+{
+    <p>
+        There was problem loading Notices data please try again later.
+    </p>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Description</th>
-                <th scope="col">Priority</th>
-                <th scope="col">Date Posted</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.</td>
-                <td>Low</td>
-                <td>@DateTime.Now.AddDays(-5).ToShortDateString() </td>
-            </tr>
-            <tr>
-                <td>Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</td>
-                <td>High</td>
-                <td>@DateTime.Now.AddDays(-6).ToShortDateString() </td>
-            </tr>
-            <tr>
-                <td>Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</td>
-                <td>Low</td>
-                <td>@DateTime.Now.AddMonths(-5).ToShortDateString() </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+}
+else if (Notices == null)
+{
+    <div style="display:normal;margin:auto" class="loader"></div>
+}
+else
+{
+    <div class="widget">
+        <h3>
+            @title
+            <span class="d-none d-lg-inline"><a href="noticeoverview/" class="btn btn-info mr-1 float-right">View All</a></span>
+        </h3>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Date Posted</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Notices)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td>@item.Priority</td>
+                        <td>@item.DatePosted.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+

@@ -1,30 +1,33 @@
-﻿using MSPApplication.Shared;
+﻿using Microsoft.EntityFrameworkCore;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly AppDbContext _appDbContext;
+        private readonly ITaskRepository _taskRepository;
 
-        public EmployeeRepository(AppDbContext appDbContext)
+        public EmployeeRepository(AppDbContext appDbContext, ITaskRepository taskRepository)
         {
             _appDbContext = appDbContext;
+            _taskRepository = taskRepository;
         }
 
         public IEnumerable<Employee> GetAllEmployees(int? jobCategoryId = null)
         {
             if (jobCategoryId != null)
             {
-                return _appDbContext.Employees.Where(v => v.JobCategoryId == jobCategoryId);
+                return _appDbContext.Employees.Include(i => i.JobCategory).Where(v => v.JobCategoryId == jobCategoryId);
             }
-            return _appDbContext.Employees;
+            return _appDbContext.Employees.Include(i => i.JobCategory);
         }
 
         public Employee GetEmployeeById(int employeeId)
         {
-            return _appDbContext.Employees.FirstOrDefault(c => c.EmployeeId == employeeId);
+            return _appDbContext.Employees.Include(i => i.HRTasks).FirstOrDefault(c => c.EmployeeId == employeeId);
         }
 
         public Employee AddEmployee(Employee employee)
@@ -59,7 +62,21 @@ namespace MSPApplication.Api.Models
                 foundEmployee.Latitude = employee.Latitude;
                 foundEmployee.Longitude = employee.Longitude;
 
+
+                foreach (var task in employee.HRTasks)
+                {
+                    if (task.HRTaskId > 0)
+                    {
+                        _taskRepository.UpdateTask(task);
+                    }
+                    else if (task.HRTaskId == 0)
+                    {
+                        _taskRepository.AddTask(task);
+                    }
+                }
                 _appDbContext.SaveChanges();
+
+
 
                 return foundEmployee;
             }

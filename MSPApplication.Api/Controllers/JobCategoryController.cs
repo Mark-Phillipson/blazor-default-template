@@ -1,5 +1,5 @@
-﻿using MSPApplication.Api.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,7 +39,7 @@ namespace MSPApplication.Api.Controllers
             if (jobCategory == null)
                 return BadRequest();
 
-            if (jobCategory.JobCategoryName == string.Empty )
+            if (jobCategory.JobCategoryName == string.Empty)
             {
                 ModelState.AddModelError("JobCategoryName", "The Job Category Name Is Required!");
             }

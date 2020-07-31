@@ -15,7 +15,8 @@ namespace MSPApplication.Shared
         public string Description { get; set; }
 
         [Display(Name = "Assigned To")]
-        public int AssignedTo { get; set; }
+        public int? EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
         public HRTaskStatus Status { get; set; }
 

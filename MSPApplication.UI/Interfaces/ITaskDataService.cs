@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MSPApplication.Shared;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MSPApplication.Shared;
 
 namespace MSPApplication.UI.Services
 {
@@ -10,5 +10,6 @@ namespace MSPApplication.UI.Services
         Task<HRTask> GetTaskById(int taskId);
         Task<HRTask> AddTask(HRTask task);
         Task UpdateTask(HRTask task);
+        Task DeleteTask(int taskId);
     }
 }

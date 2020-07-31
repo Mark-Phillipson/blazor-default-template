@@ -19,16 +19,16 @@ namespace MSPApplication.UI.Pages
         protected string EmployeeId = "1";
 
         [Inject]
-        private ITaskDataService taskDataService { get; set; }
+        private ITaskDataService TaskDataService { get; set; }
 
         [Inject]
-        private NavigationManager navigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IEmployeeDataService employeeDataService { get; set; }
+        public IEmployeeDataService EmployeeDataService { get; set; }
 
         public List<Employee> Employees { get; set; } = new List<Employee>();
-
+        public bool ShowDialog { get; set; } = false;
         protected override async Task OnInitializedAsync()
         {
             Saved = false;
@@ -36,7 +36,7 @@ namespace MSPApplication.UI.Pages
             {
                 try
                 {
-                    Task = (await taskDataService.GetTaskById(HRTaskId));
+                    Task = (await TaskDataService.GetTaskById(HRTaskId));
                 }
                 catch (System.Exception exception)
                 {
@@ -45,32 +45,50 @@ namespace MSPApplication.UI.Pages
             }
             else
             {
-                Task = new HRTask();
+                Task = new HRTask { Status = HRTaskStatus.Open };
             }
-            Employees = (await employeeDataService.GetAllEmployees()).ToList();
+            Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
         }
 
         protected async Task HandleValidSubmit()
         {
-            Task.AssignedTo = int.Parse(EmployeeId);
             if (Task.HRTaskId > 0)
             {
-                await taskDataService.UpdateTask(Task);
-                navigationManager.NavigateTo("/");
+                await TaskDataService.UpdateTask(Task);
+                NavigationManager.NavigateTo("/");
             }
             else
             {
-                var result = await taskDataService.AddTask(Task);
+                var result = await TaskDataService.AddTask(Task);
                 if (result != null)
                 {
-                    navigationManager.NavigateTo("/");
+                    NavigationManager.NavigateTo("/");
                 }
                 else
                 {
                     Message = "An error has occured";
                 }
             }
+        }
+        protected async Task DeleteTaskAsync()
+        {
+            await TaskDataService.DeleteTask(Task.HRTaskId);
+            ShowDialog = false;
+            Saved = true;
+            Message = "The Task has been deleted successfully.";
+        }
+        protected void NavigateToOverview()
+        {
+            NavigationManager.NavigateTo("/tasksoverview");
+        }
 
+        protected void ShowDeleteConfirmation()
+        {
+            ShowDialog = true;
+        }
+        protected void CancelDelete()
+        {
+            ShowDialog = false;
         }
 
     }

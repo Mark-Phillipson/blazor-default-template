@@ -1,9 +1,14 @@
 ﻿@page "/staffdirectory"
 
 <h1 class="page-title">Staff Directory</h1>
+
 @if (Employees == null)
 {
-    <p><em>Loading...</em></p>
+    <div style="display:normal;margin:auto" class="loader"></div>
+}
+else if (Employees.Count==0)
+{
+    <div>There are no employees in the system at this time!</div>
 }
 else
 {
@@ -19,8 +24,10 @@ else
                         <h5 class="card-title">@employee.FirstName @employee.LastName</h5>
                         <p class="card-text">@employee.PhoneNumber</p>
                         <p class="card-text">
-                            <a href="#" class="btn btn-secondary">Email</a>
-                            <a href="#" class="btn btn-secondary">Call</a>
+                            <p class="card-text">@employee.City</p>
+                            <a class="btn btn-lg btn-primary" href="mailto:@employee.Email">Email: @employee.Email</a>
+                            @*<a href="mailto:@Email?subject=@Subject&body=@Body">Email</a>*@
+                            @*<a href="#" class="btn btn-secondary">Call</a>*@
                         </p>
                     </div>
                 </div>

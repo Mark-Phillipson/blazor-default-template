@@ -6,6 +6,7 @@
     <div class="col-md-8">
         <div class="d-none d-lg-block"><h1 class="page-title">Welcome to Human Resource Sample Application</h1></div>
         <div class="d-lg-none"><h5 class="page-title">Welcome to HRSA</h5></div>
+        @*<Alert AlertType="info" Display="Welcome to HRSA" Title="Hello" Duration="500" Show="true"/>*@
     </div>
 </div>
 <br />
@@ -33,7 +34,8 @@
                         <tr>
                             <td>@task.Title</td>
                             <td>@task.Description</td>
-                            <td>@task.Status</td>
+                            @{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
+                            <td>@statusName</td>
                         </tr>
                     }
                 </tbody>

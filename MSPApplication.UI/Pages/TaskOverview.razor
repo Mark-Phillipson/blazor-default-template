@@ -26,6 +26,7 @@ else
                 <th>Title</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Assigned To</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,11 +39,12 @@ else
                     <td>@task.Title</td>
                     <td>@task.Description</td>
                     <td>@task.Status</td>
+                    <td>@task?.Employee?.FirstName</td>
                     <td>
-                        <a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
+                        @*<a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
                             <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-warning">
+                        </a>*@
+                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-warning table-btn">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -55,3 +57,6 @@ else
 @*<button @onclick="QuickAddEmployee" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
 
     <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@
+<a href="@($"taskedit")" class="btn btn-success">
+    <i class="fas fa-plus"></i>
+</a>

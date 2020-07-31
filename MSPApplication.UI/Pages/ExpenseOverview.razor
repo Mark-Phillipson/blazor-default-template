@@ -1,4 +1,4 @@
-﻿@page "/expenses"
+﻿@page "/expensesoverview"
 
 <div class="entity-edit">
     <h1 class="page-title">All Expenses</h1>
@@ -22,19 +22,23 @@
             <tbody>
                 @foreach (var expense in Expenses)
                 {
-                <tr>
-                    <td>@expense.ExpenseId</td>
-                    <td>@expense.Title</td>
-                    <td>@expense.Amount.ToString("C")</td>
-                    <td>@expense.Status</td>
-                    <td>
-                        <a href="@($"expenseedit/{expense.ExpenseId}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@expense.ExpenseId</td>
+                        <td>@expense.Title</td>
+                        <td>@expense.Amount.ToString("0.00")</td>
+                        <td>@expense.Status</td>
+                        <td>
+                            <a href="@($"expenseedit/{expense.ExpenseId}")" class="btn btn-primary table-btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     }
-    </div>
+</div>
+
+<a href="@($"expenseedit/")" class="btn btn-success table-btn">
+    <i class="fas fa-plus"></i>
+</a>

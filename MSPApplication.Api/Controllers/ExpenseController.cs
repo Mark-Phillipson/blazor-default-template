@@ -1,6 +1,6 @@
-﻿using MSPApplication.Api.Models;
-using MSPApplication.Shared;
+﻿using MSPApplication.Shared;
 using Microsoft.AspNetCore.Mvc;
+using MSPApplication.Data.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,6 +62,20 @@ namespace MSPApplication.Api.Controllers
             _expenseRepository.UpdateExpense(expense);
 
             return NoContent(); //success
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteExpense(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            var expenseToDelete = _expenseRepository.GetExpenseById(id);
+            if (expenseToDelete == null)
+                return NotFound();
+
+            _expenseRepository.DeleteExpense(id);
+
+            return NoContent();//success
         }
 
     }

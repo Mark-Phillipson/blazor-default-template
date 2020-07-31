@@ -2,7 +2,7 @@
 using System.Linq;
 using MSPApplication.Shared;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class CountryRepository : ICountryRepository
     {

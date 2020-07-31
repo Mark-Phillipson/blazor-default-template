@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MSPApplication.Shared;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public interface ITaskRepository
     {
@@ -12,5 +12,6 @@ namespace MSPApplication.Api.Models
         HRTask GetTaskById(int taskId);
         HRTask AddTask(HRTask task);
         HRTask UpdateTask(HRTask task);
+        void DeleteTask(int id);
     }
 }

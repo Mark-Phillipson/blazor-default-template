@@ -1,8 +1,13 @@
 ﻿@page "/employeeoverview"
-
+@inject IJSRuntime JSRuntime
 <div class="row">
     <div class="col-md-6">
         <h1 class="page-title">@Title</h1>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-4">
+            <input class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+        </div>
     </div>
 </div>
 
@@ -21,8 +26,9 @@ else
             <tr>
                 <th></th>
                 <th>Employee ID</th>
-                <th>First name</th>
-                <th>Last name</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job Category</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,8 +38,11 @@ else
                 <tr>
                     <td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
                     <td>@employee.EmployeeId</td>
-                    <td>@employee.FirstName</td>
-                    <td>@employee.LastName</td>
+                    <td>@employee.FullName</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-secondary" href="mailto:@employee.Email"> @employee.Email</a>
+                    </td>
+                    <td>@employee.JobCategory.JobCategoryName</td>
                     <td>
                         <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-info table-btn">
                             <i class="fas fa-info-circle"></i>

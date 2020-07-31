@@ -1,4 +1,5 @@
-using MSPApplication.Api.Models;
+using MSPApplication.Data;
+using MSPApplication.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -37,6 +38,7 @@ namespace MSPApplication.Api
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
+            services.AddScoped<INoticeRepository, NoticeRepository>();
 
             services.AddCors(options =>
             {

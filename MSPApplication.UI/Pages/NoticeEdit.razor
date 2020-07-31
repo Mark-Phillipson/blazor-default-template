@@ -1,0 +1,77 @@
+﻿@page "/noticeedit"
+@page "/noticeedit/{NoticeId:int}"
+@using MSPApplication.Shared
+
+<section class="entity-edit">
+    @if (!Saved)
+    {
+        if (Notice.Description != null)
+        {
+            var charactersToShow = 30;
+            if (Notice.Description.Length < 30)
+            {
+                charactersToShow = Notice.Description.Length;
+            }
+<h1 class="page-title">Details for @Notice.Description.ToString().Substring(0, charactersToShow)...</h1>
+}
+else
+{
+
+<h1 class="page-title">Create New Notice</h1>
+}
+
+<EditForm Model="@Notice" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+    <div class="form-group row">
+        <label for="Description" class="col-sm-3">Notice Description: </label>
+        <InputTextArea rows="5" id="Description" class="form-control col-sm-8" @bind-Value="@Notice.Description" placeholder="Enter Notice Description"></InputTextArea>
+        <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => Notice.Description)" /></div>
+    </div>
+    <div class="form-group row">
+        <label for="priority" class="col-sm-3">Priority: </label>
+        <InputSelect id="priority" class="form-control col-sm-8" @bind-Value=@Notice.Priority>
+            <option value="@(NoticePriority.Low)">Low</option>
+            <option value="@(NoticePriority.High)">High</option>
+        </InputSelect>
+    </div>
+
+    <div class="form-group row">
+        <label for="DatePosted" class="col-sm-3">Date Posted: </label>
+        <InputDate id="DatePosted" class="form-control col-sm-8" @bind-Value="@Notice.DatePosted" placeholder="Enter Date Posted"></InputDate>
+        <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => Notice.DatePosted)" /></div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3">Show</label>
+        <label for="show" class="col-sm-8">
+            <InputCheckbox class="form-control" id="show" @bind-Value="@Notice.Show"></InputCheckbox>
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary edit-btn">Save Notice</button>
+    <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+    @if (Notice.NoticeId > 0)
+    {
+        <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
+            Delete
+        </a>
+    }
+</EditForm>
+}
+else
+{
+<div class="alert @StatusClass">@Message</div>
+<a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
+}
+</section>
+
+<TemplatedDialog Show="ShowDialog">
+    <ConfirmDialog Message="Please confirm you wish to Delete this Notice!"
+                   Title="Confirmation Required"
+                   OnCancel="CancelDelete" OnConfirm="DeleteNotice">
+    </ConfirmDialog>
+</TemplatedDialog>
+
+

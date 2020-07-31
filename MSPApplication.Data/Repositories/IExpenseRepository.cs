@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public interface IExpenseRepository
     {
@@ -12,5 +12,6 @@ namespace MSPApplication.Api.Models
         public Expense GetExpenseById(int id);
         Expense UpdateExpense(Expense expense);
         Expense AddExpense(Expense expense);
+        void DeleteExpense(int id);
     }
 }

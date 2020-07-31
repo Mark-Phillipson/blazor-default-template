@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MSPApplication.Shared;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class CurrencyRepository : ICurrencyRepository
     {

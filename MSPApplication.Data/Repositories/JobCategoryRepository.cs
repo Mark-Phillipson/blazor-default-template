@@ -3,7 +3,7 @@ using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MSPApplication.Api.Models
+namespace MSPApplication.Data.Repositories
 {
     public class JobCategoryRepository : IJobCategoryRepository
     {

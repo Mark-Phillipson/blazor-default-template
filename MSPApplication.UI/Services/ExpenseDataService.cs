@@ -58,5 +58,10 @@ namespace MSPApplication.UI.Services
             return await JsonSerializer.DeserializeAsync<Expense>
                 (await _httpClient.GetStreamAsync($"api/expense/{expenseId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
+
+        public async Task DeleteExpense(int expenseId)
+        {
+            await _httpClient.DeleteAsync($"api/expense/{expenseId}");
+        }
     }
 }

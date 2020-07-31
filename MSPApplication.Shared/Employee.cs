@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MSPApplication.Shared
 {
     public class Employee
     {
+        public Employee()
+        {
+            HRTasks = new HashSet<HRTask>();
+        }
         public int EmployeeId { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "First name is too long.")]
@@ -15,6 +20,16 @@ namespace MSPApplication.Shared
         [StringLength(50, ErrorMessage = "Last name is too long.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        private string _fullName;
+
+        public string FullName
+        {
+            get
+            {
+                _fullName = $"{FirstName} {LastName}";
+                return _fullName;
+            }
+        }
 
         public DateTime BirthDate { get; set; }
 
@@ -49,5 +64,6 @@ namespace MSPApplication.Shared
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        virtual public ICollection<HRTask> HRTasks { get; set; }
     }
 }
