@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex" id="wrapper">
+ <div class="d-flex" id="wrapper">
 
     <LeftNav DisplayStyle="@MenuDisplay" SidebarOpenedClass="@SidebarOpenedClass" />
 
@@ -11,6 +11,7 @@
                 <h3 class="title">Human Resource Sample Application</h3>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li><a href="#"><img src="/images/Home.png" width="30" /></a></li>
+                    <LoginDisplay />
                     <li><a @onclick="ToggleMenu"><img src="/images/Snack-Burger-WF.png" width="30" /></a></li>
                 </ul>
             </div>

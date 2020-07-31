@@ -4,8 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MSPApplication.UI.Data;
+using MSPApplication.Data;
 using MSPApplication.UI.Services;
 using System.Net.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
 
 namespace MSPApplication.UI
 {
@@ -30,6 +35,11 @@ namespace MSPApplication.UI
                 var client = new HttpClient { BaseAddress = new System.Uri("https://localhost:44340/") };
                 return client;
             });
+            services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
+            services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 
             //services.AddScoped<IEmployeeDataService, MockEmployeeDataService>();
             services.AddScoped<IEmployeeDataService, EmployeeDataService>();
@@ -61,9 +71,11 @@ namespace MSPApplication.UI
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
