@@ -1,0 +1,64 @@
+﻿@page "/useredit"
+@page "/useredit/{id}"
+@using MSPApplication.Shared
+
+<section class="entity-edit">
+    @if (!Saved)
+    {
+            <h1 class="page-title">Details for @User.UserName</h1>
+            <EditForm Model="@User" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+                <DataAnnotationsValidator />
+                @*<ValidationSummary />*@
+                <div class="form-group row">
+                    <label for="EmailConfirmed" class="col-sm-3">Email Confirmed: </label>
+                    <InputCheckbox @bind-Value="@User.EmailConfirmed" class="form-control col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.EmailConfirmed)" /></div>
+                </div>
+                <div class="form-group row">
+                    <label for="LockOutEnabled" class="col-sm-3">Lockout Enabled: </label>
+                    <InputCheckbox @bind-Value="@User.LockoutEnabled" class="form-control col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnabled)" /></div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="LockoutEnd" class="col-sm-3">Lockout End: </label>
+                    <InputDate id="LockoutEnd" class="form-control col-sm-8" @bind-Value="@User.LockoutEnd" placeholder="Enter Date Posted"></InputDate>
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnd)" /></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3">Phone Number</label>
+                    <InputText class="form-control col-sm-3" placeholder="Enter valid phone number" @bind-Value="@User.PhoneNumber" />
+                </div>
+                <div class="form-group row">
+                    <label for="PhoneNumberConfirmed" class="col-sm-3">Phone Number Confirmed: </label>
+                    <InputCheckbox @bind-Value="@User.PhoneNumberConfirmed" class="form-control col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.PhoneNumberConfirmed)" /></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary edit-btn">Save User</button>
+                <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+                @if (!string.IsNullOrEmpty(User.Id))
+                {
+                    <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
+                        Delete
+                    </a>
+                }
+            </EditForm>
+}
+else
+{
+<div class="alert @StatusClass">@Message</div>
+<a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
+}
+</section>
+
+<TemplatedDialog Show="ShowDialog">
+    <ConfirmDialog Message="Please confirm you wish to Delete this User!"
+                   Title="Confirmation Required"
+                   OnCancel="CancelDelete" OnConfirm="DeleteUser">
+    </ConfirmDialog>
+</TemplatedDialog>
+
+

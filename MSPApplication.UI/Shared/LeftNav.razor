@@ -44,20 +44,20 @@
                     </ul>
                 </li>
                 @*<li>
-                    <a @onclick="(() => ToggleNav1(3))" data-toggle="collapse" class="dropdown-toggle">Opportunities</a>
-                    <ul class="list-unstyled sub-menu @( this.IsHidden3 ? "toggle-hide": "toggle-show")" id="jobs">
-                        <li>
-                            <NavLink href="/jobs">
-                                Jobs
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink href="/newjob">
-                                Add new job
-                            </NavLink>
-                        </li>
-                    </ul>
-                </li>*@
+            <a @onclick="(() => ToggleNav1(3))" data-toggle="collapse" class="dropdown-toggle">Opportunities</a>
+            <ul class="list-unstyled sub-menu @( this.IsHidden3 ? "toggle-hide": "toggle-show")" id="jobs">
+                <li>
+                    <NavLink href="/jobs">
+                        Jobs
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/newjob">
+                        Add new job
+                    </NavLink>
+                </li>
+            </ul>
+        </li>*@
                 <li>
                     <a @onclick="(() => ToggleNav1(4))" data-toggle="collapse" class="dropdown-toggle">Expenses</a>
                     <ul class="list-unstyled sub-menu @( this.IsHidden4 ? "toggle-hide": "toggle-show")" id="training">
@@ -109,6 +109,23 @@
                         Staff Directory
                     </NavLink>
                 </li>
+                <AuthorizeView>
+                    <Authorized>
+                        <li>
+                            <NavLink href="/useroverview">
+                                Users
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/roleoverview">
+                                Roles
+                            </NavLink>
+                        </li>
+
+                    </Authorized>
+                    <NotAuthorized>
+                    </NotAuthorized>
+                </AuthorizeView>
             </ul>
         </nav>
     </div>

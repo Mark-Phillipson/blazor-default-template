@@ -1,0 +1,43 @@
+﻿@page "/roleedit"
+@page "/roleedit/{id}"
+@using MSPApplication.Shared
+
+<section class="entity-edit">
+    @if (!Saved)
+    {
+            <h1 class="page-title">Details for @Role.Name</h1>
+            <EditForm Model="@Role" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+                <DataAnnotationsValidator />
+                @*<ValidationSummary />*@
+                <div class="form-group row">
+                    <label class="col-sm-3">Name</label>
+                    <InputText class="form-control col-sm-3" placeholder="Enter valid unique role name" @bind-Value="@Role.Name" />
+                </div>
+
+                <button type="submit" class="btn btn-primary edit-btn">Save Role</button>
+                <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+                @if (!string.IsNullOrEmpty(Role.Id))
+                {
+                    <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
+                        Delete
+                    </a>
+                }
+            </EditForm>
+}
+else
+{
+<div class="alert @StatusClass">@Message</div>
+<a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
+}
+</section>
+
+<TemplatedDialog Show="ShowDialog">
+    <ConfirmDialog Message="Please confirm you wish to Delete this Role!"
+                   Title="Confirmation Required"
+                   OnCancel="CancelDelete" OnConfirm="DeleteRole">
+    </ConfirmDialog>
+</TemplatedDialog>
+
+

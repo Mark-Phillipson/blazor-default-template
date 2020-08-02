@@ -50,6 +50,9 @@ namespace MSPApplication.UI
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISurveyDataService, SurveyDataService>();
             services.AddScoped<INoticeDataService, NoticeDataService>();
+            services.AddScoped<IUserDataService, UserDataService>();
+            services.AddScoped<IRoleDataService, RoleDataService>();
+
             services.AddSingleton<NotifierService>();
         }
 

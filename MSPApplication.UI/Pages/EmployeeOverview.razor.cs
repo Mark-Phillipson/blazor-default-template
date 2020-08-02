@@ -28,7 +28,11 @@ namespace MSPApplication.UI.Pages
         public List<Employee> Employees { get; set; }
 
         protected AddEmployeeDialog AddEmployeeDialog { get; set; }
-
+#pragma warning disable 414, 649
+        private bool _loadFailed = false;
+        ElementReference SearchInput;
+#pragma warning restore 414, 649
+        public string ExceptionMessage { get; set; } = String.Empty;
         protected override async Task OnInitializedAsync()
         {
             try
@@ -42,9 +46,17 @@ namespace MSPApplication.UI.Pages
             catch (Exception e)
             {
                 Logger.LogError("Exception occurred in on initialised async Employee Data Service", e);
+                _loadFailed = true;
+                ExceptionMessage = e.Message;
             }
         }
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("myJsFunctions.focusElement", SearchInput);
+            }
+        }
         public async void AddEmployeeDialog_OnDialogClose()
         {
             Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
@@ -73,6 +85,28 @@ namespace MSPApplication.UI.Pages
                 Title = "All Employees";
             }
         }
-
+        protected void SortEmployees(string sortColumn)
+        {
+            if (sortColumn == "Job Category")
+            {
+                Employees = Employees.OrderBy(o => o.JobCategory.JobCategoryName).ThenBy(t => t.FullName).ToList();
+            }
+            else if (sortColumn == "FullName")
+            {
+                Employees = Employees.OrderBy(v => v.FullName).ToList();
+            }
+            else if (sortColumn == "FullName Desc")
+            {
+                Employees = Employees.OrderByDescending(v => v.FullName).ToList();
+            }
+            else if (sortColumn == "Email")
+            {
+                Employees = Employees.OrderBy(v => v.Email).ToList();
+            }
+            else if (sortColumn == "EmployeeId")
+            {
+                Employees = Employees.OrderBy(v => v.EmployeeId).ToList();
+            }
+        }
     }
 }

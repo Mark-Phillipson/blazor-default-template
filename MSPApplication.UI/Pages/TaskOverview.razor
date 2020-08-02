@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-8"><h1 class="page-title">@title</h1></div>
         <div class="col-md-4">
-            <input class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+            <input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
         </div>
     </div>
 
@@ -54,9 +54,6 @@ else
     </table>
 }
 
-@*<button @onclick="QuickAddEmployee" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<a class="btn btn-success table-btn quick-add-btn" href="@($"taskedit")"><i class="fas fa-plus"></i></a>
 
-    <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@
-<a href="@($"taskedit")" class="btn btn-success">
-    <i class="fas fa-plus"></i>
-</a>
+    @*<AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@

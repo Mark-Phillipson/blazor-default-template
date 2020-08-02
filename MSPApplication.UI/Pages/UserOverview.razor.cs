@@ -10,31 +10,33 @@ using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
 {
-    public partial class NoticeOverview
+    public partial class UserOverview
     {
         [Inject]
-        public INoticeDataService noticeDataService { get; set; }
+        public IUserDataService UserDataService { get; set; }
 
         [Inject]
-        public ILogger<NoticeOverview> Logger { get; set; }
+        public ILogger<UserOverview> Logger { get; set; }
 
-        public List<Notice> Notices { get; set; }
+        public List<AspNetUser> Users { get; set; }
 
         public string SearchTerm { get; set; }
 #pragma warning disable 414,649
         private bool _loadFailed = false;
         ElementReference SearchInput;
 #pragma warning restore 414,649
-        private string title = "All Notices";
+        public string ExceptionMessage { get; set; }
+        private string title = "All Users";
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                Notices = (await noticeDataService.GetAllNotices()).ToList();
+                Users = (await UserDataService.GetAllUsers()).ToList();
             }
             catch (Exception exception)
             {
-                Logger.LogError("Exception occurred in on initialised async Notice Data Service", exception);
+                Logger.LogError("Exception occurred in on initialised async User Data Service", exception);
+                ExceptionMessage = exception.Message;
                 _loadFailed = true;
             }
         }
@@ -49,13 +51,13 @@ namespace MSPApplication.UI.Pages
         {
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                Notices = Notices.Where(v => v.Description.ToLower().Contains(SearchTerm.Trim().ToLower())).ToList();
-                title = $"Notices With {SearchTerm} Contained within the Notice Description";
+                Users = Users.Where(v => v.UserName.ToLower().Contains(SearchTerm.Trim().ToLower())).ToList();
+                title = $"Users With {SearchTerm} Contained within the Username";
             }
             else
             {
-                Notices = (await noticeDataService.GetAllNotices()).ToList();
-                title = "All Notices";
+                Users = (await UserDataService.GetAllUsers()).ToList();
+                title = "All Users";
             }
         }
         private async Task CallChangeAsync(string elementId)

@@ -20,13 +20,13 @@ namespace MSPApplication.UI.Pages
 
         public List<HRTask> Tasks { get; set; }
         public string SearchTerm { get; set; }
-#pragma warning disable 414
+#pragma warning disable 414,649
         private bool _loadFailed = false;
-#pragma warning restore 414
+        ElementReference SearchInput;
+#pragma warning restore 414,649
         private string title = "All Tasks";
 
         //protected AddTaskDialog AddTaskDialog { get; set; }
-
         protected override async Task OnInitializedAsync()
         {
             try
@@ -37,6 +37,13 @@ namespace MSPApplication.UI.Pages
             {
                 Logger.LogError("Exception occurred in on initialised async Task Data Service", exception);
                 _loadFailed = true;
+            }
+        }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("myJsFunctions.focusElement", SearchInput);
             }
         }
         private async Task ApplyFilter()

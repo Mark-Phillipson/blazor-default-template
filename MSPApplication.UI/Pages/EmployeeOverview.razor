@@ -6,59 +6,65 @@
         <h1 class="page-title">@Title</h1>
     </div>
     <div class="col-md-6">
-        <div class="col-md-4">
-            <input class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-        </div>
+        <input @ref="SearchInput" class="form-control" style="width:90%" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
     </div>
 </div>
 
-@if (Employees == null)
+@if (Employees == null && _loadFailed == true)
 {
-    <div style="display:normal;margin:auto" class="loader"></div>
+    <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+    <h6>@ExceptionMessage</h6>
+}
+else if (Employees== null)
+{
+<div style="display:normal;margin:auto" class="loader"></div>
 }
 else if (Employees.Count==0)
 {
-    <p>No employees match the criteria with a job category of @JobCategory.JobCategoryName.</p>
+<p>No employees match the criteria with a job category of @JobCategory.JobCategoryName.</p>
 }
 else
 {
-    <table class="table table-bordered table-striped" id="table1">
-        <thead>
+<table class="table table-bordered table-striped" id="table1">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Employee ID<button class="btn btn-sm" @onclick="@(() => SortEmployees("EmployeeId"))"><i class="fas fa-sort"></i></button></th>
+            <th>Name
+            <button class="btn btn-sm" @onclick="@(() => SortEmployees("FullName"))"><i class="fas fa-sort-alpha-up"></i></button>
+            <button class="btn btn-sm" @onclick="@(() => SortEmployees("FullName Desc"))"><i class="fas fa-sort-alpha-up-alt"></i></button>
+            </th>
+            <th>Email<button class="btn btn-sm" @onclick="@(() => SortEmployees("Email"))"><i class="fas fa-sort"></i></button></th>
+            <th>Job Category<button class="btn btn-sm" @onclick="@(() => SortEmployees("Job Category"))"><i class="fas fa-sort"></i></button></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Employees)
+        {
             <tr>
-                <th></th>
-                <th>Employee ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Job Category</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var employee in Employees)
-            {
-                <tr>
-                    <td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
-                    <td>@employee.EmployeeId</td>
-                    <td>@employee.FullName</td>
-                    <td>
-                        <a class="btn btn-sm btn-outline-secondary" href="mailto:@employee.Email"> @employee.Email</a>
-                    </td>
-                    <td>@employee.JobCategory.JobCategoryName</td>
-                    <td>
-                        <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-info table-btn">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-warning table-btn">
-                            <i class="fas fa-edit"></i>
-                        </a>
+                <td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
+                <td>@employee.EmployeeId</td>
+                <td>@employee.FullName</td>
+                <td>
+                    <a class="btn btn-link" href="mailto:@employee.Email"> @employee.Email</a>
+                </td>
+                <td>@employee.JobCategory.JobCategoryName</td>
+                <td>
+                    <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-info table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-warning table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
 
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 }
 
-<button @onclick="QuickAddEmployee" class="btn btn-success table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<button @onclick="QuickAddEmployee" class="btn btn-success table-btn quick-add-btn"><i class="fas fa-plus"></i></button>
 
 <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>

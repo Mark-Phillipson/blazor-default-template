@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
 using System;
@@ -18,7 +19,13 @@ namespace MSPApplication.UI.Components
         [Inject]
         public IEmployeeDataService EmployeeDataService { get; set; }
 
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("window.setFocus", "lastName");
+            }
+        }
 
         public void Show()
         {

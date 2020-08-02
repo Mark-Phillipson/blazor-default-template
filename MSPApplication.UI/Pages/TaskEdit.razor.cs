@@ -4,7 +4,7 @@ using MSPApplication.UI.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.JSInterop;
 namespace MSPApplication.UI.Pages
 {
     public partial class TaskEdit
@@ -49,7 +49,13 @@ namespace MSPApplication.UI.Pages
             }
             Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
         }
-
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("window.setFocus", "title");
+            }
+        }
         protected async Task HandleValidSubmit()
         {
             if (Task.HRTaskId > 0)
