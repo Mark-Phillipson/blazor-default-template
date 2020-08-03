@@ -11,5 +11,6 @@ namespace MSPApplication.UI.Services
         Task<IEnumerable<AspNetUser>> GetAllUsers();
         Task<AspNetUser> GetUserById(string id);
         Task UpdateUser(AspNetUser user);
+        Task DeleteUserRole(string userId, string roleId);
     }
 }

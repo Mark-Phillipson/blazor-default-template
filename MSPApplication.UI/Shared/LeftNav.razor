@@ -109,22 +109,23 @@
                         Staff Directory
                     </NavLink>
                 </li>
-                <AuthorizeView>
+                <AuthorizeView Roles="Administration">
                     <Authorized>
                         <li>
                             <NavLink href="/useroverview">
                                 Users
                             </NavLink>
                         </li>
+                    </Authorized>
+                </AuthorizeView>
+                <AuthorizeView Roles="Development">
+                    <Authorized>
                         <li>
                             <NavLink href="/roleoverview">
                                 Roles
                             </NavLink>
                         </li>
-
                     </Authorized>
-                    <NotAuthorized>
-                    </NotAuthorized>
                 </AuthorizeView>
             </ul>
         </nav>

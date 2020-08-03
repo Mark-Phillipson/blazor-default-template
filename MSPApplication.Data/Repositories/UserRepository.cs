@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MSPApplication.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,12 +17,12 @@ namespace MSPApplication.Data.Repositories
 
         public IEnumerable<AspNetUser> GetAllUsers()
         {
-            return _appDbContext.AspNetUsers;
+            return _appDbContext.AspNetUsers.Include("AspNetUserRoles.Role");
         }
 
         public AspNetUser GetUserById(string id)
         {
-            return _appDbContext.AspNetUsers.Include(i => i.AspNetUserLogins).FirstOrDefault(c => c.Id == id);
+            return _appDbContext.AspNetUsers.Include("AspNetUserRoles.Role").FirstOrDefault(c => c.Id == id);
         }
 
         public AspNetUser AddUser(AspNetUser user)
@@ -42,8 +43,18 @@ namespace MSPApplication.Data.Repositories
                 foundUser.LockoutEnd = user.LockoutEnd;
                 foundUser.PhoneNumber = user.PhoneNumber;
                 foundUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
-                foundUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
 
+                foreach (var userRole in user.AspNetUserRoles)
+                {
+                    userRole.Role = null;
+                    var foundUserRole = _appDbContext.AspNetUserRoles.FirstOrDefault(e => e.RoleId == userRole.RoleId && e.UserId == userRole.UserId);
+                    if (foundUserRole == null)
+                    {
+                        _appDbContext.AspNetUserRoles.Add(userRole);
+                        _appDbContext.SaveChanges();
+                    }
+                }
+                _appDbContext.AspNetUsers.Update(foundUser);
                 _appDbContext.SaveChanges();
                 return foundUser;
             }
@@ -58,6 +69,21 @@ namespace MSPApplication.Data.Repositories
 
             _appDbContext.AspNetUsers.Remove(foundUser);
             _appDbContext.SaveChanges();
+        }
+
+
+        public void DeleteUserRole(string userId, string roleId)
+        {
+            var foundUserRole = _appDbContext.AspNetUserRoles.FirstOrDefault(e => e.UserId == userId && e.RoleId == roleId);
+            if (foundUserRole == null) return;
+
+            _appDbContext.AspNetUserRoles.Remove(foundUserRole);
+            _appDbContext.SaveChanges();
+        }
+        public AspNetUserRole GetUserRoleByIds(string userId, string roleId)
+        {
+            AspNetUserRole result = _appDbContext.AspNetUserRoles.FirstOrDefault(e => e.UserId == userId && e.RoleId == roleId);
+            return result;
         }
     }
 }

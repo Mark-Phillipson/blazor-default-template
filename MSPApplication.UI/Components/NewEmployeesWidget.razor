@@ -4,11 +4,13 @@
         New Employees
         <AuthorizeView>
             <Authorized>
-                  <a href="employeeoverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">View All</a>
-                  <a href="useroverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">Users</a>
+                <a href="employeeoverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">View All</a>
             </Authorized>
-            <NotAuthorized>
-            </NotAuthorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="Administration">
+            <Authorized>
+                <a href="useroverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">Users</a>
+            </Authorized>
         </AuthorizeView>
 
     </h4>

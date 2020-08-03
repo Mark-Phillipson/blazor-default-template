@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using MSPApplication.Shared;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MSPApplication.Shared;
 
 namespace MSPApplication.UI.Services
 {
@@ -52,6 +52,16 @@ namespace MSPApplication.UI.Services
         public async Task DeleteUser(string id)
         {
             await _httpClient.DeleteAsync($"api/user/{id}");
+        }
+        public async Task DeleteUserRole(string userId, string roleId)
+        {
+            var result = await _httpClient.DeleteAsync($"api/user?userId={userId}&roleId={roleId}");
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new System.Exception($"Failed to delete:{result}");
+            }
+            System.Console.WriteLine(result);
+
         }
 
     }

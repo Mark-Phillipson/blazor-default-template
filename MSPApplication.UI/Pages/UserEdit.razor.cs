@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Pages
@@ -10,6 +11,8 @@ namespace MSPApplication.UI.Pages
     {
         [Inject]
         public IUserDataService UserDataService { get; set; }
+        [Inject]
+        public IRoleDataService RoleDataService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -18,12 +21,15 @@ namespace MSPApplication.UI.Pages
         public string id { get; set; }
 
         public AspNetUser User { get; set; } = new AspNetUser();
-
+        public string RoleId { get; set; }
+        public List<AspNetRole> Roles { get; set; }
         //used to store state of screen
         protected string Message = string.Empty;
         protected string StatusClass = string.Empty;
         protected bool Saved;
         public bool ShowDialog { get; set; } = false;
+        public string RoleMessage { get; private set; }
+
         protected override async Task OnInitializedAsync()
         {
             Saved = false;
@@ -36,6 +42,7 @@ namespace MSPApplication.UI.Pages
             {
                 User = await UserDataService.GetUserById(id);
             }
+            Roles = (await RoleDataService.GetAllRoles()).OrderBy(v => v.Name).ToList();
         }
 
         protected async Task HandleValidSubmit()
@@ -92,6 +99,31 @@ namespace MSPApplication.UI.Pages
         protected void CancelDelete()
         {
             ShowDialog = false;
+        }
+        protected async Task AddUserRoleAsync()
+        {
+            var item = User.AspNetUserRoles.FirstOrDefault(e => e.RoleId == RoleId);
+            if (item !=  null)
+            {
+                RoleMessage = "Failed to add a new role, cannot be duplicated.";
+                return;
+            }
+            if (!string.IsNullOrEmpty(RoleId))
+            {
+                AspNetRole role = (await RoleDataService.GetRoleById(RoleId));
+                AspNetUserRole aspNetUserRole = new AspNetUserRole { UserId = User.Id, RoleId = RoleId, Role = role };
+                User.AspNetUserRoles.Add(aspNetUserRole);
+            }
+            else
+            {
+                RoleMessage = "Please select a role first before adding!";
+            }
+        }
+        protected async Task DeleteUserRole(string userId, string roleId)
+        {
+            var item = User.AspNetUserRoles.Where(v => v.UserId == userId && v.RoleId == roleId).FirstOrDefault();
+            User.AspNetUserRoles.Remove(item);
+            await UserDataService.DeleteUserRole(userId, roleId);
         }
     }
 }

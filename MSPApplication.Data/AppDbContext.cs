@@ -31,7 +31,7 @@ namespace MSPApplication.Data
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Views_Assigned_Role> Views_Assigned_Roles { get; set; }
-        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

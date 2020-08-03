@@ -87,5 +87,18 @@ namespace MSPApplication.Api.Controllers
             _userRepository.DeleteUser(id);
             return NoContent();//success
         }
+        [HttpDelete]
+        //[Route("api/user/{userId}/{roleId}")]
+        public IActionResult DeleteUserRole(string userId, string roleId)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(roleId))
+            {
+                return BadRequest("past in arguments cannot be empty");
+            }
+            var userRoleToDelete = _userRepository.GetUserRoleByIds(userId, roleId);
+            if (userRoleToDelete == null) return NotFound();
+            _userRepository.DeleteUserRole(userId, roleId);
+            return Ok();//success
+        }
     }
 }

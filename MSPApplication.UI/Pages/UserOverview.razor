@@ -1,6 +1,6 @@
 ﻿@page "/useroverview"
 @inject IJSRuntime JSRuntime
-
+@attribute [Authorize(Roles = "Administration")]
 <div class="row">
     <div class="col-md-8"><h1 class="page-title">@title</h1></div>
     <div class="col-md-4">
@@ -52,8 +52,8 @@ else
         </tbody>
     </table>
     @*<NavLink class="btn btn-success btn-lg" href="/useredit">
-        Add New User
-    </NavLink>*@
+            Add New User
+        </NavLink>*@
 
 }
 

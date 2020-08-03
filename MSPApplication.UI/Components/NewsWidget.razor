@@ -14,7 +14,11 @@ else
     <div class="widget">
         <h3>
             @title
-            <span class="d-none d-lg-inline"><a href="noticeoverview/" class="btn btn-info mr-1 float-right">View All</a></span>
+            <AuthorizeView Roles="Administration">
+                <Authorized>
+                    <span class="d-none d-lg-inline"><a href="noticeoverview/" class="btn btn-info mr-1 float-right">Manage Notices</a></span>
+                </Authorized>
+            </AuthorizeView>
         </h3>
 
         <table class="table table-striped">

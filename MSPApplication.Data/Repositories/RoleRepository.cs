@@ -27,7 +27,10 @@ namespace MSPApplication.Data.Repositories
 
         public AspNetRole AddRole(AspNetRole role)
         {
-            role.Id = Guid.NewGuid().ToString();
+            if (string.IsNullOrEmpty(role.Id))
+            {
+                role.Id = Guid.NewGuid().ToString();
+            }
             role.NormalizedName = role.Name.ToUpper();
             var addedEntity = _appDbContext.AspNetRoles.Add(role);
             _appDbContext.SaveChanges();
