@@ -1,24 +1,36 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using MSPApplication.Data;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using Xunit;
 
 namespace XUnitTestProject.Repositories
 {
-    public class UnitTestUserRepository
+    public class UnitTestUserRepository :IDisposable
     {
         protected DbContextOptions<AppDbContext> ContextOptions { get; set; }
-
+        private readonly DbConnection _connection;
         public UnitTestUserRepository()
         {
             ContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("TestDatabase")
+            //.UseInMemoryDatabase("TestDatabase")
+            //.UseSqlite(CreateInMemoryDatabase())
+            .UseSqlite("Filename=Test.db")
             .Options;
+            _connection = RelationalOptionsExtension.Extract(ContextOptions).Connection;
             SeedData();
+        }
+        private static DbConnection CreateInMemoryDatabase()
+        {
+            var connection = new SqliteConnection("Filename=:memory:");
+            connection.Open();
+            return connection;
         }
 
         void SeedData()
@@ -104,8 +116,8 @@ namespace XUnitTestProject.Repositories
                 var result = userRepository.AddUser(user);
                 var savedResult = context.AspNetUsers.FirstOrDefault(e => e.Id == user.Id);
                 Assert.Equal(savedResult.UserName, emailAddress);
-                Exception exception = Assert.Throws<ArgumentException>(() => result = userRepository.AddUser(user));
-                Assert.Contains("An item with the same key has already been added.", exception.Message);
+                Exception exception = Assert.Throws<DbUpdateException>(() => result = userRepository.AddUser(user));
+                Assert.Contains("See the inner exception for details", exception.Message);
             }
         }
         [Fact]
@@ -140,17 +152,22 @@ namespace XUnitTestProject.Repositories
             }
         }
         [Fact]
-        public void TestInMemoryDatabase()
+        public void TestInMemoryDatabase_AddingUnrelatedData()
         {
             using (var context = new AppDbContext(ContextOptions))
             {
                 var userRole = new AspNetUserRole { RoleId = "bad data", UserId = "bad data" };
                 context.AspNetUserRoles.Add(userRole);
-                context.SaveChanges();
+                Exception exception = Assert.Throws<DbUpdateException>(() => context.SaveChanges());
+                Assert.Contains("See the inner exception for details", exception.Message);
                 var result = context.AspNetUserRoles.FirstOrDefault(e => e.UserId == "bad data");
-                Assert.NotNull(result);
+                Assert.Null(result);
             }
         }
 
+        public void Dispose()
+        {
+            _connection.Close();
+        }
     }
 }

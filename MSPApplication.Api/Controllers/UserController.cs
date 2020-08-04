@@ -41,7 +41,7 @@ namespace MSPApplication.Api.Controllers
             }
             if (string.IsNullOrEmpty(user.UserName))
             {
-                ModelState.AddModelError("Username", "The Username should not be empty! ");
+                ModelState.AddModelError("UserName", "The Username should not be empty!");
             }
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -59,7 +59,7 @@ namespace MSPApplication.Api.Controllers
             }
             if (string.IsNullOrEmpty(user.UserName))
             {
-                ModelState.AddModelError("Username", "The Username should not be empty! ");
+                ModelState.AddModelError("UserName", "The Username should not be empty!");
             }
             if (!ModelState.IsValid)
             {
