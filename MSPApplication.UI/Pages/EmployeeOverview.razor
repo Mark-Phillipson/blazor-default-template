@@ -1,4 +1,4 @@
-﻿@page "/employeeoverview"
+@page "/employeeoverview"
 @attribute [Authorize]
 @inject IJSRuntime JSRuntime
 <div class="row">
@@ -54,7 +54,7 @@ else
                     <a href="@($"employeedetail/{employee.EmployeeId}")" class="btn btn-info table-btn">
                         <i class="fas fa-info-circle"></i>
                     </a>
-                    <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-warning table-btn">
+                    <a href="@($"employeeedit/{employee.EmployeeId}")" class="btn btn-primary table-btn">
                         <i class="fas fa-edit"></i>
                     </a>
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 
@@ -23,8 +23,18 @@ namespace MSPApplication.Api.Controllers
             return Ok(result);
         }
 
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public IActionResult GetAllUsersInRole(string id)
+        {
+            var result = _userRepository.GetAllUsersInRole(id);
+            return Ok(result);
+        }
+
+
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
+        [Route("[action]/{id}")]
+        [HttpGet]
         public IActionResult GetUserById(string id)
         {
             var result = _userRepository.GetUserById(id);

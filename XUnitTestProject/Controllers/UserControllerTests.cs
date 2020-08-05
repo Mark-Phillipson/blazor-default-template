@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MSPApplication.Api.Controllers;
 using MSPApplication.Data;
@@ -18,7 +18,7 @@ namespace Controllers.Tests
         public UserControllerTests()
         {
             ContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("TestDatabase")
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
             SeedData();
         }
@@ -46,7 +46,8 @@ namespace Controllers.Tests
 
         [Fact]
         public void TestGetAllUsers()
-        {// Get all users should return a okay result
+        {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -63,7 +64,8 @@ namespace Controllers.Tests
         }
         [Fact]
         public void TestGetUserById()
-        {// Get all users should return a okay result
+        {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -79,7 +81,8 @@ namespace Controllers.Tests
         }
         [Fact]
         public void TestCreateUser()
-        {// Get all users should return a okay result
+        {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -108,7 +111,8 @@ namespace Controllers.Tests
         }
         [Fact]
         public void TestUpdateUser()
-        {// Get all users should return a okay result
+        {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -139,6 +143,7 @@ namespace Controllers.Tests
         [Fact]
         public void TestDeleteUser()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -160,7 +165,7 @@ namespace Controllers.Tests
         [Fact]
         public void TestDeleteUserRole()
         {
-
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);

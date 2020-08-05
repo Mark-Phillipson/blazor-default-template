@@ -1,4 +1,4 @@
-﻿using MSPApplication.Shared;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -22,10 +22,20 @@ namespace MSPApplication.UI.Services
                 (await _httpClient.GetStreamAsync($"api/user"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
+        public async Task<IEnumerable<AspNetUser>> GetAllUsersInRole(string id)
+        {
+            var url = $"api/user/getallusersinrole/{id}";
+            return await JsonSerializer.DeserializeAsync<IEnumerable<AspNetUser>>
+                (await _httpClient.GetStreamAsync(url), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        }
+
+
+
         public async Task<AspNetUser> GetUserById(string id)
         {
+            var url = $"api/user/getuserbyid/{id}";
             return await JsonSerializer.DeserializeAsync<AspNetUser>
-                (await _httpClient.GetStreamAsync($"api/user/{id}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                (await _httpClient.GetStreamAsync(url), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
         public async Task<AspNetUser> AddUser(AspNetUser user)
         {

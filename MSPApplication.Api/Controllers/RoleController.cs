@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 
@@ -41,7 +41,7 @@ namespace MSPApplication.Api.Controllers
             }
             if (string.IsNullOrEmpty(role.Name))
             {
-                ModelState.AddModelError("Name", "The Role Name should not be empty! ");
+                ModelState.AddModelError("Name", "The Role Name should not be empty!");
             }
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -59,7 +59,7 @@ namespace MSPApplication.Api.Controllers
             }
             if (string.IsNullOrEmpty(role.Name))
             {
-                ModelState.AddModelError("Name", "The Rolename should not be empty! ");
+                ModelState.AddModelError("Name", "The Role Name should not be empty!");
             }
             if (!ModelState.IsValid)
             {

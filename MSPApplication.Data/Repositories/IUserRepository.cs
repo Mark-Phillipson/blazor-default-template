@@ -1,4 +1,4 @@
-﻿using MSPApplication.Shared;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 
 namespace MSPApplication.Data.Repositories
@@ -7,6 +7,7 @@ namespace MSPApplication.Data.Repositories
     {
         IEnumerable<AspNetUser> GetAllUsers();
         AspNetUser GetUserById(string id);
+        IEnumerable<AspNetUser> GetAllUsersInRole(string id);
         AspNetUserRole GetUserRoleByIds(string userId, string roleId);
         AspNetUser AddUser(AspNetUser user);
         AspNetUser UpdateUser(AspNetUser user);

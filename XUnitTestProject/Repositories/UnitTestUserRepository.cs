@@ -6,22 +6,23 @@ using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using Xunit;
 
 namespace XUnitTestProject.Repositories
 {
-    public class UnitTestUserRepository :IDisposable
+    public class UnitTestUserRepository : IDisposable
     {
         protected DbContextOptions<AppDbContext> ContextOptions { get; set; }
         private readonly DbConnection _connection;
         public UnitTestUserRepository()
         {
             ContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            //.UseInMemoryDatabase("TestDatabase")
+            //.UseInMemoryDatabase(Guid.NewGuid().ToString())
             //.UseSqlite(CreateInMemoryDatabase())
-            .UseSqlite("Filename=Test.db")
+            .UseSqlite($"Filename={Guid.NewGuid().ToString()}.db")
             .Options;
             _connection = RelationalOptionsExtension.Extract(ContextOptions).Connection;
             SeedData();
@@ -56,19 +57,21 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void DeleteUserRole_TestDeleteOkay()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
-                UserRepository userRepository = new UserRepository(context);
+                UserRepository sut = new UserRepository(context);
                 var user = context.AspNetUsers.FirstOrDefault(e => e.UserName == "test2user@domain.co.uk");
                 var role = context.AspNetRoles.FirstOrDefault(e => e.Name == "Development");
                 Assert.True(context.Set<AspNetUserRole>().Any(e => e.UserId == user.Id && e.RoleId == role.Id));
-                userRepository.DeleteUserRole(user.Id, role.Id);
+                sut.DeleteUserRole(user.Id, role.Id);
                 Assert.False(context.Set<AspNetUserRole>().Any(e => e.UserId == user.Id && e.RoleId == role.Id));
             }
         }
         [Fact]
         public void GetUserRolesByIdsTest()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -84,6 +87,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void GetAllUsers_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -93,8 +97,22 @@ namespace XUnitTestProject.Repositories
             }
         }
         [Fact]
+        public void GetAllUsersInRole_Test()
+        {
+            SeedData();
+            using (var context = new AppDbContext(ContextOptions))
+            {
+                UserRepository userRepository = new UserRepository(context);
+                var role = context.AspNetRoles.Where(v => v.Name == "Development").FirstOrDefault();
+                List<AspNetUser> result = userRepository.GetAllUsersInRole(role.Id).ToList();
+                Assert.Single(result);
+                Assert.Contains("domain.co.uk", result[0].Email);
+            }
+        }
+        [Fact]
         public void GetUserById_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -108,6 +126,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void AddUser_Test()
         {
+            SeedData();
             string emailAddress = "testuser@domain.co.uk";
             using (var context = new AppDbContext(ContextOptions))
             {
@@ -123,6 +142,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void UpdateUser_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -142,6 +162,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void DeleteUser_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 UserRepository userRepository = new UserRepository(context);
@@ -154,6 +175,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void TestInMemoryDatabase_AddingUnrelatedData()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 var userRole = new AspNetUserRole { RoleId = "bad data", UserId = "bad data" };
@@ -167,7 +189,10 @@ namespace XUnitTestProject.Repositories
 
         public void Dispose()
         {
-            _connection.Close();
+            if (_connection != null && _connection.State == ConnectionState.Open)
+            {
+                _connection.Close();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using MSPApplication.Shared;
@@ -43,7 +43,7 @@ namespace MSPApplication.UI.Pages
         {
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("myJsFunctions.focusElement", SearchInput);
+                await JSRuntime.InvokeVoidAsync("window.myJsFunctions.focusElement", SearchInput);
             }
         }
         private async Task ApplyFilter()

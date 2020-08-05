@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MSPApplication.Shared;
 using System;
 using System.Collections.Generic;
@@ -27,9 +27,15 @@ namespace MSPApplication.Data.Repositories
 
         public AspNetRole AddRole(AspNetRole role)
         {
-            if (string.IsNullOrEmpty(role.Id))
+            var existingRole = _appDbContext.AspNetRoles.FirstOrDefault(e => e.Id == role.Id);
+            if (string.IsNullOrEmpty(role.Id) || existingRole != null)
             {
                 role.Id = Guid.NewGuid().ToString();
+            }
+            existingRole = _appDbContext.AspNetRoles.FirstOrDefault(e => e.Name.ToLower() == role.Name.ToLower());
+            if (existingRole != null)
+            {
+                return null;
             }
             role.NormalizedName = role.Name.ToUpper();
             var addedEntity = _appDbContext.AspNetRoles.Add(role);

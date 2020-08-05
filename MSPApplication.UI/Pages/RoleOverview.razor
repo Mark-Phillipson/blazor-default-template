@@ -1,4 +1,4 @@
-﻿@page "/roleoverview"
+@page "/roleoverview"
 @inject IJSRuntime JSRuntime
 
 <div class="row">
@@ -22,7 +22,8 @@ else
         <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Role Name</th>
+                <th>Users</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,11 +33,12 @@ else
                 <tr>
                     <td><img width="35" src="/images/categories.png" class="rounded-right" /></td>
                     <td>@role.Name</td>
+                    <td><UsersInRole RoleId="@role.Id" /></td>
                     <td>
                         @*<a href="@($"roledetail/{role.Id}")" class="btn btn-primary table-btn">
                                 <i class="fas fa-info-circle"></i>
                             </a>*@
-                        <a href="@($"roleedit/{role.Id}")" class="btn btn-warning table-btn btn-sm">
+                        <a href="@($"roleedit/{role.Id}")" class="btn btn-primary table-btn btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
 

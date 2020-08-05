@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using MSPApplication.Shared;
@@ -31,7 +31,7 @@ namespace MSPApplication.UI.Pages
         {
             try
             {
-                Roles = (await RoleDataService.GetAllRoles()).ToList();
+                Roles = (await RoleDataService.GetAllRoles()).OrderBy(v => v.Name).ToList();
             }
             catch (Exception exception)
             {

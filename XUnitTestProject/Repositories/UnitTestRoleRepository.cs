@@ -16,12 +16,10 @@ namespace XUnitTestProject.Repositories
         public UnitTestRoleRepository()
         {
             ContextOptions = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("TestDatabase")
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
             SeedData();
         }
-
-
         void SeedData()
         {
             using (var context = new AppDbContext(ContextOptions))
@@ -38,6 +36,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void DeleteRole_TestDeleteOkay()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);
@@ -50,6 +49,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void GetAllRoles_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);
@@ -61,6 +61,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void GetRoleById_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);
@@ -75,6 +76,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void AddRole_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);
@@ -82,15 +84,14 @@ namespace XUnitTestProject.Repositories
                 var result = roleRepository.AddRole(role);
                 var savedResult = context.AspNetRoles.FirstOrDefault(e => e.Id == role.Id);
                 Assert.Equal("Testing", savedResult.Name);
-                Exception exception = Assert.Throws<ArgumentException>(() => result = roleRepository.AddRole(role));
-                Assert.Contains("An item with the same key has already been added.", exception.Message);
-                role = new AspNetRole { Name = "Testing", NormalizedName = "TESTING" };
-                exception = Assert.Throws<ArgumentException>(() => result = roleRepository.AddRole(role));
+                result = roleRepository.AddRole(role);
+                Assert.Null(result);
             }
         }
         [Fact]
         public void UpdateRole_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);
@@ -104,6 +105,7 @@ namespace XUnitTestProject.Repositories
         [Fact]
         public void DeleteRole_Test()
         {
+            SeedData();
             using (var context = new AppDbContext(ContextOptions))
             {
                 RoleRepository roleRepository = new RoleRepository(context);

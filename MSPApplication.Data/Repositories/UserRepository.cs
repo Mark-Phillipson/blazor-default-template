@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MSPApplication.Shared;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +16,18 @@ namespace MSPApplication.Data.Repositories
 
         public IEnumerable<AspNetUser> GetAllUsers()
         {
-            return _appDbContext.AspNetUsers.Include("AspNetUserRoles.Role");
+            return _appDbContext.AspNetUsers;
+        }
+        public IEnumerable<AspNetUser> GetAllUsersInRole(string roleId)
+        {
+            var userRoles = _appDbContext.AspNetUserRoles.Where(v => v.RoleId == roleId);
+            List<AspNetUser> result = new List<AspNetUser>();
+            foreach (var userRole in userRoles)
+            {
+                AspNetUser user = _appDbContext.AspNetUsers.Where(v => v.Id == userRole.UserId).FirstOrDefault();
+                result.Add(user);
+            }
+            return result;
         }
 
         public AspNetUser GetUserById(string id)

@@ -1,14 +1,17 @@
-﻿@page "/tasksoverview"
+@page "/tasksoverview"
+@using MSPApplication.UI.Services
+@using MSPApplication.Shared
+
 @inject IJSRuntime JSRuntime
 
-    <div class="row">
-        <div class="col-md-8"><h1 class="page-title">@title</h1></div>
-        <div class="col-md-4">
-            <input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-        </div>
+<div class="row">
+    <div class="col-md-8"><h1 class="page-title">@title</h1></div>
+    <div class="col-md-4">
+        <input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
     </div>
+</div>
 
-@if (Tasks== null && _loadFailed)
+@if (Tasks == null && _loadFailed)
 {
     <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
 }
@@ -38,13 +41,14 @@ else
                     <td>@task.HRTaskId</td>
                     <td>@task.Title</td>
                     <td>@task.Description</td>
-                    <td>@task.Status</td>
+                    @{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
+                    <td>@statusName</td>
                     <td>@task?.Employee?.FirstName</td>
                     <td>
                         @*<a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
-                            <i class="fas fa-info-circle"></i>
-                        </a>*@
-                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-warning table-btn">
+                                <i class="fas fa-info-circle"></i>
+                            </a>*@
+                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-primary table-btn">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -56,4 +60,4 @@ else
 
 <a class="btn btn-success table-btn quick-add-btn" href="@($"taskedit")"><i class="fas fa-plus"></i></a>
 
-    @*<AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@
+@*<AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@
