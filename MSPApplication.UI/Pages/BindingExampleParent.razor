@@ -1,0 +1,12 @@
+@page "/binding"
+<h3>Binding Example</h3>
+<h1>@Message</h1>
+<br />
+<input @bind="Message" @bind:event="oninput" style="width: 50%" />
+<br />
+<br />
+
+<ChildComponent @bind-ParentMessage="Message" @bind-ParentMessage:event="MessageChanged" />
+@code {
+    private string Message { get; set; }= "Two-way bound message";
+}

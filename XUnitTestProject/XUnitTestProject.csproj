@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -26,6 +26,13 @@
   <ItemGroup>
     <ProjectReference Include="..\MSPApplication.Api\MSPApplication.Api.csproj" />
     <ProjectReference Include="..\MSPApplication.Data\MSPApplication.Data.csproj" />
+    <ProjectReference Include="..\MSPApplication.UI\MSPApplication.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Services\users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,43 @@
+
+  [
+    {
+      "Id": "3543760a-88b6-4cc7-967c-9aacc41d4725",
+      "AccessFailedCount": 0,
+      "ConcurrencyStamp": "efbd2cc6-a768-4a01-94d6-88c1ff732450",
+      "Email": "testuser@domain.co.uk",
+      "EmailConfirmed": false,
+      "LockoutEnabled": true,
+      "LockoutEnd": null,
+      "NormalizedEmail": "TESTUSER@DOMAIN.CO.UK",
+      "NormalizedUserName": "TESTUSER@DOMAIN.CO.UK",
+      "PasswordHash": "{Secret}",
+      "PhoneNumber": null,
+      "PhoneNumberConfirmed": false,
+      "SecurityStamp": "EQ4ZQ3OF7ST7QAWHHKCH6BSC2RXHV5AI",
+      "TwoFactorEnabled": false,
+      "UserName": "testuser@domain.co.uk",
+      "AspNetUserClaims": [],
+      "AspNetUserLogins": [],
+      "AspNetUserRoles": []
+    },
+    {
+      "Id": "9d7c8320-6975-4257-8a88-7e514066e24d",
+      "AccessFailedCount": 0,
+      "ConcurrencyStamp": "d493f2f4-2311-41aa-a780-a24598ba55ef",
+      "Email": "MPhillipson0@Gmail.com",
+      "EmailConfirmed": true,
+      "LockoutEnabled": false,
+      "LockoutEnd": null,
+      "NormalizedEmail": "MPHILLIPSON0@GMAIL.COM",
+      "NormalizedUserName": "MPHILLIPSON0@GMAIL.COM",
+      "PasswordHash": "{Secret}",
+      "PhoneNumber": "07719792505",
+      "PhoneNumberConfirmed": false,
+      "SecurityStamp": "QUXUN5EEEM4LMDQAABAI2X7UC4RY2OYL",
+      "TwoFactorEnabled": false,
+      "UserName": "MPhillipson0@Gmail.com",
+      "AspNetUserClaims": [],
+      "AspNetUserLogins": [],
+      "AspNetUserRoles": []
+    }
+  ]

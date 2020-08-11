@@ -1,0 +1,17 @@
+<div style="padding:1vw;background-color:lightgrey;">
+    <h2>Parent Message: @ParentMessage</h2>
+    <button @onclick="UpdateMessage">Change Message</button>
+</div>
+
+@code {
+    [Parameter]
+    public string ParentMessage { get; set; }
+    [Parameter]
+    public EventCallback<string> MessageChanged { get; set; }
+
+    private async Task UpdateMessage()
+    {
+        ParentMessage = "Blaze On";
+        await MessageChanged.InvokeAsync(ParentMessage);
+    }
+}

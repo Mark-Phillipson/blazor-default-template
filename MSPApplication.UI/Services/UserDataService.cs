@@ -1,5 +1,6 @@
 using MSPApplication.Shared;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -18,8 +19,15 @@ namespace MSPApplication.UI.Services
 
         public async Task<IEnumerable<AspNetUser>> GetAllUsers()
         {
+            Stream jasonResult = await _httpClient.GetStreamAsync($"api/user");
+            //string value;
+            //using (var reader = new StreamReader(jasonResult, true))
+            //{
+            //    value = reader.ReadToEnd();
+            //}
+
             return await JsonSerializer.DeserializeAsync<IEnumerable<AspNetUser>>
-                (await _httpClient.GetStreamAsync($"api/user"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                (jasonResult, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
         public async Task<IEnumerable<AspNetUser>> GetAllUsersInRole(string id)

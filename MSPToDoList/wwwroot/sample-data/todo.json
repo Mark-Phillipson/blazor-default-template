@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "datecreated": "2020-05-06",
+    "title": "Decorating",
+    "description": "Repaint all the woodwork on the landing.",
+    "completed": false
+  },
+  {
+    "id": "2",
+    "datecreated": "2020-05-07",
+    "title": "Bin Cleaning",
+    "description": "Clean out the green, grey food bins",
+    "completed": false
+  },
+  {
+    "id": "3",
+    "datecreated": "2020-05-08",
+    "title": "Gardening",
+    "description": "Pull up all weeds and mow the lawn",
+    "completed": false
+  },
+  {
+    "id": "4",
+    "datecreated": "2020-05-09",
+    "title": "Disc Housekeeping",
+    "description": "Remove any large unneeded files from main computer.",
+    "completed": false
+  },
+  {
+    "id": "5",
+    "datecreated": "2020-05-10",
+    "title": "Bedding",
+    "description": "Launder sheets, duvet, mattress cover and pillowcase",
+    "completed": false
+  }
+]

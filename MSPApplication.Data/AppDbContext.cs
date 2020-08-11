@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using MSPApplication.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +22,8 @@ namespace MSPApplication.Data
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<CompanyDetail> CompanyDetails { get; set; }
+
         // ASP Identity Entities
         public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
