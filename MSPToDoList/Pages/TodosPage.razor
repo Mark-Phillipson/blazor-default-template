@@ -15,12 +15,12 @@
 else
 {
 <div class="row">
-    <div class="col-md-3"><button class="btn btn-sm btn-success" @onclick="AddToDo">Add</button></div>
+    <div class="col-md-3 mb-2"><button class="btn btn-sm btn-success" @onclick="AddToDo">Add</button></div>
     @*<div class="col-md-3">
         <input class="form-control" style="width:90%" @bind-value="@SearchTerm" @onblur="ApplyFilter" @oninput="@(e => ApplyFilter())" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
     </div>
     <div class="col-md-3"><button class="btn btn-sm btn-info" @onclick="ApplyFilter">Apply Filter</button></div>*@
-    <div class="col-md-3"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload Todos</button></div>
+    <div class="col-md-2 offset-md-7 mb-2"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload Todos</button></div>
 </div>
                 <EditForm Model="todos" OnValidSubmit="SaveToDoAsync">
                     <DataAnnotationsValidator />
