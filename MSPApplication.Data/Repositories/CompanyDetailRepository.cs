@@ -1,7 +1,7 @@
 using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Linq;
-// TODO Create tests for the repository
+
 namespace MSPApplication.Data.Repositories
 {
     public class CompanyDetailRepository : ICompanyDetailRepository

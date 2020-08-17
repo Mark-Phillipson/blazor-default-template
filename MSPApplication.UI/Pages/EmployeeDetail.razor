@@ -1,5 +1,5 @@
-﻿
-@page "/employeedetail/{EmployeeId}"
+
+@page "/employeedetail/{EmployeeId:int}"
 
 <section class="employee-detail">
     <h1 class="page-title">Details for @Employee.FirstName @Employee.LastName</h1>
@@ -12,8 +12,8 @@
 
     <div class="col-12 row">
         @*<div class="col-2">
-            <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="img-responsive rounded-circle employee-detail-img" />
-        </div>*@
+                <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="img-responsive rounded-circle employee-detail-img" />
+            </div>*@
         <div class="col-10 row">
             <div class="col-xs-12 col-sm-8">
                 <div class="form-group row">
@@ -59,11 +59,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Zip</label>
+                    <label class="col-sm-4 col-form-label">Zip/Postcode</label>
                     <div class="col-sm-8">
                         <label type="text" readonly class="form-control-plaintext">@Employee.Zip</label>
                     </div>
                 </div>
+
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">City</label>
@@ -131,5 +132,5 @@
         </div>
     </div>
 
-
+    <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
 </section>

@@ -98,6 +98,10 @@ nav {
         width: 10rem;
     }
 
+.active {
+    font-weight:bold;
+}
+
 .list-group-item.active, .list-group-item.active:active, .list-group-item.active:focus, .list-group-item.active:visited {
     color: white;
     background-color: #a593c2 !important;
@@ -440,3 +444,6 @@ a[data-toggle="collapse"] {
     animation: spin 2s linear infinite;
 }
 
+.page-background {
+    background-color : azure;
+}

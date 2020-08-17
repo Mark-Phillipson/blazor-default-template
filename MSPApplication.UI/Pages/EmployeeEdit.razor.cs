@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
@@ -39,6 +39,7 @@ namespace MSPApplication.UI.Pages
 
         //used to store state of screen
         protected string Message = string.Empty;
+        protected string TaskMessage = string.Empty;
         protected string StatusClass = string.Empty;
         protected bool Saved;
 
@@ -54,7 +55,7 @@ namespace MSPApplication.UI.Pages
             if (EmployeeId == 0) //new employee is being created
             {
                 //add some defaults
-                Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now, JoinedDate = DateTime.Now };
+                Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now.AddYears(-18), JoinedDate = DateTime.Now.Date };
             }
             else
             {
@@ -73,7 +74,7 @@ namespace MSPApplication.UI.Pages
             {
                 Saved = false;
                 StatusClass = "alert-danger";
-                Message = "There is a validation problem with the tasks please check and try again.";
+                TaskMessage = "There is a validation problem with the tasks please check and try again.";
                 return;
             }
             if (Employee.EmployeeId == 0) //new
@@ -152,5 +153,22 @@ namespace MSPApplication.UI.Pages
         {
             ShowDialog = false;
         }
+        private async void LookUpPostcode(string postcode)
+        {
+            var result = await EmployeeDataService.GetPostcodeData(postcode);
+            if (result != null && result.status == 200)
+            {
+                Employee.Latitude = result.result.latitude;
+                Employee.Longitude = result.result.longitude;
+                Message = null;
+            }
+            else
+            {
+                Message = "The look up on the postcode did not return any results, please check the postcode is valid.";
+                StatusClass = "alert-danger";
+            }
+            StateHasChanged();
+        }
+
     }
 }

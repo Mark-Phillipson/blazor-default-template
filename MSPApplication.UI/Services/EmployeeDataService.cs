@@ -1,4 +1,4 @@
-﻿using MSPApplication.Shared;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -62,6 +62,25 @@ namespace MSPApplication.UI.Services
         public async Task DeleteEmployee(int employeeId)
         {
             await _httpClient.DeleteAsync($"api/employee/{employeeId}");
+        }
+
+        public async Task<PostcodeInfo> GetPostcodeData(string postcode)
+        {
+            try
+            {
+                var result = await JsonSerializer.DeserializeAsync<PostcodeInfo>
+            (await _httpClient.GetStreamAsync($"http://api.postcodes.io/postcodes/{postcode.Trim().Replace(" ", "")}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                if (result.status == 200)
+                {
+                    return result;
+                }
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            //var result = await _httpClient.GetStringAsync($"http://api.postcodes.io/postcodes/{postcode.Trim().Replace(" ", "")}");
+            return null;
         }
     }
 }

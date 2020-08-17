@@ -1,4 +1,4 @@
-﻿using MSPApplication.Shared;
+using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +11,6 @@ namespace MSPApplication.UI.Services
         Task<Employee> AddEmployee(Employee employee);
         Task UpdateEmployee(Employee employee);
         Task DeleteEmployee(int employeeId);
+        Task<PostcodeInfo> GetPostcodeData(string postcode);
     }
 }

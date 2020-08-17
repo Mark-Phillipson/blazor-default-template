@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,7 +15,7 @@ namespace MSPApplication.Shared
 
         public string Id { get; set; }
         public int AccessFailedCount { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; } 
         public string Email { get; set; }
         [Display(Name = "Email Confirmed")]
         public bool EmailConfirmed { get; set; }

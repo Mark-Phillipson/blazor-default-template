@@ -1,4 +1,5 @@
-﻿using System;
+using MSPApplication.Shared.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -30,7 +31,7 @@ namespace MSPApplication.Shared
                 return _fullName;
             }
         }
-
+        [BirthdayValidator(MinimumAge = 18)]
         public DateTime BirthDate { get; set; }
 
         [Required]

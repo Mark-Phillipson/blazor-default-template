@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using MSPApplication.ComponentsLibrary.Map;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
@@ -15,8 +15,10 @@ namespace MSPApplication.UI.Pages
         [Inject]
         public IJobCategoryDataService JobCategoryDataService { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         [Parameter]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
         public List<Marker> MapMarkers { get; set; } = new List<Marker>();
 
@@ -26,7 +28,7 @@ namespace MSPApplication.UI.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Employee = await EmployeeDataService.GetEmployeeDetails(int.Parse(EmployeeId));
+            Employee = await EmployeeDataService.GetEmployeeDetails(EmployeeId);
 
             MapMarkers = new List<Marker>
             {
@@ -34,5 +36,10 @@ namespace MSPApplication.UI.Pages
             };
             JobCategory = (await JobCategoryDataService.GetJobCategoryById(Employee.JobCategoryId)).JobCategoryName;
         }
+        protected void NavigateToOverview()
+        {
+            NavigationManager.NavigateTo("/employeeoverview");
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using MSPApplication.Shared;
+using MSPApplication.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,6 +139,11 @@ namespace MSPApplication.UI.Services
         }
 
         public Task<IEnumerable<Employee>> GetAllEmployees(int? jobCategoryId = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PostcodeInfo> GetPostcodeData(string postcode)
         {
             throw new NotImplementedException();
         }

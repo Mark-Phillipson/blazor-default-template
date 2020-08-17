@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 
  <div class="d-flex" id="wrapper">
 
@@ -16,7 +16,6 @@
                 </ul>
             </div>
         </nav>
-
         <div class="container-fluid">
             <a class="btn btn-sm btn-dark d-lg-none" @onclick="ToggleMenuSmallScreens"><img src="/images/Snack-Burger-WF.png" width="30" /></a>
             @Body
@@ -28,7 +27,7 @@
 
 @code
 {
-    public string MenuDisplay { get; set; } = "display:none;";
+    public string MenuDisplay { get; set; } = "display:block";
     public string SidebarOpenedClass { get; set; } = "sidebar-opened ml-0";
     void ToggleMenu()
     {
@@ -40,10 +39,10 @@
         {
             MenuDisplay = "display:block";
         }
+        StateHasChanged();
     }
     void ToggleMenuSmallScreens()
     {
-        ToggleMenu();
         if (SidebarOpenedClass == "sidebar-opened ml-0")
         {
             SidebarOpenedClass = "";
@@ -52,5 +51,6 @@
         {
             SidebarOpenedClass = "sidebar-opened ml-0";
         }
+        ToggleMenu();
     }
 }
