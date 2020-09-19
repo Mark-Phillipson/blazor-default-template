@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using MSPToDoList.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,6 @@ namespace MSPToDoList.Pages
         private bool _loadFailed = false;
         ElementReference SearchInput;
 #pragma warning restore 414, 649,169
-
         private string SearchTerm { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -40,7 +40,7 @@ namespace MSPToDoList.Pages
         protected async Task SaveToDoAsync()
         {
             await LocalStorage.SetItemAsync<List<ToDoList>>("todo", todos);
-            message = $"Saved Successfully! {DateTime.Now.TimeOfDay}";
+            message = $"Saved!";// {DateTime.Now.TimeOfDay:hh:mm}";
         }
 
         private string title { get; set; } = "Todo List";
@@ -67,7 +67,7 @@ namespace MSPToDoList.Pages
 
         private async Task CallChangeAsync(string elementId)
         {
-            message = $" Call Change Now On element ID: {elementId}";
+            //message = $" Call Change Now On element ID: {elementId}";
             await JSRuntime.InvokeVoidAsync("CallChange", elementId);
             if (elementId == "SearchInput")
             {

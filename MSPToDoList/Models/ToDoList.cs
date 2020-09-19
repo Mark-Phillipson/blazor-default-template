@@ -1,10 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MSPToDoList.Pages
+namespace MSPToDoList.Models
 {
-    public partial class TodosPage
-    {
         public class ToDoList
         {
             [Required]
@@ -17,9 +15,6 @@ namespace MSPToDoList.Pages
             [StringLength(600)]
             public string Description { get; set; }
             public bool Completed { get; set; } = false;
-
-        }
-
 
     }
 }
