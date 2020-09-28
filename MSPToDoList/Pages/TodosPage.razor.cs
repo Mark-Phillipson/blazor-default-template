@@ -40,6 +40,7 @@ namespace MSPToDoList.Pages
         protected async Task SaveToDoAsync()
         {
             await LocalStorage.SetItemAsync<List<ToDoList>>("todo", todos);
+
             message = $"Saved!";// {DateTime.Now.TimeOfDay:hh:mm}";
         }
 
@@ -55,10 +56,11 @@ namespace MSPToDoList.Pages
                 return json;
             }
         }
-        private void AddToDo()
+        private async Task AddToDoAsync()
         {
             ToDoList toDoList = new ToDoList { DateCreated = DateTime.Now.Date };
             todos.Add(toDoList);
+            await JSRuntime.InvokeVoidAsync("setFocus", $"{toDoList.Id}TitleInput");
         }
         private void DeleteToDo(ToDoList toDoList)
         {

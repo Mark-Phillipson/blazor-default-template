@@ -48,12 +48,17 @@ namespace MSPToDoList.Shared
 
         private async Task AddToDoAsync()
         {
-            if (Text== null  || Text.Length<10)
+            if (Text== null  || Text.Length<1)
             {
                 return;
             }
             await LoadData();
-            ToDoList toDoList = new ToDoList { DateCreated = DateTime.Now.Date,Title=$"{Text.Substring(0,10).ToUpper()}..",Description=Text,Completed=false };
+            var titleLength = Text.Length;
+            if (titleLength>30)
+            {
+                titleLength = 30;
+            }
+            ToDoList toDoList = new ToDoList { DateCreated = DateTime.Now.Date,Title=$"{Text.Substring(0,titleLength).ToUpper()}..",Description=Text,Completed=false };
             todos.Add(toDoList);
             await LocalStorage.SetItemAsync<List<ToDoList>>("todo", todos);
         }

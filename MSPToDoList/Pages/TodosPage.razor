@@ -2,139 +2,147 @@
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
-<h1>@title</h1>
+<div class="d-none d-sm-block">
+    <h1>@title Testing</h1>
+</div>
+<div class="d-sm-none">
+    <h4>@title</h4>
+</div>
 
 
-@if (todos == null)
-{
-    <div style="display:normal;margin:auto" class="loader"></div>
-}
-else
-{
-    <div class="row">
-        <div class="col-md-3 mb-2"><button class="btn btn-sm btn-success" @onclick="AddToDo">Add</button></div>
-        @*<div class="col-md-3">
-                <input class="form-control" style="width:90%" @bind-value="@SearchTerm" @onblur="ApplyFilter" @oninput="@(e => ApplyFilter())" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-            </div>
-            <div class="col-md-3"><button class="btn btn-sm btn-info" @onclick="ApplyFilter">Apply Filter</button></div>*@
-        <div class="col-md-2 offset-md-7 mb-2"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload Todos</button></div>
-    </div>
-    <EditForm Model="todos" OnValidSubmit="SaveToDoAsync">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="d-none d-sm-block">
-            <p>
-                To-Do list stored in local storage only. Click <button type="submit" class="btn btn-success">Save All</button> to persist on device.
-            </p>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Date Created</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Completed</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var todo in todos)
-                    {
-                        <tr>
-                            <td>
-                                @todo.DateCreated.ToShortDateString()
-                            </td>
-                            @if (todo.Completed)
-                            {
-                                <td>
-                                    @todo.Title
-                                </td>
-                                <td>
-                                    @todo.Description
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
 
-                                    <input class="form-control " @bind="@todo.Title" @bind:event="oninput" @onblur="@(e => CallChangeAsync($"{todo.Id}TitleInput"))" id="@($"{todo.Id}TitleInput")" />
-                                </td>
-                                <td>
-                                    <textarea rows="2" class="form-control" @bind="todo.Description" @bind:event="oninput" @onblur="@(e  => CallChangeAsync($"{todo.Id}DescriptionInput"))" id="@($"{todo.Id}DescriptionInput")" />
-                                </td>
-                            }
-                            <td>
-                                <InputCheckbox class="form-control" @bind-Value="todo.Completed" />
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteToDo(todo))">Delete</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    @if (todos == null)
+    {
+        <div style="display:normal;margin:auto" class="loader"></div>
+    }
+    else
+    {
+<div class="row">
+    <div class="col-4 mb-2"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync">Add</button></div>
+    @*<div class="col-md-3">
+            <input class="form-control" style="width:Click run90%" @bind-value="@SearchTerm" @onblur="ApplyFilter" @oninput="@(e => ApplyFilter())" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
         </div>
-        <div class="d-sm-none">
-            <table class="table table-responsive">
-                <tbody>
-                    @foreach (var todo in todos)
-                    {
+        <div class="col-md-3"><button class="btn btn-sm btn-info" @onclick="ApplyFilter">Apply Filter</button></div>*@
+    <div class="col-4 mb-2"><button type="submit" class="btn btn-sm btn-success">Save All</button></div>
+    <div class="col-4 mb-2"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
+</div>
+        <EditForm Model="todos" OnValidSubmit="SaveToDoAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="d-none d-sm-block">
+                <p>
+                    To-Do list stored in local storage only. Click <button type="submit" class="btn btn-success">Save All</button> to persist on device.
+                </p>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <th>Created</th>
-                            <td>
-                                @todo.DateCreated.ToShortDateString()
-                            </td>
+                            <th>Date Created</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Completed</th>
+                            <th></th>
                         </tr>
-                        @if (todo.Completed)
+                    </thead>
+                    <tbody>
+                        @foreach (var todo in todos)
                         {
                             <tr>
-                                <th style="font-size:small">Title</th>
                                 <td>
-                                    @todo.Title
+                                    @todo.DateCreated.ToShortDateString()
                                 </td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">Description</th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    @todo.Description
+                                @if (todo.Completed)
+                                {
+                                    <td>
+                                        @todo.Title
+                                    </td>
+                                    <td>
+                                        @todo.Description
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+
+                                        <input class="form-control " @bind="@todo.Title" @bind:event="oninput" @onblur="@(e => CallChangeAsync($"{todo.Id}TitleInput"))" id="@($"{todo.Id}TitleInput")" />
+                                    </td>
+                                    <td>
+                                        <textarea rows="2" class="form-control" @bind="todo.Description" @bind:event="oninput" @onblur="@(e  => CallChangeAsync($"{todo.Id}DescriptionInput"))" id="@($"{todo.Id}DescriptionInput")" />
+                                    </td>
+                                }
+                                <td>
+                                    <InputCheckbox class="form-control" @bind-Value="todo.Completed" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteToDo(todo))">Delete</button>
                                 </td>
                             </tr>
                         }
-                        else
-                        {
-                            <tr>
-                                <th style="font-size:small">Title</th>
-                                <td>
-                                    <input class="form-control " @bind="@todo.Title" @bind:event="oninput" @onblur="@(e => CallChangeAsync($"{todo.Id}TitleInput"))" id="@($"{todo.Id}TitleInput")" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">Description</th>
-                            </tr>
-                            <tr>
-                        <td colspan="2">
-                            <textarea rows="3" class="form-control" @bind="todo.Description" @bind:event="oninput" @onblur="@(e  => CallChangeAsync($"{todo.Id}DescriptionInput"))" id="@($"{todo.Id}DescriptionInput")" />
-                        </td>
-                        </tr>
-                    }
-                        <tr>
-                            <th>Completed</th>
-                            <td>
-                                <InputCheckbox class="form-control" @bind-Value="todo.Completed" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteToDo(todo))">Delete</button>
-                            </td>
-                        </tr>
-
-                    }
                     </tbody>
                 </table>
             </div>
-            <button type="submit" class="btn btn-success">Save All</button>
+            <div class="d-sm-none">
+                <table class="table table-bordered table-sm table-striped" >
+                    <tbody>
+                        @foreach (var todo in todos)
+                        {
+                            @if (todo.Completed)
+                            {
+                                <tr>
+                                    @*<th style="font-size:small">Title</th>*@
+                                    <td colspan="3">
+                                        @todo.Title
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Description</th>
+                                    <td>
+                                        @todo.DateCreated.ToShortDateString()
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        @todo.Description
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        <input class="form-control " @bind="@todo.Title" @bind:event="oninput" @onblur="@(e => CallChangeAsync($"{todo.Id}TitleInput"))" id="@($"{todo.Id}TitleInput")"  />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Description</th>
+                                    <td>
+                                        @todo.DateCreated.ToShortDateString()
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <textarea rows="3" class="form-control" @bind="todo.Description" @bind:event="oninput" @onblur="@(e  => CallChangeAsync($"{todo.Id}DescriptionInput"))" id="@($"{todo.Id}DescriptionInput")" />
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <th>Completed</th>
+                                <td>
+                                    <InputCheckbox class="form-control" @bind-Value="todo.Completed" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" @onclick="@(() => DeleteToDo(todo))">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-4 mb-2"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync">Add</button></div>
+                <div class="col-4 mb-2"><button type="submit" class="btn btn-sm btn-success">Save All</button></div>
+                <div class="col-4 mb-2"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
+            </div>
             @if (!string.IsNullOrEmpty(message))
             {
                 <span class="alert alert-info">@message</span>
