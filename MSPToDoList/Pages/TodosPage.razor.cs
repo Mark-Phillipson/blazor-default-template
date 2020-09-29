@@ -8,6 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using MSPToDoList.Services;
+using Newtonsoft.Json;
+using BlazorInputFile;
+using System.Text.Json;
 
 namespace MSPToDoList.Pages
 {
@@ -16,13 +20,14 @@ namespace MSPToDoList.Pages
         private List<ToDoList> todos;
         [Inject]
         public ILocalStorageService LocalStorage { get; set; }
-
+        private IFileListEntry file;
 #pragma warning disable 414, 649,169
         private string message = "";
         private bool _loadFailed = false;
         ElementReference SearchInput;
 #pragma warning restore 414, 649,169
         private string SearchTerm { get; set; }
+        public bool ShowCompleted { get; set; } = true;
         protected override async Task OnInitializedAsync()
         {
             await LoadData();
@@ -69,30 +74,43 @@ namespace MSPToDoList.Pages
 
         private async Task CallChangeAsync(string elementId)
         {
-            //message = $" Call Change Now On element ID: {elementId}";
             await JSRuntime.InvokeVoidAsync("CallChange", elementId);
-            if (elementId == "SearchInput")
-            {
-                ApplyFilter();
-            }
-        }
-        private void ApplyFilter()
-        {
-            if (!string.IsNullOrEmpty(SearchTerm) && SearchTerm?.Length > 0)
-            {
-                todos = todos.Where(v => v.Title.ToLower().Contains(SearchTerm.Trim().ToLower())).ToList();
-                title = $"Todos with {SearchTerm} Contained within the Title Found: {todos.Count}";
-            }
-            else
-            {
-                title = $"All Todos {todos.Count}";
-            }
-            message = $"AppliedFilter just ran! {DateTime.Now.TimeOfDay} Search Term: {SearchTerm}";
         }
         private async Task ReloadTodosAsync()
         {
             await LoadData();
         }
+        async Task DownloadFileAsync()
+        {
+            //var text = todos.ToList().ToString();
+            var text = JsonConvert.SerializeObject(todos.ToList());
+            var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+            await FileUtility.SaveAs(JSRuntime, "todo.json", bytes);
 
+        }
+        // https://blog.stevensanderson.com/2019/09/13/blazor-inputfile/
+        async Task HandleFileSelectedAsync(IFileListEntry[] files)
+        {
+            file = files.FirstOrDefault();
+            List<ToDoList> todosImported;
+            using (var reader = new System.IO.StreamReader(file.Data))
+            {
+                try
+                {
+                    todosImported = JsonConvert.DeserializeObject<List<ToDoList>>( await reader.ReadToEndAsync());
+                    if (todosImported.Count > 0)
+                    {
+                        foreach (var todo in todosImported)
+                        {
+                            todos.Add(todo);
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    message = exception.Message;
+                }
+            }
+        }
     }
 }
