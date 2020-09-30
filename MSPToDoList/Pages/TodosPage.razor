@@ -2,33 +2,40 @@
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
-<div class="d-none d-sm-block">
-    <h1 style="text-align:left;float:left">@title </h1>
-    <input style="text-align:right;float:right" type="text" @bind="SearchTerm" id="SearchTermBig" @bind:event="oninput" @onblur="@(e => CallChangeAsync("SearchTermBig"))" placeholder="search" />
-</div>
-<div class="d-sm-none">
-    <h4 style="text-align:left;float:left">@title </h4>
-    <input style="text-align:right;float:right" type="text" @bind="SearchTerm" @bind:event="oninput" id="SearchTermSmall" @onblur="@(e => CallChangeAsync("SearchTermSmall"))" placeholder="search" />
-</div>
-<hr style="clear:both;" />
 @if (todos == null)
 {
     <div style="display:normal;margin:auto" class="loader"></div>
 }
 else
 {
-    <div class="btn-group">
-        <div class="m-2"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync">Add</button></div>
-
-        @*<div class="-3">
-                <input class="form-control" style="width:Click run90%" @bind-value="@SearchTerm" @onblur="ApplyFilter" @oninput="@(e => ApplyFilter())" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-            </div>
-            <div class="-3"><button class="btn btn-sm btn-info" @onclick="ApplyFilter">Apply Filter</button></div>*@
-        <div class="m-2 mr-1"><button type="submit" class="btn btn-sm btn-success">Save All</button></div>
-        <div class="m-2 mr-1"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
-        <label class="m-2 control-label">Show Completed</label>
-        <input class="form-control m-2" type="checkbox" @bind="ShowCompleted" />
+<div class="d-none d-sm-block">
+    <h1 style="text-align:left;float:left">@title </h1>
+    <input class="form-control" style="text-align:right;float:right;max-width:400px" type="text" @bind="SearchTerm" id="SearchTermBig" @bind:event="oninput" @onblur="@(e => CallChangeAsync("SearchTermBig"))" placeholder="Search" />
+    <hr style="clear:both;" />
+    <div class="row">
+        <div class="btn-group">
+            <div class="col-md-2 m-1"><button class="btn btn-success" @onclick="AddToDoAsync"><span class="oi oi-plus" aria-hidden="true"></span></button></div>
+            <div class="col-md-3 m-1"><button type="submit" class="btn btn-success">Save All</button></div>
+            <div class="col-md-2 m-1"><button class="btn btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
+            <label class="col-md-3 m-1 col-form-label col-form-label">Show Completed</label>
+            <input class="form-control col-md-2 m-1" style="min-width:80px" type="checkbox" @bind="ShowCompleted" />
+        </div>
     </div>
+</div>
+    <div class="d-sm-none">
+        <h4 style="text-align:left;float:left">@title </h4>
+        <input class="form-control" style="text-align:right;float:right;max-width:200px" type="text" @bind="SearchTerm" @bind:event="oninput" id="SearchTermSmall" @onblur="@(e => CallChangeAsync("SearchTermSmall"))" placeholder="Search" />
+        <hr style="clear:both;" />
+        <div class="btn-group">
+            <div class="m-1"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync"><span class="oi oi-plus" aria-hidden="true"></span></button></div>
+            <div class="m-1"><button type="submit" class="btn btn-sm btn-success">Save</button></div>
+            <div class="m-1"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
+            <label class="m-1 col-form-label col-form-label-sm">Show Completed</label>
+            <input class="form-control m-1" style="min-width:40px" type="checkbox" @bind="ShowCompleted" />
+        </div>
+    </div>
+
+
     <EditForm Model="todos" OnValidSubmit="SaveToDoAsync">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -155,9 +162,21 @@ else
             </table>
         </div>
         <div class="btn-group">
-            <div class="m-2"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync">Add</button></div>
-            <div class="m-2"><button type="submit" class="btn btn-sm btn-success">Save All</button></div>
-            <div class="m-2"><button class="btn btn-sm btn-info" @onclick="ReloadTodosAsync">Reload</button></div>
+            <div class="m-1">
+                <button class="btn btn-success" @onclick="AddToDoAsync">
+                    <span class="oi oi-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="m-1">
+                <button type="submit" class="btn btn-success">
+                    Save All
+                </button>
+            </div>
+            <div class="m-1">
+                <button class="btn btn-info" @onclick="ReloadTodosAsync">
+                    Reload
+                </button>
+            </div>
         </div>
         @if (!string.IsNullOrEmpty(message))
         {
@@ -166,9 +185,10 @@ else
     </EditForm>
 }
 
-<div class="btn-group">
-    <div class="m-2"><button class="btn btn-sm btn-secondary" @onclick="DownloadFileAsync">Export</button></div>
-    <label class="m-2 label-control">Import:</label>
-    <div class="m-2"><InputFile OnChange="HandleFileSelectedAsync" /></div>
-</div>
+<div class="">
+    <div class="m-1"><button class="btn btn-sm btn-secondary" @onclick="DownloadFileAsync">Export</button></div>
+    <div class="row">
+        <label class="m-1 col-sm-6 label-control">Import:</label>
+        <div class="m-1 col-sm-6"><InputFile OnChange="HandleFileSelectedAsync" /></div>
+    </div></div>
 
