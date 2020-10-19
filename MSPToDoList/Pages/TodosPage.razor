@@ -1,7 +1,7 @@
 @page "/todos"
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
-
+@inject IToastService toastService
 @if (todos == null)
 {
     <div style="display:normal;margin:auto" class="loader"></div>
@@ -24,7 +24,7 @@ else
 </div>
     <div class="d-sm-none">
         <h4 style="text-align:left;float:left">@title </h4>
-        <input class="form-control" style="text-align:right;float:right;max-width:200px" type="text" @bind="SearchTerm" @bind:event="oninput" id="SearchTermSmall" @onblur="@(e => CallChangeAsync("SearchTermSmall"))" placeholder="Search" />
+        <input class="form-control" style="text-align:right;float:right;max-width:100px" type="text" @bind="SearchTerm" @bind:event="oninput" id="SearchTermSmall" @onblur="@(e => CallChangeAsync("SearchTermSmall"))" placeholder="Search" />
         <hr style="clear:both;" />
         <div class="btn-group">
             <div class="m-1"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync"><span class="oi oi-plus" aria-hidden="true"></span></button></div>

@@ -45,8 +45,8 @@ namespace MSPToDoList.Pages
         protected async Task SaveToDoAsync()
         {
             await LocalStorage.SetItemAsync<List<ToDoList>>("todo", todos);
-
-            message = $"Saved!";// {DateTime.Now.TimeOfDay:hh:mm}";
+            //message = $"Saved! {DateTime.Now.TimeOfDay.ToString("hh:nn")}";
+            toastService.ShowSuccess("All to dos have been saved successfully!");
         }
 
         private string title { get; set; } = "Todo List";
@@ -65,7 +65,7 @@ namespace MSPToDoList.Pages
         {
             ToDoList toDoList = new ToDoList { DateCreated = DateTime.Now.Date };
             todos.Add(toDoList);
-            await JSRuntime.InvokeVoidAsync("setFocus", $"{toDoList.Id}TitleInput");
+            await JSRuntime.InvokeVoidAsync("setFocus", $"{toDoList.Id}TitleInputBig");
         }
         private void DeleteToDo(ToDoList toDoList)
         {
@@ -93,7 +93,7 @@ namespace MSPToDoList.Pages
         {
             file = files.FirstOrDefault();
             List<ToDoList> todosImported;
-            using (var reader = new System.IO.StreamReader(file.Data))
+            using (var reader = new StreamReader(file.Data))
             {
                 try
                 {
