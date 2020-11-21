@@ -189,6 +189,6 @@ else
     <div class="m-1"><button class="btn btn-sm btn-secondary" @onclick="DownloadFileAsync">Export</button></div>
     <div class="row">
         <label class="m-1 col-sm-6 label-control">Import:</label>
-        <div class="m-1 col-sm-6"><InputFile OnChange="HandleFileSelectedAsync" /></div>
+        <div class="m-1 col-sm-6"><InputFile OnChange="@OnInputFileChange" /></div>
     </div></div>
 
