@@ -58,7 +58,8 @@ a, .btn-link {
     animation: spin 2s linear infinite;
 }
 
-/* .form-control {
-    color:white;
-    background-color:black
-} */
+.form-control {
+	color: white;
+	background-color: #303030;
+	border-color:navajowhite;
+}

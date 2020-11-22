@@ -2,11 +2,11 @@
 @inject HttpClient Http
 
 
-<div class="position-relative" style="background-color: #f5f5f5">
+<div class="position-relative" style="background-color: #222">
     <br>
     <br>
     <br>
-    <textarea style="font-size:x-large" rows="@Rows" class="form-control" @bind="Text" @bind:event="oninput" placeholder="Dictate here, and then click Copy to put in the clipboard." id="DictationBox" />
+    <textarea style="font-size:x-large" rows="@Rows" class="form-control" @bind="Text" @bind:event="oninput" placeholder="Dictate here, and then click Copy to put in the clipboard.  Click Save to put into the to do list." id="DictationBox" />
 
     <span class="text-danger">
         @Result
