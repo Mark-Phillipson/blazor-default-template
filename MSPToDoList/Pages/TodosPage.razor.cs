@@ -10,7 +10,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using MSPToDoList.Services;
 using Newtonsoft.Json;
-
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace MSPToDoList.Pages
 {
@@ -87,47 +87,35 @@ namespace MSPToDoList.Pages
 			await FileUtility.SaveAs(JSRuntime, "todo.json", bytes);
 
 		}
-		private IList<string> imageDataUrls = new List<string>();
+		private IList<string> files = new List<string>();
 
-    private async Task OnInputFileChange()
-    {
-        var maxAllowedFiles = 3;
-        var format = "image/png";
-
-        // foreach (var imageFile in e.GetMultipleFiles(maxAllowedFiles))
-        // {
-        //     var resizedImageFile = await imageFile.RequestImageFileAsync(format, 
-        //         100, 100);
-        //     var buffer = new byte[resizedImageFile.Size];
-        //     await resizedImageFile.OpenReadStream().ReadAsync(buffer);
-        //     var imageDataUrl = 
-        //         $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-        //     imageDataUrls.Add(imageDataUrl);
-        // }
-    }
-		// https://blog.stevensanderson.com/2019/09/13/blazor-inputfile/
-		// async Task HandleFileSelectedAsync(InputFileChangeEventArgs e)
-		// {
-		// 	file = files.FirstOrDefault();
-		// 	List<ToDoList> todosImported;
-		// 	using (var reader = new StreamReader(file.Data))
-		// 	{
-		// 		try
-		// 		{
-		// 			todosImported = JsonConvert.DeserializeObject<List<ToDoList>>(await reader.ReadToEndAsync());
-		// 			if (todosImported.Count > 0)
-		// 			{
-		// 				foreach (var todo in todosImported)
-		// 				{
-		// 					todos.Add(todo);
-		// 				}
-		// 			}
-		// 		}
-		// 		catch (Exception exception)
-		// 		{
-		// 			message = exception.Message;
-		// 		}
-		// 	}
-		// }
+		async Task OnInputFileChange(InputFileChangeEventArgs e)
+		{
+			var  files = e.GetMultipleFiles(1);
+			var file=files.FirstOrDefault();
+			List<ToDoList> todosImported;
+			byte[] result;
+			using (var reader = file.OpenReadStream())
+			{
+				try
+				{
+					result= new byte[reader.Length];
+					await reader.ReadAsync(result,0,( int )reader.Length);
+					var text=System.Text.Encoding.ASCII.GetString(result);
+					todosImported = JsonConvert.DeserializeObject<List<ToDoList>>(text);
+					if (todosImported.Count > 0)
+					{
+						foreach (var todo in todosImported)
+						{
+							todos.Add(todo);
+						}
+					}
+				}
+				catch (Exception exception)
+				{
+					message = exception.Message;
+				}
+			}
+		}
 	}
 }
