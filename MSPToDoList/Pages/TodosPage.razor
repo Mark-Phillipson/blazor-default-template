@@ -168,9 +168,6 @@ else
 			</table>
 		</div>
 		<div class="d-none d-sm-block">
-			<h1 style="text-align:left;float:left">@title </h1>
-			<input class="form-control" style="text-align:right;float:right;max-width:400px" type="text" @bind="SearchTerm" id="SearchTermBig" @bind:event="oninput" @onblur="@(e => CallChangeAsync("SearchTermBig"))" placeholder="Search" />
-			<hr style="clear:both;" />
 			<div class="row">
 				<div class="btn-group">
 					<div class="col-md-2 m-1">
@@ -188,9 +185,6 @@ else
 			</div>
 		</div>
 		<div class="d-sm-none">
-			<h4 style="text-align:left;float:left">@title</h4>
-			<input class="form-control" style="text-align:right;float:right;max-width:100px" type="text" @bind="SearchTerm" @bind:event="oninput" id="SearchTermSmall" @onblur="@(e => CallChangeAsync("SearchTermSmall"))" placeholder="Search" />
-			<hr style="clear:both;" />
 			<div class="btn-group">
 				<div class="m-1"><button class="btn btn-sm btn-success" @onclick="AddToDoAsync"><span class="oi oi-plus" aria-hidden="true"></span></button></div>
 				<div class="m-1"><button type="submit" class="btn btn-sm btn-success">Save</button></div>
