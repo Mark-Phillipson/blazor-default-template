@@ -1,0 +1,93 @@
+﻿@page "/companydetailedit"
+@page "/companydetailedit/{CompanyDetailId:int}"
+@using MSPApplication.Shared
+
+<section class="entity-edit">
+    @if (!Saved)
+    {
+        <h1 class="page-title">Details for @CompanyDetail.CompanyName</h1>
+
+		<EditForm Model="@CompanyDetail" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+			<DataAnnotationsValidator />
+			@*<ValidationSummary />*@
+			<div class="form-group row">
+				<label for="Active" class="col-sm-4">Active: </label>
+				<InputCheckbox id="Active" class="form-control col-sm-8" @bind-Value="@CompanyDetail.Active" placeholder="Enter Company Name"></InputCheckbox>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.Active)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="CompanyName" class="col-sm-4">Company Name: <span style="color:red"> *</span></label>
+				<InputText id="CompanyName" class="form-control col-sm-8" @bind-Value="@CompanyDetail.CompanyName" placeholder="Enter Company Name (REQUIRED)"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.CompanyName)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="AddressLine1" class="col-sm-4">Address Line 1: </label>
+				<InputText id="AddressLine1" class="form-control col-sm-8" @bind-Value="@CompanyDetail.AddressLine1" placeholder="Enter Address Line 1"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.AddressLine1)" /></div>
+			</div>
+
+			<div class="form-group row">
+				<label for="AddressLine2" class="col-sm-4">Address Line 2: </label>
+				<InputText id="AddressLine2" class="form-control col-sm-8" @bind-Value="@CompanyDetail.AddressLine2" placeholder="Enter Address Line 2"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.AddressLine2)" /></div>
+			</div>
+
+			<div class="form-group row">
+				<label for="City" class="col-sm-4">City: </label>
+				<InputText id="City" class="form-control col-sm-8" @bind-Value="@CompanyDetail.City" placeholder="Enter City"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.City)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="StateProvinceCounty" class="col-sm-4">County: </label>
+				<InputText id="StateProvinceCounty" class="form-control col-sm-8" @bind-Value="@CompanyDetail.StateProvinceCounty" placeholder="Enter County"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.StateProvinceCounty)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="Postcode" class="col-sm-4">Postcode: </label>
+				<InputText id="Postcode" class="form-control col-sm-8" @bind-Value="@CompanyDetail.Postcode" placeholder="Enter Postcode"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.Postcode)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="country" class="col-sm-4 required">Country: <span style="color:red"> *</span></label>
+				<InputSelect id="country" class="form-control col-sm-8" @bind-Value="@CompanyDetail.CountryId">
+					@foreach (var country in Countries)
+						{
+						<option value="@country.CountryId">@country.Name</option>
+						}
+				</InputSelect>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.CountryId)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="WebAddress" class="col-sm-4">Web Address: </label>
+				<InputText id="WebAddress" type="url" class="form-control col-sm-8" @bind-Value="@CompanyDetail.WebAddress" placeholder="Enter Web Address"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.WebAddress)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="PhoneNumber" class="col-sm-4">Phone Number: </label>
+				<InputText id="PhoneNumber" class="form-control col-sm-8" @bind-Value="@CompanyDetail.PhoneNumber" placeholder="Enter Phone Number"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.PhoneNumber)" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="EmailAddress" class="col-sm-4">Email Address: </label>
+				<InputText id="EmailAddress" type="email" class="form-control col-sm-8" @bind-Value="@CompanyDetail.EmailAddress" placeholder="Enter Email Address"></InputText>
+				<div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => CompanyDetail.EmailAddress)" /></div>
+			</div>
+
+
+			<button type="submit" class="btn btn-primary edit-btn">Save Company Detail</button>
+			<a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+			@if (CompanyDetail.Id > 0)
+			{
+				<a class="btn btn-danger" @onclick="@DeleteCompanyDetail">
+					Delete
+				</a>
+			}
+		</EditForm>
+    }
+    else
+    {
+        <div class="alert @StatusClass">@Message</div>
+        <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+    }
+</section>

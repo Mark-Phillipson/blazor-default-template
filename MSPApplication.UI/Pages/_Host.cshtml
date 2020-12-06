@@ -5,75 +5,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Human Resource Default Sample</title>
-    <base href="~/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="css/site.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
-    <link href="_content/MSPApplication.ComponentsLibrary/leaflet/leaflet.css" rel="stylesheet" />
+	<title>Human Resource Default Sample</title>
+	<base href="~/" />
+	<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="css/site.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 	<link href="MSPApplication.UI.styles.css" rel="stylesheet">
-    <base href="/">
+	<link href="_content/MSPApplication.ComponentsLibrary/leaflet/leaflet.css" rel="stylesheet" />
+	<base href="/">
 </head>
 <body>
-    <app>
-        @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
-    </app>
-    <footer class="border-top footer text-muted">
-        <div class="copyright text-center">&copy; HR Template @DateTime.Now.Year, Powered by @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription Blazor Server</div>
-    </footer>
-    <div id="blazor-error-ui" style="display:none">
-        <environment include="Staging,Production">
-            An error has occurred. This application may no longer respond until reloaded :-(
-        </environment>
-        <environment include="Development">
-            <div style="color:red;font-size: 20px">An unhandled exception has occurred. See browser dev tools for details. Issue the voice command Press function 12!</div>
-        </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+	<app>
+		@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
+	</app>
+	<footer class="border-top footer text-muted">
+		<div class="copyright text-center">&copy; HR Template @DateTime.Now.Year, Powered by @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription Blazor Server</div>
+	</footer>
+	<div id="blazor-error-ui" style="display:none">
+		<environment include="Staging,Production">
+			An error has occurred. This application may no longer respond until reloaded :-(
+		</environment>
+		<environment include="Development">
+			<div style="color:red;font-size: 20px">An unhandled exception has occurred. See browser dev tools for details. Issue the voice command Press function 12!</div>
+		</environment>
+		<a href="" class="reload">Reload</a>
+		<a class="dismiss">🗙</a>
+	</div>
 
 
-    <script src="_framework/blazor.server.js"></script>
-    <script src="https://kit.fontawesome.com/273d0585ea.js" crossorigin="anonymous"></script>
-    <script src="_content/MSPApplication.ComponentsLibrary/leaflet/leaflet.js"></script>
-    <script src="_content/MSPApplication.ComponentsLibrary/deliveryMap.js"></script>
+	<script src="_framework/blazor.server.js"></script>
+	<script src="https://kit.fontawesome.com/273d0585ea.js" crossorigin="anonymous"></script>
+	<script src="_content/MSPApplication.ComponentsLibrary/leaflet/leaflet.js"></script>
+	<script src="_content/MSPApplication.ComponentsLibrary/deliveryMap.js"></script>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script>
-        function CallChange(elementId) {
-            var element = document.getElementById(elementId);
-            if (element) {
-                var event = new Event('change');
-                element.dispatchEvent(event);
-            }
-        }
-        window.setFocus = (elementId) => {
-            setTimeout(internalFocus, 10, elementId);
-        };
-        function internalFocus(elementId) {
-            var element = document.getElementById(elementId);
-            if (element == null) {
-                setTimeout(internalFocus, 10, elementId);
-                return;
-            }
-            element.focus();
-            element.select();
-        }
-        window.myJsFunctions = {
-            focusElement: function (element) {
-                element.focus();
-            }
-        }
-    </script>
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script>
+		function CallChange(elementId) {
+			var element = document.getElementById(elementId);
+			if (element) {
+				var event = new Event('change');
+				element.dispatchEvent(event);
+			}
+		}
+		window.setFocus = (elementId) => {
+			setTimeout(internalFocus, 10, elementId);
+		};
+		function internalFocus(elementId) {
+			var element = document.getElementById(elementId);
+			if (element == null) {
+				setTimeout(internalFocus, 10, elementId);
+				return;
+			}
+			element.focus();
+			element.select();
+		}
+		window.myJsFunctions = {
+			focusElement: function (element) {
+				element.focus();
+			}
+		}
+	</script>
 </body>
 </html>

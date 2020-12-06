@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MSPApplication.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MSPApplication.Data.Repositories
 
         public IEnumerable<CompanyDetail> GetAllCompanyDetails()
         {
-            return _appDbContext.CompanyDetails;
+            return _appDbContext.CompanyDetails.Include(i => i.Country);
         }
 
         public CompanyDetail GetCompanyDetailById(int id)

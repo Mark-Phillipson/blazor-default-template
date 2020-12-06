@@ -42,6 +42,11 @@ namespace MSPApplication.Api.Controllers
             {
                 ModelState.AddModelError("CompanyName", "The Company Name should not be empty!");
             }
+			if (companyDetail.CountryId== 0 )
+			{
+                ModelState.AddModelError("CountryId", "The Country should not be empty!");
+
+			}
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var createdCompanyDetail = _companyDetailRepository.AddCompanyDetail(companyDetail);

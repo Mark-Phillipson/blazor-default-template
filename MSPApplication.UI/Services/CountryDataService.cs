@@ -24,7 +24,7 @@ namespace MSPApplication.UI.Services
         public async Task<Country> GetCountryById(int countryId)
         {
             return await JsonSerializer.DeserializeAsync<Country>
-                (await _httpClient.GetStreamAsync($"api/country{countryId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                (await _httpClient.GetStreamAsync($"api/country/{countryId}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
     }
 }

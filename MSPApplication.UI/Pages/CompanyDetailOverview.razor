@@ -1,0 +1,100 @@
+@page "/companydetailsoverview"
+@attribute [Authorize]
+@inject IJSRuntime JSRuntime
+<div class="row">
+	<div class="col-md-6">
+		<h1 class="page-title">@Title</h1>
+	</div>
+	<div class="col-md-6">
+		<input @ref="SearchInput" class="form-control" style="width:90%" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+	</div>
+
+</div>
+
+@if (CompanyDetails == null && _loadFailed == true)
+{
+	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<h6>@ExceptionMessage</h6>
+}
+else if (CompanyDetails == null)
+{
+	<div style="display:normal;margin:auto" class="loader"></div>
+}
+else if (CompanyDetails.Count == 0)
+{
+	@if (string.IsNullOrEmpty(SearchTerm))
+	{
+		<p>There are no company detail records yet</p>
+	}
+	else
+	{
+		<p>No company details exist matching the company name @SearchTerm entered</p>
+	}
+}
+else
+{
+	<table class="table table-bordered table-striped" id="table1">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Company Detail ID</th>
+				<th>
+					Active
+				</th>
+				<th>
+					Company Name
+					<button class="btn btn-sm" @onclick="@(() => SortCompanyDetails("CompanyName"))"><i class="fas fa-sort"></i></button>
+				</th>
+				<th>
+					Address Line 1
+				</th>
+				<th>
+					Address Line 2
+				</th>
+				<th>
+					City
+				</th>
+				<th>
+					Phone Number
+				</th>
+				<th>
+					Email
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var companyDetail in CompanyDetails)
+			{
+				<tr>
+					<td><img width="55" src="/images/Building-WF.png" class="rounded-circle" /></td>
+					<td>@companyDetail.Id</td>
+					<td>@companyDetail.Active</td>
+					<td>
+						@companyDetail.CompanyName
+					</td>
+					<td>@companyDetail.AddressLine1</td>
+					<td>@companyDetail.AddressLine2</td>
+					<td>@companyDetail.City</td>
+					<td>@companyDetail.PhoneNumber</td>
+					<td>
+						<a class="btn btn-link" href="mailto:@companyDetail.EmailAddress"> @companyDetail.EmailAddress</a>
+					</td>
+					<td>
+						<a href="@($"companydetail/{companyDetail.Id}")" class="btn btn-info table-btn">
+							<i class="fas fa-info-circle"></i>
+						</a>
+						<a href="@($"companydetailedit/{companyDetail.Id}")" class="btn btn-primary table-btn">
+							<i class="fas fa-edit"></i>
+						</a>
+
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+<NavLink class="btn btn-success btn-lg" href="/companydetailedit">
+	Add New Company Detail Record
+</NavLink>

@@ -41,6 +41,7 @@ namespace MSPApplication.Api
             services.AddScoped<INoticeRepository, NoticeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<ICompanyDetailRepository, CompanyDetailRepository>();
 
             services.AddCors(options =>
             {
