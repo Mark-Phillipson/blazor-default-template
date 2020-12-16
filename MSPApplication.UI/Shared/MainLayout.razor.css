@@ -1,4 +1,9 @@
-﻿/*.page {
+﻿.navbar-nav img{
+	padding-top:0.5rem !important;
+	padding-bottom:0.5rem !important;
+}
+
+/*.page {
 	position: relative;
 	display: flex;
 	flex-direction: column;

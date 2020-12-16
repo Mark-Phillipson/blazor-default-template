@@ -15,69 +15,72 @@
 </div>
 <br />
 <div class="row">
-    <div class="col-md-8">
-        <div class="d-none d-lg-block"><NewsWidget /></div>
-        <div id="tasks" class="widget d-none d-md-block">
-            <h3>
-                Top 3 Tasks
-                <button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button>
-                <span class="d-none d-lg-inline"><a href="tasksoverview/" class="btn btn-info mr-1 float-right">View All Tasks</a></span>
-            </h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var task in Tasks)
-                    {
-                        <tr>
-                            <td>@task.Title</td>
-                            <td>@task.Description</td>
-                            @{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
-                            <td>@statusName</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+	<div class="col-md-8">
+		<div class="d-none d-lg-block"><NewsWidget /></div>
+		<div id="tasks" class="widget d-none d-md-block">
+			<h3>
+				Top 3 Tasks
+				<button type="submit" @onclick="AddTask" class="btn btn-primary edit-btn float-right">Add Task</button>
+				<span class="d-none d-lg-inline"><a href="tasksoverview/" class="btn btn-info mr-1 float-right">View All Tasks</a></span>
+			</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var task in Tasks)
+					{
+						<tr>
+							<td>@task.Title</td>
+							<td>@task.Description</td>
+							@{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
+							<td>@statusName</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="col-md-4">
-        <NewEmployeesWidget HowManyToReturn="3" />
+	<div class="col-md-4">
+		<NewEmployeesWidget HowManyToReturn="3" />
 
-        <div id="reportConcern" class="widget">
-            <h3>Report a Concern</h3>
-            <p>It's simple, safe and anonymous.</p>
+		<div id="reportConcern" class="widget">
+			<h3>Report a Concern</h3>
+			<p>It's simple, safe and anonymous.</p>
 
-            @if (!EmailSent)
-            {
-                <EditForm Model="@NewConcern" OnValidSubmit="SubmitConcern">
-                    <DataAnnotationsValidator />
-                    <div class="form-group">
-                        <label for="title">Title: </label>
-                        <InputText id="title" class="form-control" @bind-Value="@NewConcern.Title" placeholder="Enter title"></InputText>
-                        <ValidationMessage For="@(() => NewConcern.Title)" />
-                    </div>
+			@if (!EmailSent)
+			{
+				<EditForm Model="@NewConcern" OnValidSubmit="SubmitConcern">
+					<DataAnnotationsValidator />
+					<div class="form-group">
+						<label for="title">Title: </label>
+						<InputText id="title" class="form-control" @bind-Value="@NewConcern.Title" placeholder="Enter title"></InputText>
+						<ValidationMessage For="@(() => NewConcern.Title)" />
+					</div>
 
-                    <div class="form-group">
-                        <label for="title">Description: </label>
-                        <InputTextArea id="title" class="form-control" @bind-Value="@NewConcern.Description" placeholder="Enter title"></InputTextArea>
-                        <ValidationMessage For="@(() => NewConcern.Description)" />
-                    </div>
+					<div class="form-group">
+						<label for="title">Description: </label>
+						<InputTextArea id="title" class="form-control" @bind-Value="@NewConcern.Description" placeholder="Enter title"></InputTextArea>
+						<ValidationMessage For="@(() => NewConcern.Description)" />
+					</div>
 
-                    <button type="submit" class="btn btn-primary edit-btn">Submit</button>
-                </EditForm>
-            }
-            else
-            {
-                <p>Your message has been sent! You should receive a response from HR within 24 hours.</p>
-                <button type="button" @onclick="ResetForm" class="btn btn-primary edit-btn">Send Another</button>
-            }
-        </div>
-    </div>
+					<button type="submit" class="btn btn-primary edit-btn">Submit</button>
+				</EditForm>
+			}
+			else
+			{
+				<p>Your message has been sent! You should receive a response from HR within 24 hours.</p>
+				<button type="button" @onclick="ResetForm" class="btn btn-primary edit-btn">Send Another</button>
+			}
+		</div>
+	</div>
 </div>
+<footer class="border-top footer text-muted">
+	<div class="copyright text-center">&copy; HR Template @DateTime.Now.Year, Powered by @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription Blazor Server</div>
+</footer>
