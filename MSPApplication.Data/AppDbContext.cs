@@ -192,7 +192,7 @@ namespace MSPApplication.Data
             modelBuilder.Entity<AspNetRole>(entity =>
             {
                 entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
+                    .HasDatabaseName("RoleNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedName] IS NOT NULL)");
 
@@ -247,10 +247,10 @@ namespace MSPApplication.Data
             modelBuilder.Entity<AspNetUser>(entity =>
             {
                 entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
+                    .HasDatabaseName("EmailIndex");
 
                 entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
+                    .HasDatabaseName("UserNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
