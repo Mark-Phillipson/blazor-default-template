@@ -17,8 +17,8 @@ Includes a stand-alone Blazor web assembly web application that is also a PWA fo
 <img src="https://github.com/Mark-Phillipson/blazor-default-template/blob/master/MSPApplication.UI/wwwroot/images/PWATo-DoList.png" align="center" width="40%">
 
 ## This is a header 2
-** this is bold **
-* this is a italic *
+**this is bold**
+*this is a italic*
 ![Alt Text](https://content.screencast.com/users/Mphillipson/folders/Snagit/media/48cad4ee-37cf-4b89-91f8-45bbe8526709/04.20.2018-11.01.png)
 [Blazor Documentation](https://docs.microsoft.com/en-gb/aspnet/core/blazor/?view=aspnetcore-3.1)
 1. Item 1
