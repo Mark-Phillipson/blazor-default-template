@@ -26,19 +26,7 @@ namespace MSPApplication.UI.Pages
 
         public List<HRTask> Tasks { get; set; } = new List<HRTask>();
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        public ClaimsPrincipal CurrentUser { get; set; }
-        //ElementReference ViewAllTasks;
-        //protected override async Task OnAfterRenderAsync(bool firstRender)
-        //{
-        //    if (firstRender)
-        //    {
-        //var authenticationState = await authenticationStateTask;
-        //CurrentUser = authenticationState.User;
-        //await JSRuntime.InvokeVoidAsync("focusOnElement", ViewAllTasks);
-        //StateHasChanged();
-        //    }
-        //}
+        public ClaimsPrincipal User { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Tasks = (await TaskService.GetAllTasks()).OrderBy(o => o.Status).Take(3).ToList();

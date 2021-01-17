@@ -1,55 +1,66 @@
 @inherits LayoutComponentBase
 @using MSPApplication.UI.Shared
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<CascadingValue Value="@User">
 
-<div class="page">
-	<div class="d-flex" id="wrapper">
-		<LeftNav DisplayStyle="@MenuDisplay" SidebarOpenedClass="@SidebarOpenedClass" />
-		<div id="page-content-wrapper">
-			<nav class="navbar navbar-expand-lg navbar-light border-bottom">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<h3 class="title">Human Resource Sample Application</h3>
-					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						<li><a href="#"><img src="/images/Home.png" width="30" /></a></li>
-						<LoginDisplay />
-						<li><a @onclick="ToggleMenu"><img src="/images/Menu.png" width="30" /></a></li>
-					</ul>
+	<div class="page">
+		<div class="d-flex" id="wrapper">
+			<LeftNav DisplayStyle="@MenuDisplay" SidebarOpenedClass="@SidebarOpenedClass" />
+			<div id="page-content-wrapper">
+				<nav class="navbar navbar-expand-lg navbar-light border-bottom">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<h3 class="title">Human Resource Sample Application</h3>
+						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+							<li><a href="#"><img src="/images/Home.png" width="30" /></a></li>
+							<LoginDisplay />
+							<li><a @onclick="ToggleMenu"><img src="/images/Menu.png" width="30" /></a></li>
+						</ul>
+					</div>
+				</nav>
+				<div class="container-fluid">
+					<a class="btn btn-sm btn-dark d-lg-none" @onclick="ToggleMenuSmallScreens"><img src="/images/Menu.png" width="30" /></a>
+					@Body
 				</div>
-			</nav>
-			<div class="container-fluid">
-				<a class="btn btn-sm btn-dark d-lg-none" @onclick="ToggleMenuSmallScreens"><img src="/images/Menu.png" width="30" /></a>
-				@Body
 			</div>
 		</div>
 	</div>
-</div>
+</CascadingValue>
 
-
-@code
+	@code
 {
-    public string MenuDisplay { get; set; } = "display:block";
-    public string SidebarOpenedClass { get; set; } = "sidebar-opened ml-0";
-    void ToggleMenu()
-    {
-        if (MenuDisplay=="display:block")
-        {
-            MenuDisplay = "display:none";
-        }
-        else
-        {
-            MenuDisplay = "display:block";
-        }
-        StateHasChanged();
-    }
-    void ToggleMenuSmallScreens()
-    {
-        if (SidebarOpenedClass == "sidebar-opened ml-0")
-        {
-            SidebarOpenedClass = "";
-        }
-        else
-        {
-            SidebarOpenedClass = "sidebar-opened ml-0";
-        }
-        ToggleMenu();
-    }
-}
+		public string MenuDisplay { get; set; } = "display:block";
+		public string SidebarOpenedClass { get; set; } = "sidebar-opened ml-0";
+		void ToggleMenu()
+		{
+			if (MenuDisplay == "display:block")
+			{
+				MenuDisplay = "display:none";
+			}
+			else
+			{
+				MenuDisplay = "display:block";
+			}
+			StateHasChanged();
+		}
+		void ToggleMenuSmallScreens()
+		{
+			if (SidebarOpenedClass == "sidebar-opened ml-0")
+			{
+				SidebarOpenedClass = "";
+			}
+			else
+			{
+				SidebarOpenedClass = "sidebar-opened ml-0";
+			}
+			ToggleMenu();
+		}
+		public ClaimsPrincipal User { get; set; }
+		protected override async Task OnInitializedAsync()
+		{
+			var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+			User = authenticationState.User;
+		}
+
+	}

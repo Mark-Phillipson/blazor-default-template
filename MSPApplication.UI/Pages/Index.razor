@@ -3,15 +3,18 @@
 @using MSPApplication.Shared
 @inject IJSRuntime JSRuntime
 <div class="row">
-    <div class="col-md-12">
-        <div class="d-none d-lg-block"><h1 class="page-title">Welcome to Human Resource Sample Application</h1></div>
-        <div class="d-lg-none"><h5 class="page-title">Welcome to HRSA</h5></div>
-        @*<Alert AlertType="info" Display="Welcome to HRSA" Title="Hello" Duration="500" Show="true"/>*@
-        @if (CurrentUser!= null  && CurrentUser.Identity.Name.ToLower().Contains("mphillipson0@gmail.com"))
-        {
-            <Alert AlertType="info" Display="@CurrentUser.Identity.Name" Title="Hello" Duration="5000" Show="true"/>
-        }
-    </div>
+	<div class="col-md-12">
+		<div class="d-none d-lg-block"><h1 class="page-title">Welcome to Human Resource Sample Application</h1></div>
+		<div class="d-lg-none"><h5 class="page-title">Welcome to HRSA</h5></div>
+		@*<Alert AlertType="info" Display="Welcome to HRSA" Title="Hello" Duration="500" Show="true"/>*@
+		@if (User != null && User.Identity.IsAuthenticated)
+		{
+			@if (User.Identity.Name.ToLower().Contains("mphillipson0@gmail.com"))
+			{
+				<Alert AlertType="info" Display="@User.Identity.Name" Title="Hello" Duration="5000" Show="true" />
+			}
+		}
+	</div>
 </div>
 <br />
 <div class="row">
