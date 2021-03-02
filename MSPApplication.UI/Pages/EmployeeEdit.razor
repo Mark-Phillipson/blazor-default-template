@@ -166,11 +166,11 @@
 							{
 								<tr>
 									<td style="width:25%">
-										<InputText  placeholder="Required" class="border border-warning form-control form-control-sm" @bind-Value="@item.Title" />
+										<InputText placeholder="Required" class="border border-warning form-control form-control-sm" @bind-Value="@item.Title" />
 										<div><ValidationMessage style="color:red" For="@(() => item.Title)" /></div>
 									</td>
 									<td style="width:50%">
-										<InputTextArea rows="3"  placeholder="Required" class="border border-warning form-control form-control-sm" @bind-Value="@item.Description" />
+										<InputTextArea rows="3" placeholder="Required" class="border border-warning form-control form-control-sm" @bind-Value="@item.Description" />
 										<div><ValidationMessage style="color:red" For="@(() => item.Description)" /></div>
 									</td>
 									<td style="width:20%">
@@ -192,12 +192,12 @@
 					</table>
 					@*<ValidationSummary />*@
 					<button type="submit" class="btn btn-primary edit-btn">Save Employee</button>
-					<a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Go Back</a>
+					<button type="button" class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Go Back</button>
 					@if (Employee.EmployeeId > 0 && Employee.HRTasks.Count == 0)
 					{
-						<a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
-							Delete
-						</a>
+						<button type="button" class="btn btn-danger" @onclick="@(() => DeleteEmployeeAsync(Employee.EmployeeId))">
+							Delete <i class="fas fa-trash"></i>
+						</button>
 					}
 				</div>
 			</div>
@@ -211,12 +211,3 @@
 
 	}
 </section>
-
-
-<TemplatedDialog Show="ShowDialog">
-	<ConfirmDialog Message="Please confirm you wish to Delete this Employee!"
-				   Title="Confirmation Required"
-				   OnCancel="CancelDelete" OnConfirm="DeleteEmployee">
-	</ConfirmDialog>
-</TemplatedDialog>
-

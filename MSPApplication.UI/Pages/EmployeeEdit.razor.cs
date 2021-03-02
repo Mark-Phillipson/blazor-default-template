@@ -1,7 +1,11 @@
+using Blazored.Modal;
+using Blazored.Modal.Services;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
+using MSPApplication.UI.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +15,15 @@ namespace MSPApplication.UI.Pages
 {
 	public partial class EmployeeEdit
 	{
-		[Inject]
-		public IEmployeeDataService EmployeeDataService { get; set; }
-
-		[Inject]
-		public ICountryDataService CountryDataService { get; set; }
-
-		[Inject]
-		public IJobCategoryDataService JobCategoryDataService { get; set; }
-
-		[Inject]
-		public NavigationManager NavigationManager { get; set; }
-
-		[Inject]
-		public ITaskDataService TaskDataService { get; set; }
-
-		[Parameter]
-		public int EmployeeId { get; set; }
-
+		[Inject] public IEmployeeDataService EmployeeDataService { get; set; }
+		[Inject] public ICountryDataService CountryDataService { get; set; }
+		[Inject] public IJobCategoryDataService JobCategoryDataService { get; set; }
+		[Inject] public NavigationManager NavigationManager { get; set; }
+		[Inject] public ITaskDataService TaskDataService { get; set; }
+		[Inject] public IToastService ToastService { get; set; }
+		[Parameter] public int EmployeeId { get; set; }
 		public InputText LastNameInputText { get; set; }
-
 		public Employee Employee { get; set; } = new Employee();
-		public bool ShowDialog { get; set; } = false;
 		//needed to bind to select to value
 		protected string CountryId = string.Empty;
 		protected string JobCategoryId = string.Empty;
@@ -82,8 +73,7 @@ namespace MSPApplication.UI.Pages
 				var addedEmployee = await EmployeeDataService.AddEmployee(Employee);
 				if (addedEmployee != null)
 				{
-					StatusClass = "alert-success";
-					Message = "New employee added successfully.";
+					ToastService.ShowSuccess("New employee added successfully.", "Success");
 					Saved = true;
 				}
 				else
@@ -96,8 +86,7 @@ namespace MSPApplication.UI.Pages
 			else
 			{
 				await EmployeeDataService.UpdateEmployee(Employee);
-				StatusClass = "alert-success";
-				Message = "Employee updated successfully.";
+				ToastService.ShowSuccess("Employee updated successfully.", "Success");
 				Saved = true;
 			}
 		}
@@ -118,17 +107,22 @@ namespace MSPApplication.UI.Pages
 			StatusClass = "alert-danger";
 			Message = "There are some validation errors. Please try again.";
 		}
-
-		protected async Task DeleteEmployee()
+		[CascadingParameter] public IModalService Modal { get; set; }
+		async Task DeleteEmployeeAsync(int employeeId)
 		{
-			await EmployeeDataService.DeleteEmployee(Employee.EmployeeId);
-
-			StatusClass = "alert-success";
-			Message = "Deleted successfully";
-			ShowDialog = false;
-			Saved = true;
+			var parameters = new ModalParameters();
+			parameters.Add("Title", "Please Confirm");
+			parameters.Add("Message", "Do you really wish to delete this Employee?");
+			parameters.Add("ButtonColour", "danger");
+			var employee = await EmployeeDataService.GetEmployeeDetails(employeeId);
+			var formModal = Modal.Show<BlazoredModalConfirmDialog>($"Delete Employee: {employee?.FullName}?", parameters);
+			var result = await formModal.Result;
+			if (!result.Cancelled)
+			{
+				await EmployeeDataService.DeleteEmployee(employeeId);
+				NavigateToOverview();
+			}
 		}
-
 		protected void NavigateToOverview()
 		{
 			NavigationManager.NavigateTo("/employeeoverview");
@@ -144,14 +138,6 @@ namespace MSPApplication.UI.Pages
 			Employee.HRTasks.Remove(task);
 			TaskDataService.DeleteTask(task.HRTaskId);
 			StateHasChanged();
-		}
-		protected void ShowDeleteConfirmation()
-		{
-			ShowDialog = true;
-		}
-		protected void CancelDelete()
-		{
-			ShowDialog = false;
 		}
 		private async void LookUpPostcode(string postcode)
 		{

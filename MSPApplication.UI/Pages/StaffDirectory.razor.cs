@@ -16,7 +16,7 @@ namespace MSPApplication.UI.Pages
 
         public List<Employee> Employees { get; set; }
 
-        protected AddEmployeeDialog AddEmployeeDialog { get; set; }
+        protected AddEmployee AddEmployeeDialog { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

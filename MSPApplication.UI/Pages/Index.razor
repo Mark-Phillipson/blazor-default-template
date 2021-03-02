@@ -11,7 +11,17 @@
 		{
 			@if (User.Identity.Name.ToLower().Contains("mphillipson0@gmail.com"))
 			{
+				// https://github.com/Blazored/Modal please see this link for more information on blazored modal
+				<button @onclick="@(() => Modal.Show<NewsWidget>("Notices"))" class="btn btn-primary">Notices</button>
+				<button class="btn btn-sm btn-danger" @onclick="TestEmailAsync"> Test Email</button>
+				<button class="btn btn-sm btn-danger" @onclick="TestTextEditorAsync">Test Text Editor</button>
+				<button class="btn btn-info" @onclick="@(() => ToastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+				<button class="btn btn-success" @onclick="@(() => ToastService.ShowSuccess("I'm a SUCCESS message with a custom title", "Congratulations!"))">Success Toast</button>
+				<button class="btn btn-warning" @onclick="@(() => ToastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+				<button class="btn btn-danger" @onclick="@(() => ToastService.ShowError("I'm an ERROR message"))">Error Toast</button>
+
 				<Alert AlertType="info" Display="@User.Identity.Name" Title="Hello" Duration="5000" Show="true" />
+				@Message
 			}
 		}
 	</div>
@@ -59,7 +69,7 @@
 
 			@if (!EmailSent)
 			{
-				<EditForm Model="@NewConcern" OnValidSubmit="SubmitConcern">
+				<EditForm Model="@NewConcern" OnValidSubmit="SubmitConcernAsync">
 					<DataAnnotationsValidator />
 					<div class="form-group">
 						<label for="title">Title: </label>

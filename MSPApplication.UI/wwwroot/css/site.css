@@ -435,13 +435,16 @@ a[data-toggle="collapse"] {
 }
 
 .dialog-title {
-	background-color: black;
-	color: blanchedalmond;
+	background-color: whitesmoke;
+	color: black;
+	border-color: red;
+	border: solid;
+	border-width: 1px;
 	padding: 1.3rem 2rem;
 }
 
 	.dialog-title h2 {
-		color: blanchedalmond;
+		color: black;
 		font-size: 1.4rem;
 		margin: 0;
 		font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
@@ -461,7 +464,7 @@ a[data-toggle="collapse"] {
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
-	color: blanchedalmond;
+	color: black;
 	padding: 0 1rem;
 }
 
@@ -469,7 +472,7 @@ a[data-toggle="collapse"] {
 	display: flex;
 	margin-top: 1rem;
 	align-items: center;
-	color: blanchedalmond;
+	color: black;
 }
 
 .dialog-body label {
@@ -484,7 +487,7 @@ a[data-toggle="collapse"] {
 }
 
 .dialog-footer {
-	background-color: black;
+	background-color: white;
 }
 
 .dialog-body .size-label {

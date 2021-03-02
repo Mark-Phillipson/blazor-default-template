@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
+using Blazored.Modal;
+using Blazored.Toast;
 
 namespace MSPApplication.UI
 {
@@ -29,7 +31,8 @@ namespace MSPApplication.UI
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-
+			services.AddBlazoredModal();
+			services.AddBlazoredToast();
 			services.AddScoped<HttpClient>(s =>
 			{
 				var client = new HttpClient { BaseAddress = new System.Uri("https://localhost:44340/") };
