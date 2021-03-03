@@ -6,36 +6,47 @@ using Microsoft.JSInterop;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MSPApplication.UI.Components
 {
-	public partial class AddEmployee
+	public partial class AddTask
 	{
 		[CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
 		[Parameter] public ClaimsPrincipal User { get; set; }
 		[Inject] public IToastService ToastService { get; set; }
 		[Inject] public IJSRuntime JSRuntime { get; set; }
-		public Employee Employee { get; set; } = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now.AddYears(-19), JoinedDate = DateTime.Now };
+		public HRTask Task { get; set; } = new HRTask();
+		[Inject] public ITaskDataService TaskDataService { get; set; }
 		[Inject] public IEmployeeDataService EmployeeDataService { get; set; }
+		public List<Employee> Employees { get; set; } = new List<Employee>();
+		protected string EmployeeId = "1";
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			if (firstRender)
 			{
-				await JSRuntime.InvokeVoidAsync("window.setFocus", "lastName");
+				await JSRuntime.InvokeVoidAsync("window.setFocus", "title");
 			}
 		}
-	public void Close()
+		protected override async Task OnInitializedAsync()
+		{
+			Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
+			Task = new HRTask { Status = HRTaskStatus.Open };
+		}
+
+		public void Close()
 		{
 			ModalInstance.CancelAsync();
 		}
 
 		protected async Task HandleValidSubmit()
 		{
-			await EmployeeDataService.AddEmployee(Employee);
+			await TaskDataService.AddTask(Task);
 			await ModalInstance.CloseAsync(ModalResult.Ok(true));
-			ToastService.ShowSuccess($"{Employee.FullName} Added successfully.", "Success");
+			ToastService.ShowSuccess($"{Task.Title} Added successfully.", "Success");
 		}
 	}
 }

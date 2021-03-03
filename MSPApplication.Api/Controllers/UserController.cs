@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
+using MSPApplication.Shared.ViewModels;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,7 +20,7 @@ namespace MSPApplication.Api.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public ActionResult<IEnumerable<User>> GetAllUsers()
         {
             var result = _userRepository.GetAllUsers();
             return Ok(result);

@@ -14,7 +14,7 @@ namespace MSPApplication.UI.Services
 		public async Task<Response> SendEmailAsync(Email email)
 		{
 			// https://app.sendgrid.com/settings/sender_auth/senders
-			// Will need to either get the customer to create their own account or set up a new contact so emails don't come back to me
+			// Will need to either get the customer to create their own account or set up a new contact so emails don't come back to the developer
 			//# Get Environment Variable
 			var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
 

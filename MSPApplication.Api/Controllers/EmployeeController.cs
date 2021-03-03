@@ -1,92 +1,110 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
+using System;
+using System.Collections.Generic;
 
 namespace MSPApplication.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmployeeController : Controller
-    {
-        private readonly IEmployeeRepository _employeeRepository;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class EmployeeController : Controller
+	{
+		private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
-        {
-            _employeeRepository = employeeRepository;
-        }
+		public EmployeeController(IEmployeeRepository employeeRepository)
+		{
+			_employeeRepository = employeeRepository;
+		}
 
-        [Route("[action]/{jobCategoryId?}")]
-        [HttpGet]
-        public IActionResult GetAllEmployees(int? jobCategoryId = null)
-        {
-            var result = _employeeRepository.GetAllEmployees(jobCategoryId);
-            return Ok(result);
-        }
+		/// <summary> 
+		/// Lists all the employees in the system and the job category is actually optional!
+		/// </summary> 
+		/// <param name="jobCategoryId"></param>
+		[Route("[action]/{jobCategoryId?}")]
+		[Route("[action]")]
+		[HttpGet]
+		public ActionResult<IEnumerable<Employee>> GetAllEmployees(int? jobCategoryId = null)
+		{
+			var result = _employeeRepository.GetAllEmployees(jobCategoryId);
+			if (result!= null )
+			{
+				return Ok(result);
+			}
 
-        [Route("[action]/{id}")]
-        [HttpGet]
-        public IActionResult GetEmployeeById(int id)
-        {
-            var result = _employeeRepository.GetEmployeeById(id);
-            return Ok(result);
-        }
+			return new BadRequestObjectResult( new Exception("there are no employees in the system!"));
+			// How to inspect action results in tests
+			//StatusCodeResult code;
+			//if ((code as StatusCodeResult).StatusCode == 200)
+			//{
+				
+			//}
+		}
 
-        [HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employee employee)
-        {
-            if (employee == null)
-                return BadRequest();
+		[Route("[action]/{id}")]
+		[HttpGet]
+		public IActionResult GetEmployeeById(int id)
+		{
+			var result = _employeeRepository.GetEmployeeById(id);
+			return Ok(result);
+		}
 
-            if (employee.FirstName == string.Empty || employee.LastName == string.Empty)
-            {
-                ModelState.AddModelError("Name/FirstName", "The name or first name shouldn't be empty");
-            }
+		[HttpPost]
+		public IActionResult CreateEmployee([FromBody] Employee employee)
+		{
+			if (employee == null)
+				return BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+			if (employee.FirstName == string.Empty || employee.LastName == string.Empty)
+			{
+				ModelState.AddModelError("Name/FirstName", "The name or first name shouldn't be empty");
+			}
 
-            var createdEmployee = _employeeRepository.AddEmployee(employee);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
 
-            return Created("employee", createdEmployee);
-        }
+			var createdEmployee = _employeeRepository.AddEmployee(employee);
 
-        [HttpPut]
-        public IActionResult UpdateEmployee([FromBody] Employee employee)
-        {
-            if (employee == null)
-                return BadRequest();
+			return Created("employee", createdEmployee);
+		}
 
-            if (employee.FirstName == string.Empty || employee.LastName == string.Empty)
-            {
-                ModelState.AddModelError("LastName/FirstName", "The first and last name are required!");
-            }
+		[HttpPut]
+		public IActionResult UpdateEmployee([FromBody] Employee employee)
+		{
+			if (employee == null)
+				return BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+			if (employee.FirstName == string.Empty || employee.LastName == string.Empty)
+			{
+				ModelState.AddModelError("LastName/FirstName", "The first and last name are required!");
+			}
 
-            var employeeToUpdate = _employeeRepository.GetEmployeeById(employee.EmployeeId);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
 
-            if (employeeToUpdate == null)
-                return NotFound();
+			var employeeToUpdate = _employeeRepository.GetEmployeeById(employee.EmployeeId);
 
-            _employeeRepository.UpdateEmployee(employee);
+			if (employeeToUpdate == null)
+				return NotFound();
 
-            return NoContent(); //success
-        }
+			_employeeRepository.UpdateEmployee(employee);
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteEmployee(int id)
-        {
-            if (id == 0)
-                return BadRequest();
+			return NoContent(); //success
+		}
 
-            var employeeToDelete = _employeeRepository.GetEmployeeById(id);
-            if (employeeToDelete == null)
-                return NotFound();
+		[HttpDelete("{id}")]
+		public IActionResult DeleteEmployee(int id)
+		{
+			if (id == 0)
+				return BadRequest();
 
-            _employeeRepository.DeleteEmployee(id);
+			var employeeToDelete = _employeeRepository.GetEmployeeById(id);
+			if (employeeToDelete == null)
+				return NotFound();
 
-            return NoContent();//success
-        }
-    }
+			_employeeRepository.DeleteEmployee(id);
+
+			return NoContent();//success
+		}
+	}
 }

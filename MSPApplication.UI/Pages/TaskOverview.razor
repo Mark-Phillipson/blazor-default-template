@@ -2,62 +2,65 @@
 @using MSPApplication.UI.Services
 @using MSPApplication.Shared
 
-@inject IJSRuntime JSRuntime
 
 <div class="row">
-    <div class="col-md-8"><h1 class="page-title">@title</h1></div>
-    <div class="col-md-4">
-        <input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-    </div>
+	<div class="col-md-8"><h1 class="page-title">@title</h1></div>
+	<div class="col-md-4">
+		<input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+	</div>
 </div>
 
-@if (Tasks == null && _loadFailed)
+@if (FilteredTasks == null && _loadFailed)
 {
-    <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
 }
-else if (Tasks == null)
+else if (FilteredTasks == null)
 {
-    <div style="display:normal;margin:auto" class="loader"></div>
+	<div style="display:normal;margin:auto" class="loader"></div>
+}
+else if (FilteredTasks.Count == 0)
+{
+	<p>No Tasks found</p>
+	<button @onclick="AddNewTaskAsync" class="btn btn-success">Create <i class="fas fa-plus"></i></button>
 }
 else
 {
-    <table class="table table-bordered table-striped" id="table1">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Task ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Assigned To</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var task in Tasks)
-            {
-                <tr>
-                    <td><img width="35" src="/images/Tasks.png" class="rounded-circle" /></td>
-                    <td>@task.HRTaskId</td>
-                    <td>@task.Title</td>
-                    <td>@task.Description</td>
-                    @{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
-                    <td>@statusName</td>
-                    <td>@task?.Employee?.FirstName</td>
-                    <td>
-                        @*<a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
-                                <i class="fas fa-info-circle"></i>
-                            </a>*@
-                        <a href="@($"taskedit/{task.HRTaskId}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<table class="table table-bordered table-striped" id="table1">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Task ID</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Status</th>
+				<th>Assigned To</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var task in FilteredTasks)
+			{
+				<tr>
+					<td><img width="35" src="/images/Tasks.png" class="rounded-circle" /></td>
+					<td>@task.HRTaskId</td>
+					<td>@task.Title</td>
+					<td>@task.Description</td>
+					@{var statusName = EnumHelper<HRTaskStatus>.GetDisplayValue(task.Status); }
+					<td>@statusName</td>
+					<td>@task?.Employee?.FirstName</td>
+					<td>
+						@*<a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
+								<i class="fas fa-info-circle"></i>
+							</a>*@
+						<button type="button" @onclick="@(() => EditTask(task.HRTaskId))" class="btn btn-primary table-btn">
+							<i class="fas fa-edit"></i>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
 
-<a class="btn btn-success table-btn quick-add-btn" href="@($"taskedit")"><i class="fas fa-plus"></i></a>
 
-@*<AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>*@
+

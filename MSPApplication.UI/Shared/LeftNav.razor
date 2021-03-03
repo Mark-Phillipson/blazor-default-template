@@ -1,6 +1,6 @@
-<div class="bg-dark @SidebarOpenedClass" id="sidebar-wrapper" style="@DisplayStyle">
+<div class="bg-dark @SidebarOpenedClass" id="sidebar-wrapper" style="z-index:50;@DisplayStyle">
 	<div class="sidebar-logo d-none d-lg-block">
-		<img class="img-responsive" id="logo" src="images/DefaultLogo.png" />
+		<img class="img-responsive" id="logo" src="images/DefaultLogo.png" style="max-height:100px;max-width:100px" />
 	</div>
 	@*<div class="profile-picture">
 			<img class="img-responsive" src="images/CriticalError.png" />
@@ -28,69 +28,68 @@
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a @onclick="(() => ToggleNav1(2))" data-toggle="collapse" class="dropdown-toggle">Employees</a>
-					<ul class="list-unstyled sub-menu @( this.IsHidden2 ? "toggle-hide": "toggle-show")" id="employees">
-						<li>
-							<NavLink href="/employeeoverview">
-								View Employees
-							</NavLink>
-						</li>
-						<li>
-							<NavLink href="/employeeedit">
-								Add New Employee
-							</NavLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-				</li>
-				<li>
-					<a @onclick="(() => ToggleNav1(4))" data-toggle="collapse" class="dropdown-toggle">Expenses</a>
-					<ul class="list-unstyled sub-menu @( this.IsHidden4 ? "toggle-hide": "toggle-show")" id="training">
-						<li>
-							<NavLink href="/expenses">
-								Expenses
-							</NavLink>
-						</li>
-						<li>
-							<NavLink href="/expenseedit">
-								New Expense
-							</NavLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a @onclick="(() => ToggleNav1(5))" data-toggle="collapse" class="dropdown-toggle">Feedback</a>
-					<ul class="list-unstyled sub-menu @( this.IsHidden5 ? "toggle-hide": "toggle-show")" id="feedback">
-						<li>
-							<NavLink href="/surveys">
-								Surveys
-							</NavLink>
-						</li>
-						<li>
-							<NavLink href="/surveyedit">
-								New Survey
-							</NavLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a @onclick="(() => ToggleNav1(6))" data-toggle="collapse" class="dropdown-toggle">Job Categories</a>
-					<ul class="list-unstyled sub-menu @( this.IsHidden6 ? "toggle-hide": "toggle-show")" id="jobCategories">
-						<li>
-							<NavLink href="/jobcategoryoverview">
-								View Job Categories
-							</NavLink>
-						</li>
-						<li>
-							<NavLink href="/jobcategoryedit">
-								Add New Job Category
-							</NavLink>
-						</li>
-					</ul>
-				</li>
-
+				<AuthorizeView>
+					<li>
+						<a @onclick="(() => ToggleNav1(2))" data-toggle="collapse" class="dropdown-toggle">Employees</a>
+						<ul class="list-unstyled sub-menu @( this.IsHidden2 ? "toggle-hide": "toggle-show")" id="employees">
+							<li>
+								<NavLink href="/employeeoverview">
+									View Employees
+								</NavLink>
+							</li>
+							<li>
+								<NavLink href="/employeeedit">
+									Add New Employee
+								</NavLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a @onclick="(() => ToggleNav1(4))" data-toggle="collapse" class="dropdown-toggle">Expenses</a>
+						<ul class="list-unstyled sub-menu @( this.IsHidden4 ? "toggle-hide": "toggle-show")" id="training">
+							<li>
+								<NavLink href="/expenses">
+									Expenses
+								</NavLink>
+							</li>
+							<li>
+								<NavLink href="/expenseedit">
+									New Expense
+								</NavLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a @onclick="(() => ToggleNav1(5))" data-toggle="collapse" class="dropdown-toggle">Feedback</a>
+						<ul class="list-unstyled sub-menu @( this.IsHidden5 ? "toggle-hide": "toggle-show")" id="feedback">
+							<li>
+								<NavLink href="/surveys">
+									Surveys
+								</NavLink>
+							</li>
+							<li>
+								<NavLink href="/surveyedit">
+									New Survey
+								</NavLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a @onclick="(() => ToggleNav1(6))" data-toggle="collapse" class="dropdown-toggle">Job Categories</a>
+						<ul class="list-unstyled sub-menu @( this.IsHidden6 ? "toggle-hide": "toggle-show")" id="jobCategories">
+							<li>
+								<NavLink href="/jobcategoryoverview">
+									View Job Categories
+								</NavLink>
+							</li>
+							<li>
+								<NavLink href="/jobcategoryedit">
+									Add New Job Category
+								</NavLink>
+							</li>
+						</ul>
+					</li>
+				</AuthorizeView>
 				<li>
 					<NavLink href="/staffdirectory">
 						Staff Directory
@@ -172,6 +171,7 @@
 		}
 
 	}
+
 	[Parameter] public string DisplayStyle { get; set; } = "display:block";
 	[Parameter] public string SidebarOpenedClass { get; set; } = "";
 }

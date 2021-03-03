@@ -24,12 +24,12 @@
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 							<li><a href="#"><img src="/images/Home.png" width="30" /></a></li>
 							<LoginDisplay />
-							<li><a @onclick="ToggleMenu"><img src="/images/Menu.png" width="30" /></a></li>
+							<li><a title="Toggle Menu" @onclick="ToggleMenu"><img src="/images/Menu.png" width="30" /></a></li>
 						</ul>
 					</div>
 				</nav>
 				<div class="container-fluid">
-					<a class="btn btn-sm btn-dark d-lg-none" @onclick="ToggleMenuSmallScreens"><img src="/images/Menu.png" width="30" /></a>
+					<a style="float:right" class="btn btn-sm btn-dark d-lg-none" @onclick="ToggleMenuSmallScreens"><img src="/images/Menu.png" width="30" /></a>
 					@Body
 				</div>
 			</div>
