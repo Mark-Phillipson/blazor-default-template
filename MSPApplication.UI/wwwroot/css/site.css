@@ -136,7 +136,7 @@ nav {
 }
 
 #sidebar-wrapper {
-	width: 200px;
+	width: 227px;
 	min-height: 100vh;
 	margin-left: -15rem;
 	-webkit-transition: margin .25s ease-out;
@@ -153,7 +153,10 @@ nav {
 	#sidebar-wrapper .list-group {
 		width: 10rem;
 	}
-
+/*	.sidebar-opened{
+		width: 1260px;
+	}
+*/
 .active {
 	font-weight: bold;
 }
@@ -504,11 +507,13 @@ a[data-toggle="collapse"] {
 	border: 16px solid #f3f3f3;
 	border-radius: 50%;
 	border-top: 16px solid #3498db;
-	width: 120px;
-	height: 120px;
+	width: 150px;
+	height: 150px;
 	-webkit-animation: spin 2s linear infinite; /* Safari */
 	animation: spin 2s linear infinite;
 }
+
+
 
 .page-background {
 	background-color: azure;

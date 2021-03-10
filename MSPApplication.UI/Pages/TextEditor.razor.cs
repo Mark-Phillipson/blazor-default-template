@@ -1,6 +1,7 @@
 ﻿using Blazored.Modal;
 using Blazored.Modal.Services;
 using Blazored.TextEditor;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
@@ -14,6 +15,7 @@ namespace MSPApplication.UI.Pages
 	public partial class TextEditor
 	{
 		[Inject] private IEmailService EmailService { get; set; }
+		[Inject] IToastService ToastService { get; set; }
 		[Parameter] public string EditorContent { get; set; } = "<h1>Header one</h1><h3>Header three</h3>";
 		[Parameter] public string EditorContentHtmlSuffix { get; set; }
 		[Parameter] public string Subject { get; set; } = "Email Subject";
@@ -61,12 +63,12 @@ namespace MSPApplication.UI.Pages
 			var response = await EmailService.SendEmailAsync(email);
 			if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
 			{
-				Message = $"Email appears to have been sent correctly to {email.ToAddress}";
+				ToastService.ShowSuccess($"Email appears to have been sent correctly to {email.ToAddress}", "SUCCESS");
 				await ModalInstance.CloseAsync(ModalResult.Ok<string>(Message));
 			}
 			else
 			{
-				Message = $"Email failed to send with the following status code {response.StatusCode}";
+				ToastService.ShowError($"Email failed to send with the following status code {response.StatusCode}", "ERROR");
 			}
 
 		}

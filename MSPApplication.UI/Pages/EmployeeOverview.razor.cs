@@ -41,7 +41,8 @@ namespace MSPApplication.UI.Pages
 		{
 			await LoadData();
 		}
-		 async Task LoadData()
+
+		async Task LoadData()
 		{
 			try
 			{

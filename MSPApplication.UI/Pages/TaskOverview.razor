@@ -2,11 +2,10 @@
 @using MSPApplication.UI.Services
 @using MSPApplication.Shared
 
-
 <div class="row">
 	<div class="col-md-8"><h1 class="page-title">@title</h1></div>
 	<div class="col-md-4">
-		<input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+		<input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
 	</div>
 </div>
 
@@ -22,19 +21,22 @@ else if (FilteredTasks.Count == 0)
 {
 	<p>No Tasks found</p>
 	<button @onclick="AddNewTaskAsync" class="btn btn-success">Create <i class="fas fa-plus"></i></button>
+
 }
 else
 {
-	<table class="table table-bordered table-striped" id="table1">
+	<table class="table table-bordered table-striped" id="tableTasks">
 		<thead>
 			<tr>
-				<th></th>
+				<th>Icon</th>
 				<th>Task ID</th>
 				<th>Title</th>
 				<th>Description</th>
 				<th>Status</th>
 				<th>Assigned To</th>
-				<th></th>
+				<th>
+					<button @onclick="AddNewTaskAsync" class="btn btn-success">Create <i class="fas fa-plus"></i></button>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -49,11 +51,11 @@ else
 					<td>@statusName</td>
 					<td>@task?.Employee?.FirstName</td>
 					<td>
-						@*<a href="@($"taskdetail/{task.HRTaskId}")" class="btn btn-info">
-								<i class="fas fa-info-circle"></i>
-							</a>*@
+						@*<button type="button" @onclick="@(() => ViewDetails(task.HRTaskId))" class="btn btn-info table-btn">
+							<i class="fas fa-info-circle"></i>
+						</button>*@
 						<button type="button" @onclick="@(() => EditTask(task.HRTaskId))" class="btn btn-primary table-btn">
-							<i class="fas fa-edit"></i>
+							Edit <i class="fas fa-edit"></i>
 						</button>
 					</td>
 				</tr>

@@ -4,7 +4,7 @@
 
 
 
-<h1 class="page-title">Task Details @Task.Title</h1>
+<h1 class="page-title">Edit Task Details: Title @Task.Title</h1>
 <EditForm Model="@Task" OnValidSubmit="@HandleValidSubmit">
 
 	<DataAnnotationsValidator />
@@ -15,7 +15,7 @@
 	</div>
 	<div class="form-group row">
 		<label for="Description" class="col-sm-3">Description: </label>
-		<InputTextArea id="Description" class="form-control col-sm-8" @bind-Value="@Task.Description" placeholder="Enter Description"></InputTextArea>
+		<InputTextArea rows="6" id="Description" class="form-control col-sm-8" @bind-Value="@Task.Description" placeholder="Enter Description"></InputTextArea>
 	</div>
 
 	<div class="form-group row">
@@ -42,17 +42,17 @@
 	<div class="btn-group">
 		@if (Task.HRTaskId > 0)
 		{
-			<button type="submit" class="btn btn-primary edit-btn">Save Task</button>
+			<button type="submit" class="btn btn-success">Save Task</button>
 		}
 		else
 		{
-			<button type="submit" class="btn btn-primary edit-btn">Add Task</button>
+			<button type="submit" class="btn btn-success">Add Task</button>
 		}
 		@if (Task.HRTaskId > 0)
 		{
-			<button type="button" @onclick="@(() => DeleteEmployeeAsync(Task.HRTaskId))" class="btn btn-danger">Delete</button>
+	<button type="button" @onclick="@(() => DeleteTaskAsync(Task.HRTaskId))" class="btn btn-danger">Delete <i class="fas fa-trash"></i></button>
 		}
-		<button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Cancel</button>
+		<button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Go Back</button>
 	</div>
 </EditForm>
 

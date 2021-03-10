@@ -1,5 +1,6 @@
 using Blazored.Modal;
 using Blazored.Modal.Services;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
@@ -17,6 +18,7 @@ namespace MSPApplication.UI.Pages
 	public partial class TaskOverview
 	{
 		[Inject] public ITaskDataService TaskDataService { get; set; }
+		[Inject] IToastService ToastService { get; set; }
 		[Inject]public ILogger<TaskOverview> Logger { get; set; }
 		[Inject] NavigationManager NavigationManager { get; set; }
 		[CascadingParameter] public IModalService Modal { get; set; }
@@ -34,7 +36,6 @@ namespace MSPApplication.UI.Pages
 		{
 			await LoadData();
 		}
-
 		private async Task LoadData()
 		{
 			try
@@ -44,6 +45,7 @@ namespace MSPApplication.UI.Pages
 			catch (Exception exception)
 			{
 				Logger.LogError("Exception occurred in on initialised async Task Data Service", exception);
+				ToastService.ShowError($"Unexpected error has occurred {exception.Message}","ERROR"); 
 				_loadFailed = true;
 			}
 			FilteredTasks = Tasks;

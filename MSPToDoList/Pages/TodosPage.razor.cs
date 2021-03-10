@@ -17,8 +17,7 @@ namespace MSPToDoList.Pages
 	public partial class TodosPage
 	{
 		private List<ToDoList> todos;
-		[Inject]
-		public ILocalStorageService LocalStorage { get; set; }
+		[Inject] public ILocalStorageService LocalStorage { get; set; }
 
 #pragma warning disable 414, 649, 169
 		private string message = "";
@@ -82,6 +81,7 @@ namespace MSPToDoList.Pages
 		async Task DownloadFileAsync()
 		{
 			//var text = todos.ToList().ToString();
+			
 			var text = JsonConvert.SerializeObject(todos.ToList());
 			var bytes = System.Text.Encoding.UTF8.GetBytes(text);
 			await FileUtility.SaveAs(JSRuntime, "todo.json", bytes);

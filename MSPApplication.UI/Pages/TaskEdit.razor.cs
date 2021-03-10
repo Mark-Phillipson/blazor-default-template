@@ -74,18 +74,19 @@ namespace MSPApplication.UI.Pages
 			}
 		}
 		[CascadingParameter] public IModalService Modal { get; set; }
-		async Task DeleteEmployeeAsync(int taskId)
+		async Task DeleteTaskAsync(int taskId)
 		{
 			var parameters = new ModalParameters();
 			parameters.Add("Title", "Please Confirm");
 			parameters.Add("Message", "Do you really wish to delete this Task?");
 			parameters.Add("ButtonColour", "danger");
 			var task = await TaskDataService.GetTaskById(taskId);
-			var formModal = Modal.Show<BlazoredModalConfirmDialog>($"Delete Employee: {task?.Title}?", parameters);
+			var formModal = Modal.Show<BlazoredModalConfirmDialog>($"Delete Task: {task?.Title}?", parameters);
 			var result = await formModal.Result;
 			if (!result.Cancelled)
 			{
 				await TaskDataService.DeleteTask(taskId);
+				ToastService.ShowSuccess($"{task?.Title} has been deleted successfully. ", "SUCCESS");
 				NavigateToOverview();
 			}
 		}

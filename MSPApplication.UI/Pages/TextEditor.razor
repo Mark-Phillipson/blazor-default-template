@@ -1,77 +1,74 @@
 ﻿@page "/texteditor"
 @using Blazored.TextEditor
-<div class="text-danger">
-	@Message
-</div>
-<div class="form-group row">
-	<label class="control-label col-md-2">To</label>
-	<input @bind="ToAddress" class="form-control col-md-8" />
-	<button class="btn btn-danger col-md-2 btn-sm" style="float:right" @onclick="SendEmailAsync">Send</button>
-</div>
-<div class="form-group row">
-	<label class="control-label col-md-2">Subject</label>
-	<input name="Subject" id="Subject" @bind="Subject" class="form-control col-md-10" />
-</div>
-@if (EditorContentHtmlSuffix != null)
-{
-	<div style="font-size:smaller">
-		@((MarkupString)EditorContentHtmlSuffix)
+<div style="min-width:600px;min-height:500px">
+	<div class="text-danger">
+		@Message
 	</div>
-}
-@if (!string.IsNullOrEmpty(EditorContent))
-{
-	<BlazoredTextEditor @ref="@QuillHtml">
-	<ToolbarContent>
-		<select class="ql-header">
-			<option selected=""></option>
-			<option value="1"></option>
-			<option value="2"></option>
-			<option value="3"></option>
-			<option value="4"></option>
-			<option value="5"></option>
-		</select>
-		<span class="ql-formats">
-			<button class="ql-bold"></button>
-			<button class="ql-italic"></button>
-			<button class="ql-underline"></button>
-			<button class="ql-strike"></button>
-		</span>
-		<span class="ql-formats">
-			<select class="ql-color"></select>
-			<select class="ql-background"></select>
-		</span>
-		<span class="ql-formats">
-			<button class="ql-list" value="ordered"></button>
-			<button class="ql-list" value="bullet"></button>
-		</span>
-		<span class="ql-formats">
-			<button class="ql-link"></button>
-		</span>
-	</ToolbarContent>
-	<EditorContent>
-		<h4>This Toolbar works with HTML</h4>
-		<a href="http://BlazorHelpWebsite.com">
-			BlazorHelpWebsite.com
-		</a>
-	</EditorContent>
-</BlazoredTextEditor>
-}
-<br />
-<button class="btn btn-primary"
-		@onclick="GetHTML">
-	Get HTML
-</button>
-<button class="btn btn-primary"
-		@onclick="SetHTML">
-	Set HTML
-</button>
-<br />
-<div>
-	<br />
-	@((MarkupString)QuillHTMLContent)
-	@QuillHTMLContent
-</div>
-<br />
+	<div class="form-group row">
+		<label class="control-label col-md-2">To</label>
+		<input @bind="ToAddress" class="form-control col-md-8" />
+		<button class="btn btn-danger col-md-2 btn-sm" style="float:right" @onclick="SendEmailAsync">Send</button>
+	</div>
+	<div class="form-group row">
+		<label class="control-label col-md-2">Subject</label>
+		<input name="Subject" id="Subject" @bind="Subject" class="form-control col-md-10" />
+	</div>
+	@if (EditorContentHtmlSuffix != null)
+	{
+		<div style="font-size:smaller">
+			@((MarkupString)EditorContentHtmlSuffix)
+		</div>
+	}
+	@if (!string.IsNullOrEmpty(EditorContent))
+	{
+		<BlazoredTextEditor @ref="@QuillHtml">
+			<ToolbarContent>
+				<select class="ql-header">
+					<option selected=""></option>
+					<option value="1"></option>
+					<option value="2"></option>
+					<option value="3"></option>
+					<option value="4"></option>
+					<option value="5"></option>
+				</select>
+				<span class="ql-formats">
+					<button class="ql-bold"></button>
+					<button class="ql-italic"></button>
+					<button class="ql-underline"></button>
+					<button class="ql-strike"></button>
+				</span>
+				<span class="ql-formats">
+					<select class="ql-color"></select>
+					<select class="ql-background"></select>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-list" value="ordered"></button>
+					<button class="ql-list" value="bullet"></button>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-link"></button>
+				</span>
+			</ToolbarContent>
+			<EditorContent>
+			</EditorContent>
+		</BlazoredTextEditor>
+	}
 
+	@*<button class="btn btn-primary"
+				@onclick="GetHTML">
+			Get HTML
+		</button>
+		<button class="btn btn-primary"
+				@onclick="SetHTML">
+			Set HTML
+		</button>*@
+
+	<div>
+		<br />
+		@((MarkupString)QuillHTMLContent)
+		@QuillHTMLContent
+	</div>
+
+</div>
 @code {
 }

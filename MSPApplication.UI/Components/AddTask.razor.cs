@@ -23,7 +23,7 @@ namespace MSPApplication.UI.Components
 		[Inject] public ITaskDataService TaskDataService { get; set; }
 		[Inject] public IEmployeeDataService EmployeeDataService { get; set; }
 		public List<Employee> Employees { get; set; } = new List<Employee>();
-		protected string EmployeeId = "1";
+		protected string EmployeeId =  null;
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			if (firstRender)
@@ -35,6 +35,9 @@ namespace MSPApplication.UI.Components
 		{
 			Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
 			Task = new HRTask { Status = HRTaskStatus.Open };
+
+			var employee = Employees.FirstOrDefault(e => e.Email.ToLower() == User?.Identity?.Name?.ToLower());
+			Task.EmployeeId = employee?.EmployeeId;
 		}
 
 		public void Close()
