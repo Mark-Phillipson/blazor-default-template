@@ -94,6 +94,7 @@ else
 									</td>
 									<td>
 										<button class="btn btn-sm btn-danger" @onclick="@(() => DeleteToDo(todo))">Delete</button>
+										<button type="button" class="btn btn-primary btn-sm" @onclick="@(() => CopyTextToClipboard(todo))">Copy</button>
 									</td>
 								</tr>
 							}

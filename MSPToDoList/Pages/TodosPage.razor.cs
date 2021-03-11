@@ -18,7 +18,6 @@ namespace MSPToDoList.Pages
 	{
 		private List<ToDoList> todos;
 		[Inject] public ILocalStorageService LocalStorage { get; set; }
-
 #pragma warning disable 414, 649, 169
 		private string message = "";
 		private bool _loadFailed = false;
@@ -117,5 +116,12 @@ namespace MSPToDoList.Pages
 				}
 			}
 		}
+		private async Task CopyTextToClipboard(ToDoList todo)
+		{
+			await JSRuntime.InvokeVoidAsync(
+				"clipboardCopy.copyText", todo.Description);
+			toastService.ShowSuccess( $"Copied Successfully at {DateTime.Now:hh:mm}","Happy Days");
+		}
+
 	}
 }
