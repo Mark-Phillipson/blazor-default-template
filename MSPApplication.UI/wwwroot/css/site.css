@@ -518,3 +518,11 @@ a[data-toggle="collapse"] {
 .page-background {
 	background-color: azure;
 }
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}

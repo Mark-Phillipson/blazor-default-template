@@ -8,10 +8,10 @@
 		<input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
 	</div>
 </div>
-
 @if (FilteredTasks == null && _loadFailed)
 {
 	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<button class="btn btn-danger" type="button" @onclick="@( () => LoadData() )">Reload</button>
 }
 else if (FilteredTasks == null)
 {
@@ -52,8 +52,8 @@ else
 					<td>@task?.Employee?.FirstName</td>
 					<td>
 						@*<button type="button" @onclick="@(() => ViewDetails(task.HRTaskId))" class="btn btn-info table-btn">
-							<i class="fas fa-info-circle"></i>
-						</button>*@
+								<i class="fas fa-info-circle"></i>
+							</button>*@
 						<button type="button" @onclick="@(() => EditTask(task.HRTaskId))" class="btn btn-primary table-btn">
 							Edit <i class="fas fa-edit"></i>
 						</button>

@@ -3,6 +3,7 @@
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Components.Authorization
 @using Blazored.Toast.Configuration
+@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 <CascadingValue Value="@User">
 
@@ -71,5 +72,12 @@
 			var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 			User = authenticationState.User;
 		}
+		protected override void OnAfterRender(bool firstRender)
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				NavigationManager.NavigateTo($"Identity/Account/Login", true);
+			}
 
+		}
 	}

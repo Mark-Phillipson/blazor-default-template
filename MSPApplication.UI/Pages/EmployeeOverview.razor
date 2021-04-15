@@ -13,6 +13,7 @@
 @if (FilteredEmployees == null && _loadFailed == true)
 {
 	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<button class="btn btn-danger" type="button" @onclick="@( () => LoadData() )">Reload</button>
 	<h6>@ExceptionMessage</h6>
 }
 else if (FilteredEmployees == null)
@@ -46,26 +47,26 @@ else
 		<tbody>
 			@foreach (var employee in FilteredEmployees)
 			{
-			<tr>
-				<td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
-				<td>@employee.EmployeeId</td>
-				<td>@employee.FullName</td>
-				<td>
-					<a class="btn btn-link" href="mailto:@employee.Email"> @employee.Email</a>
-				</td>
-				<td>@employee.JobCategory.JobCategoryName</td>
-				<td class="btn-group">
-					<button class="btn btn-sm btn-info" @onclick="@(() => DetailEmployeeAsync(employee.EmployeeId))">
-						<i class="fas fa-info-circle"></i>
-					</button>
-					<button class="btn btn-sm btn-warning" @onclick="@(() => EditEmployeeAsync(employee.EmployeeId))">
-						<i class="fas fa-edit"></i>
-					</button>
-					<button class="btn btn-sm btn-danger" @onclick="@(() => DeleteEmployeeAsync(employee.EmployeeId))">
-						<i class="fas fa-trash"></i>
-					</button>
-				</td>
-			</tr>
+				<tr>
+					<td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
+					<td>@employee.EmployeeId</td>
+					<td>@employee.FullName</td>
+					<td>
+						<a class="btn btn-link" href="mailto:@employee.Email"> @employee.Email</a>
+					</td>
+					<td>@employee.JobCategory.JobCategoryName</td>
+					<td class="btn-group">
+						<button class="btn btn-sm btn-info" @onclick="@(() => DetailEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-info-circle"></i>
+						</button>
+						<button class="btn btn-sm btn-warning" @onclick="@(() => EditEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-edit"></i>
+						</button>
+						<button class="btn btn-sm btn-danger" @onclick="@(() => DeleteEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-trash"></i>
+						</button>
+					</td>
+				</tr>
 			}
 		</tbody>
 	</table>

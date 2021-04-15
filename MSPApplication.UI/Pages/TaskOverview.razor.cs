@@ -19,7 +19,7 @@ namespace MSPApplication.UI.Pages
 	{
 		[Inject] public ITaskDataService TaskDataService { get; set; }
 		[Inject] IToastService ToastService { get; set; }
-		[Inject]public ILogger<TaskOverview> Logger { get; set; }
+		[Inject] public ILogger<TaskOverview> Logger { get; set; }
 		[Inject] NavigationManager NavigationManager { get; set; }
 		[CascadingParameter] public IModalService Modal { get; set; }
 		[Inject] public IJSRuntime JSRuntime { get; set; }
@@ -45,7 +45,7 @@ namespace MSPApplication.UI.Pages
 			catch (Exception exception)
 			{
 				Logger.LogError("Exception occurred in on initialised async Task Data Service", exception);
-				ToastService.ShowError($"Unexpected error has occurred {exception.Message}","ERROR"); 
+				ToastService.ShowError($"Unexpected error has occurred {exception.Message}", "ERROR");
 				_loadFailed = true;
 			}
 			FilteredTasks = Tasks;
