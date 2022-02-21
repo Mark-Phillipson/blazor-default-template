@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29403.142
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32210.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplication.Api", "MSPApplication.Api\MSPApplication.Api.csproj", "{E2F902F3-EED9-4A0D-B613-475C242543A5}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplication.UI", "MSPApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject", "XUnitTestProject\XUnitTestProject.csproj", "{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPToDoList", "MSPToDoList\MSPToDoList.csproj", "{E37CE992-2A2A-4E75-A6F0-0C57C300BCE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo", "MSPToDoList\Todo.csproj", "{E37CE992-2A2A-4E75-A6F0-0C57C300BCE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

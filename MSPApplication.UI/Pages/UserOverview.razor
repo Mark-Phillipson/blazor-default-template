@@ -2,58 +2,49 @@
 @inject IJSRuntime JSRuntime
 @attribute [Authorize(Roles = "Administration")]
 <div class="row">
-    <div class="col-md-8"><h1 class="page-title">@title</h1></div>
-    <div class="col-md-4">
-        <input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
-    </div>
+	<div class="col-md-8"><h1 class="page-title">@title</h1></div>
+	<div class="col-md-4">
+		<input @ref="SearchInput" class="form-control" @bind="@SearchTerm" @oninput="@(e => CallChangeAsync("SearchInput"))" id="SearchInput" accesskey="f" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+	</div>
 </div>
 @if (Users == null && _loadFailed)
 {
-    <h1 class="text-danger">The data failed to load please try again in a little while..</h1>
-    <h6>@ExceptionMessage</h6>
+	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<h6>@ExceptionMessage</h6>
 }
 else if (Users == null)
 {
-    <div style="display:normal;margin:auto" class="loader"></div>
+	<div style="display:normal;margin:auto" class="loader"></div>
 }
 else
 {
-    <table class="table table-bordered table-striped" id="table1">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Email Confirmed</th>
-                <th>Phone Number</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Users)
-            {
-                <tr>
-                    <td><img width="35" src="/images/Employee.png" class="rounded-right" /></td>
-                    <td>@user.UserName</td>
-                    <td>@user.Email</td>
-                    <td>@user.EmailConfirmed</td>
-                    <td>@user.PhoneNumber</td>
-                    <td>
-                        @*<a href="@($"userdetail/{user.Id}")" class="btn btn-primary table-btn">
-                                <i class="fas fa-info-circle"></i>
-                            </a>*@
-                        <a href="@($"useredit/{user.Id}")" class="btn btn-warning table-btn btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    @*<NavLink class="btn btn-success btn-lg" href="/useredit">
-            Add New User
-        </NavLink>*@
-
+	<table class="table table-bordered table-striped" id="table1">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Email Confirmed</th>
+				<th>Phone Number</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Users)
+			{
+				<tr>
+					<td><img width="35" src="/images/Employee.png" class="rounded-right" /></td>
+					<td>@user.UserName</td>
+					<td>@user.Email</td>
+					<td>@user.EmailConfirmed</td>
+					<td>@user.PhoneNumber</td>
+					<td>
+						<button class="btn btn-warning" type="button" @onclick="@( () => EditUser(user.Id) )">
+						<i class="fas fa-edit"></i></button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
 

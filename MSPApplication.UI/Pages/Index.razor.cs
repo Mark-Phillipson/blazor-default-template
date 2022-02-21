@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MSPApplication.Shared;
 using MSPApplication.UI.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -20,7 +21,7 @@ namespace MSPApplication.UI.Pages
 
 		[Inject] public IEmailService EmailService { get; set; }
 		[Inject] public ITaskDataService TaskService { get; set; }
-		[Inject] public IToastService ToastService { get; set; }
+		[Inject] IToastService ToastService { get; set; }
 		[Inject] public NavigationManager NavigationManager { get; set; }
 		public List<HRTask> Tasks { get; set; } = new List<HRTask>();
 		[CascadingParameter]
@@ -88,5 +89,8 @@ namespace MSPApplication.UI.Pages
 			}
 
 		}
+		
+
+
 	}
 }

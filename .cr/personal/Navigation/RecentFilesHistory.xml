@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root Type="DevExpress.CodeRush.Foundation.Navigation.QuickFileNav.SolutionFileInfosContainer">
+  <Options Language="Neutral">
+    <Items>
+      <Item Id="{80d2e281-800b-4da5-8f3a-cfc641bf626d}">
+        <Filename>Index.razor</Filename>
+        <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.ui\pages\index.razor</FilePath>
+        <Folders>
+          <Item>Pages</Item>
+        </Folders>
+        <ProjectFileName>C:\Users\MPhil\Source\Repos\blazor-default-template\MSPApplication.UI\MSPApplication.UI.csproj</ProjectFileName>
+        <ProjectName>MSPApplication.UI</ProjectName>
+      </Item>
+      <Item Id="{fba6e650-75a1-4488-a352-5cb7068f80e3}">
+        <Filename>Employee.cs</Filename>
+        <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.shared\employee.cs</FilePath>
+        <Folders />
+        <ProjectFileName>C:\Users\MPhil\Source\Repos\blazor-default-template\MSPApplication.Shared\MSPApplication.Shared.csproj</ProjectFileName>
+        <ProjectName>MSPApplication.Shared</ProjectName>
+      </Item>
+      <Item Id="{19b0697f-040f-414d-aa92-d9503b9b5b63}">
+        <Filename>Index.razor.cs</Filename>
+        <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.ui\pages\index.razor.cs</FilePath>
+        <Folders>
+          <Item>Pages</Item>
+        </Folders>
+        <ProjectFileName>C:\Users\MPhil\Source\Repos\blazor-default-template\MSPApplication.UI\MSPApplication.UI.csproj</ProjectFileName>
+        <ProjectName>MSPApplication.UI</ProjectName>
+      </Item>
+    </Items>
+  </Options>
+</Root>
