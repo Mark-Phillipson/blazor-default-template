@@ -1,0 +1,86 @@
+﻿@page "/companydetail/{CompanyDetailId:int}"
+
+<section class="entity-detail">
+	<h1 class="page-title">Details for @CompanyDetail.CompanyName</h1>
+
+	@{
+		var leadingFormat = "00000";
+ }
+
+ <div class="col-12 row">
+  <div class="col-10 row">
+   <div class="col-xs-12 col-sm-8">
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Company Detail ID</label>
+	 <div class="col-sm-8">
+	  <label type="text"
+	   class="form-control-plaintext">@CompanyDetail.Id.ToString(leadingFormat)</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Active</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.Active</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Company Name</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.CompanyName</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Address Line 1</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.AddressLine1</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Address Line 2</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.AddressLine2</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">City</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.City</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Postcode</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.Postcode</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Country</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@Country?.Name</label>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Web Address</label>
+	 <div class="col-sm-8">
+	  <a href="@CompanyDetail.WebAddress">@CompanyDetail.WebAddress</a>
+	 </div>
+	</div>
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Phone Number</label>
+	 <div class="col-sm-8">
+	  <label type="text" readonly class="form-control-plaintext">@CompanyDetail.PhoneNumber</label>
+	 </div>
+	</div>
+
+	<div class="form-group row">
+	 <label class="col-sm-4 col-form-label">Email Address</label>
+	 <div class="col-sm-8">
+	  <a href="@CompanyDetail.EmailAddress">@CompanyDetail.EmailAddress</a>
+	 </div>
+	</div>
+
+   </div>
+  </div>
+ </div>
+
+</section>

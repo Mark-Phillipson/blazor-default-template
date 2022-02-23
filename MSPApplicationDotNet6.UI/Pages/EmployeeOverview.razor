@@ -1,0 +1,73 @@
+@page "/employeeoverview"
+@attribute [Authorize]
+@inject IJSRuntime JSRuntime
+<div class="row">
+	<div class="col-md-6">
+		<h3 class="page-title">@Title</h3>
+	</div>
+	<div class="col-md-6">
+		<input @ref="SearchInput" class="form-control m-1" style="float:right" @bind="@SearchTerm" @bind:event="oninput" id="SearchInput" name="SearchTerm" placeholder="Enter Search Term to Filter.." />
+	</div>
+</div>
+
+@if (FilteredEmployees == null && _loadFailed == true)
+{
+	<h1 class="text-danger">The data failed to load please try again in a little while..</h1>
+	<button class="btn btn-danger" type="button" @onclick="@( () => LoadData() )">Reload</button>
+	<h6>@ExceptionMessage</h6>
+}
+else if (FilteredEmployees == null)
+{
+	<div style="display:normal;margin:auto" class="loader"></div>
+}
+else if (FilteredEmployees.Count == 0)
+{
+	<p>No employees match the criteria with a job category of @JobCategory.JobCategoryName.</p>
+	<button @onclick="AddNewEmployeeAsync" class="btn btn-success">Create <i class="fas fa-plus"></i></button>
+}
+else
+{
+	<table class="table table-bordered table-striped" id="table1">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Employee ID<button class="btn btn-sm" @onclick="@(() => SortEmployees("EmployeeId"))"><i class="fas fa-sort"></i></button></th>
+				<th>
+					Name
+					<button class="btn btn-sm" @onclick="@(() => SortEmployees("FullName"))"><i class="fas fa-sort-alpha-up"></i></button>
+					<button class="btn btn-sm" @onclick="@(() => SortEmployees("FullName Desc"))"><i class="fas fa-sort-alpha-up-alt"></i></button>
+				</th>
+				<th>Email<button class="btn btn-sm" @onclick="@(() => SortEmployees("Email"))"><i class="fas fa-sort"></i></button></th>
+				<th>Job Category<button class="btn btn-sm" @onclick="@(() => SortEmployees("Job Category"))"><i class="fas fa-sort"></i></button></th>
+				<th>
+					<button @onclick="AddNewEmployeeAsync" class="btn btn-success">Create <i class="fas fa-plus"></i></button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var employee in FilteredEmployees)
+			{
+				<tr>
+					<td><img width="35" src="/images/Employee.png" class="rounded-circle" /></td>
+					<td>@employee.EmployeeId</td>
+					<td>@employee.FullName</td>
+					<td>
+						<a class="btn btn-link" href="mailto:@employee.Email"> @employee.Email</a>
+					</td>
+					<td>@employee.JobCategory.JobCategoryName</td>
+					<td class="btn-group">
+						<button class="btn btn-sm btn-info" @onclick="@(() => DetailEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-info-circle"></i>
+						</button>
+						<button class="btn btn-sm btn-warning" @onclick="@(() => EditEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-edit"></i>
+						</button>
+						<button class="btn btn-sm btn-danger" @onclick="@(() => DeleteEmployeeAsync(employee.EmployeeId))">
+							<i class="fas fa-trash"></i>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

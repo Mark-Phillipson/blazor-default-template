@@ -1,0 +1,27 @@
+﻿
+<EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit">
+
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<div class="form-group">
+		<label for="lastName">Last name: </label>
+		<InputText id="lastName" class="form-control" @bind-Value="@Employee.LastName" placeholder="Enter last name"></InputText>
+		<ValidationMessage For="@(() => Employee.LastName)" />
+	</div>
+
+	<div class="form-group">
+		<label for="firstName">First name: </label>
+		<InputText id="firstName" class="form-control" @bind-Value="@Employee.FirstName" placeholder="Enter first name"></InputText>
+		<ValidationMessage For="@(() => Employee.FirstName)" />
+	</div>
+
+	<div class="form-group">
+		<label for="email">Email: </label>
+		<InputText id="email" class="form-control" @bind-Value="@Employee.Email" placeholder="Enter email"></InputText>
+		<ValidationMessage For="@(() => Employee.Email)" />
+	</div>
+	<button type="submit" class="btn btn-primary">Save Employee</button>
+	<a class="btn btn-outline-primary" @onclick="@Close">Close</a>
+</EditForm>
+

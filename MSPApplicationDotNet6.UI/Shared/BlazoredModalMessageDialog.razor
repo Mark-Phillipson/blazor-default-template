@@ -1,0 +1,33 @@
+﻿
+<div class="dialog-title">
+	<h2>@Title</h2>
+</div>
+<form class="dialog-body">
+	<div class="font-weight-bold">
+		@Message
+	</div>
+</form>
+<div class="dialog-footer">
+	<div class="dialog-buttons">
+		<button accesskey="o" @ref="OkayButton" class="btn btn-primary btn-lg mr-auto" style="width:100%" @onclick="@OnOK">OK</button>
+	</div>
+</div>
+@code {
+	[Parameter] public string Title { get; set; } = "Please Note";
+	[Parameter] public string Message { get; set; }
+	[Parameter] public string ButtonColour { get; set; } = "success";
+	[CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+	ElementReference OkayButton;
+	void OnOK()
+	{
+		ModalInstance.CloseAsync(ModalResult.Ok(true));
+	}
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			 await OkayButton.FocusAsync();
+		}
+	}
+
+}

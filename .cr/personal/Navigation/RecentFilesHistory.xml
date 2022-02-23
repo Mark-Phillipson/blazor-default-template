@@ -2,7 +2,7 @@
 <Root Type="DevExpress.CodeRush.Foundation.Navigation.QuickFileNav.SolutionFileInfosContainer">
   <Options Language="Neutral">
     <Items>
-      <Item Id="{80d2e281-800b-4da5-8f3a-cfc641bf626d}">
+      <Item Id="{e157ffc8-861f-426d-8e0d-9ba00c8c73a4}">
         <Filename>Index.razor</Filename>
         <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.ui\pages\index.razor</FilePath>
         <Folders>
@@ -11,14 +11,14 @@
         <ProjectFileName>C:\Users\MPhil\Source\Repos\blazor-default-template\MSPApplication.UI\MSPApplication.UI.csproj</ProjectFileName>
         <ProjectName>MSPApplication.UI</ProjectName>
       </Item>
-      <Item Id="{fba6e650-75a1-4488-a352-5cb7068f80e3}">
+      <Item Id="{e3b891cb-f515-4018-81c4-675f87634024}">
         <Filename>Employee.cs</Filename>
         <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.shared\employee.cs</FilePath>
         <Folders />
         <ProjectFileName>C:\Users\MPhil\Source\Repos\blazor-default-template\MSPApplication.Shared\MSPApplication.Shared.csproj</ProjectFileName>
         <ProjectName>MSPApplication.Shared</ProjectName>
       </Item>
-      <Item Id="{19b0697f-040f-414d-aa92-d9503b9b5b63}">
+      <Item Id="{a4e75fa3-b505-4a0d-927f-def3caac6720}">
         <Filename>Index.razor.cs</Filename>
         <FilePath>c:\users\mphil\source\repos\blazor-default-template\mspapplication.ui\pages\index.razor.cs</FilePath>
         <Folders>

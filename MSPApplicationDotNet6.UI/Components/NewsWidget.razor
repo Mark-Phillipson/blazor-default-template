@@ -1,0 +1,46 @@
+﻿@if (Notices == null && _loadFailed)
+{
+    <p>
+        There was problem loading Notices data please try again later.
+    </p>
+
+}
+else if (Notices == null)
+{
+    <div style="display:normal;margin:auto" class="loader"></div>
+}
+else
+{
+    <div class="widget">
+        <h3>
+            @title
+            <AuthorizeView Roles="Administration">
+                <Authorized>
+                    <span class="d-none d-lg-inline"><a href="noticeoverview/" class="btn btn-info mr-1 float-right">Manage Notices</a></span>
+                </Authorized>
+            </AuthorizeView>
+        </h3>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Date Posted</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Notices)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td>@item.Priority</td>
+                        <td>@item.DatePosted.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+

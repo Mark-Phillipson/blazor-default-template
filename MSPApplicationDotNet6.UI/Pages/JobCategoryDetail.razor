@@ -1,0 +1,30 @@
+﻿
+@page "/jobcategorydetail/{JobCategoryId:int}"
+
+<section class="entity-detail">
+    <h1 class="page-title">Details for @JobCategory.JobCategoryName</h1>
+
+    @{
+        var leadingFormat = "00000";
+    }
+
+    <div class="col-12 row">
+        <div class="col-10 row">
+            <div class="col-xs-12 col-sm-8">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Job Category ID</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@JobCategory.JobCategoryId.ToString(leadingFormat)</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">First name</label>
+                    <div class="col-sm-8">
+                        <label type="text" readonly class="form-control-plaintext">@JobCategory.JobCategoryName</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

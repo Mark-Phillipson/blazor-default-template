@@ -1,0 +1,82 @@
+﻿@inherits LayoutComponentBase
+@using MSPApplicationDotNet6.UI.Shared
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Blazored.Toast.Configuration
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<CascadingValue Value="@User">
+
+
+    <BlazoredToasts Position="ToastPosition.BottomRight"
+                    Timeout="5"
+                    IconType="IconType.FontAwesome"
+                    SuccessClass="success-toast-override"
+                    SuccessIcon="fa fa-thumbs-up"
+                    ErrorIcon="fa fa-bug" />
+
+
+    <div class="page">
+        <div class="sidebar">
+                    <NavMenu />
+            @*<LeftNav DisplayStyle="@MenuDisplay" SidebarOpenedClass="@SidebarOpenedClass" />*@
+        </div>
+
+        <main>
+            <div class="top-row px-4">
+                <LoginDisplay />
+@*                <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleMenu">
+                    <span class="navbar-toggler-icon">                    <img src="/images/Menu.png" width="30" /></span>
+                </button>
+*@            </div>
+
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+    </div>
+</CascadingValue>
+
+@code
+{
+    public string MenuDisplay { get; set; } = "display:block";
+    public string SidebarOpenedClass { get; set; } = "sidebar-opened ml-0";
+    void ToggleMenu()
+    {
+        if (MenuDisplay == "display:block")
+        {
+            MenuDisplay = "display:none";
+        }
+        else
+        {
+            MenuDisplay = "display:block";
+        }
+        StateHasChanged();
+    }
+    void ToggleMenuSmallScreens()
+    {
+        if (SidebarOpenedClass == "sidebar-opened ml-0")
+        {
+            SidebarOpenedClass = "";
+        }
+        else
+        {
+            SidebarOpenedClass = "sidebar-opened ml-0";
+        }
+        ToggleMenu();
+    }
+    public ClaimsPrincipal User { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authenticationState.User;
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo($"Identity/Account/Login", true);
+        }
+
+    }
+	}

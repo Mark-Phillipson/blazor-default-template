@@ -1,0 +1,27 @@
+﻿
+<div class="widget">
+    <h4>
+        New Employees
+        <AuthorizeView>
+            <Authorized>
+                <a href="employeeoverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">View All</a>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="Administration">
+            <Authorized>
+                <a href="useroverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">Users</a>
+            </Authorized>
+        </AuthorizeView>
+
+    </h4>
+    <p>Make sure to say hello to our latest friends!</p>
+    @foreach (var employee in NewEmployees)
+    {
+        <div class="float-left employee-box">
+            <img src="images/Employee.png" class="rounded-circle mx-auto d-block" />
+            <p class="text-center"> @employee.FirstName @employee.LastName</p>
+        </div>
+    }
+
+    <p style="clear: both">Most recent employees!</p>
+</div>

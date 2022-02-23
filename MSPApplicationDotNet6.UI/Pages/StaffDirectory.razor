@@ -1,0 +1,35 @@
+﻿@page "/staffdirectory"
+
+<h1 class="page-title">Staff Directory</h1>
+
+@if (Employees == null)
+{
+	<div style="display:normal;margin:auto" class="loader"></div>
+}
+else if (Employees.Count == 0)
+{
+	<div>There are no employees in the system at this time!</div>
+}
+else
+{
+	<div class="flex-container">
+		@foreach (var employee in Employees)
+		{
+			<div class="card mb-3" style="max-width: 540px;margin:3px;padding:3px">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img src="images/Employee.png" class="card-img-top">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">@employee.FirstName @employee.LastName</h5>
+							<p class="card-text">@employee.PhoneNumber</p>
+							<p class="card-text">@employee.City</p>
+							<a class="btn btn-lg btn-primary" href="mailto:@employee.Email">Email: @employee.Email</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}

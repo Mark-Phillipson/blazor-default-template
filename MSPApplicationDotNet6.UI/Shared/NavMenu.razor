@@ -1,0 +1,142 @@
+﻿<div class="top-row ps-3 mt-0 navbar navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="">Human Resources</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="tasksoverview" Match="NavLinkMatch.All">
+                <span class="oi oi-task" aria-hidden="true"></span> Tasks
+            </NavLink>
+        </div>
+
+        <AuthorizeView>
+            <div class="nav-item px-3">
+                <NavLink @onclick="(() => ToggleNav1(1))" data-toggle="collapse" class="nav-link dropdown-toggle">
+                    <span class="oi oi-person" aria-hidden="true"></span>Employees
+                </NavLink>
+            </div>
+            @if (!IsHidden1)
+            {
+                <div class="nav-item ps-5">
+                    <NavLink Match="NavLinkMatch.All" class="nav-link" href="/employeeoverview">
+                        View
+                    </NavLink>
+                    <NavLink Match="NavLinkMatch.All" class="nav-link" href="/employeeedit">
+                        Add New Full
+                    </NavLink>
+                    <NavLink Match="NavLinkMatch.All" class="nav-link" href="/staffdirectory">
+                        Directory
+                    </NavLink>
+                </div>
+            }
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="expensesoverview" Match="NavLinkMatch.All">
+                    <span class="oi oi-dollar" aria-hidden="true"></span> Expenses
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="jobcategoryoverview" Match="NavLinkMatch.All">
+                    <span class="oi oi-aperture" aria-hidden="true"></span> Job Category
+                </NavLink>
+            </div>
+
+        </AuthorizeView>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="staffdirectory" Match="NavLinkMatch.All">
+                <span class="oi oi-people" aria-hidden="true"></span> Directory
+            </NavLink>
+        </div>
+        <AuthorizeView Roles="Administration">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="useroverview" Match="NavLinkMatch.All">
+                        <span class="oi oi-people" aria-hidden="true"></span> Users
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="Development">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink @onclick="(() => ToggleNav1(2))" data-toggle="collapse" class="nav-link dropdown-toggle">
+                        <span class="oi oi-code" aria-hidden="true"></span>Development
+                    </NavLink>
+                </div>
+                @if (!IsHidden2)
+                {
+                    <div class="nav-item ps-5">
+                        <NavLink Match="NavLinkMatch.All" class="nav-link" href="/roleoverview">
+                            Roles
+                        </NavLink>
+                        <NavLink Match="NavLinkMatch.All" class="nav-link" href="/binding">
+                            Binding
+                        </NavLink>
+                        <NavLink Match="NavLinkMatch.All" class="nav-link" href="/companydetailsoverview">
+                            Company
+                        </NavLink>
+                        <NavLink Match="NavLinkMatch.All" class="nav-link" href="/texteditor">
+                            Editor Sample
+                        </NavLink>
+                    </div>
+                }
+            </Authorized>
+        </AuthorizeView>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    public bool IsHidden1 { get; set; } = true;
+    public bool IsHidden2 { get; set; } = true;
+    public bool IsHidden3 { get; set; } = true;
+    public bool IsHidden4 { get; set; } = true;
+    public bool IsHidden5 { get; set; } = true;
+    public bool IsHidden6 { get; set; } = true;
+
+    public void ToggleNav1(int navId)
+    {
+        switch (navId)
+        {
+            case 1:
+                IsHidden1 = !IsHidden1;
+                break;
+            case 2:
+                IsHidden2 = !IsHidden2;
+                break;
+            case 3:
+                IsHidden3 = !IsHidden3;
+                break;
+            case 4:
+                IsHidden4 = !IsHidden4;
+                break;
+            case 5:
+                IsHidden5 = !IsHidden5;
+                break;
+            case 6:
+                IsHidden6 = !IsHidden6;
+                break;
+        }
+    }
+
+    [Parameter] public string DisplayStyle { get; set; } = "display:block";
+    [Parameter] public string SidebarOpenedClass { get; set; } = "";
+}
