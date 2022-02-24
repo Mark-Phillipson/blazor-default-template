@@ -9,8 +9,8 @@
     }
     else
     {
-<h1 class="page-title">Add New Expense</h1>
-}
+        <h1 class="page-title">Add New Expense</h1>
+    }
 
     <EditForm Model="@Expense" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
@@ -25,12 +25,12 @@
         </div>
         <div class="form-group row">
             <label for="Description" class="col-sm-3">Amount: </label>
-            <InputNumber id="Description" class="form-control border border-warning col-sm-8" @bind-Value="@Expense.Amount" placeholder="Enter Description"></InputNumber>
+            <InputNumber id="Description" class="form-select border border-warning col-sm-8" @bind-Value="@Expense.Amount" placeholder="Enter Description"></InputNumber>
         </div>
 
         <div class="form-group row">
             <label for="expenseStats" class="col-sm-3">Expense Type: </label>
-            <InputSelect id="expenseStatus" class="form-control border border-warning col-sm-8" @bind-Value=@Expense.ExpenseType>
+            <InputSelect id="expenseStatus" class="form-select border border-warning col-sm-8" @bind-Value=@Expense.ExpenseType>
                 <option value="@(ExpenseType.Training)">Training</option>
                 <option value="@(ExpenseType.Travel)">Travel</option>
                 <option value="@(ExpenseType.Conference)">Conference</option>
@@ -50,7 +50,7 @@
 
         <div class="form-group row">
             <label for="employee" class="col-sm-3">Employee: </label>
-            <InputSelect id="employee" class="form-control border border-warning col-sm-8" @bind-Value="@EmployeeId">
+            <InputSelect id="employee" class="form-select border border-warning col-sm-8" @bind-Value="@EmployeeId">
                 @foreach (var employee in Employees)
                 {
                     <option value="@employee.EmployeeId">@employee.FirstName</option>
@@ -60,19 +60,21 @@
 
         <div class="form-group row">
             <label for="currency" class="col-sm-3">Currency: </label>
-            <InputSelect id="currency" class="form-control border border-warning col-sm-8" @bind-Value="@CurrencyId">
+            <InputSelect id="currency" class="form-select border border-warning col-sm-8" @bind-Value="@CurrencyId">
                 @foreach (var currency in Currencies)
                 {
                     <option value="@currency.CurrencyId">@currency.Name</option>
                 }
             </InputSelect>
         </div>
-
-        <button type="submit" class="btn btn-primary edit-btn">Save Expense</button>
-        @if (Expense.ExpenseId > 0)
-        {
-            <button @onclick="ShowDeleteConfirmation" type="button" class="btn btn-danger">Delete</button>
-        }
+        <br />
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary btn-lg edit-btn">Save Expense</button>
+            @if (Expense.ExpenseId > 0)
+            {
+                <button @onclick="ShowDeleteConfirmation" type="button" class="btn btn-danger btn-lg">Delete</button>
+            }
+        </div>
     </EditForm>
 </div>
 

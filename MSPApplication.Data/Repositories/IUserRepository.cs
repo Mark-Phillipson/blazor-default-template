@@ -14,5 +14,7 @@ namespace MSPApplication.Data.Repositories
         AspNetUser UpdateUser(AspNetUser user);
         void DeleteUser(string id);
         void DeleteUserRole(string userId, string roleId);
+        IEnumerable<AspNetRole> GetAllRolesForUser(string  userId);
+        AspNetUserRole AddUserRole(AspNetUserRole userRole);
     }
 }

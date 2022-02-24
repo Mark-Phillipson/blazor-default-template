@@ -113,5 +113,21 @@ namespace MSPApplication.Data.Repositories
 			AspNetUserRole result = _appDbContext.AspNetUserRoles.FirstOrDefault(e => e.UserId == userId && e.RoleId == roleId);
 			return result;
 		}
+
+        public IEnumerable<AspNetRole> GetAllRolesForUser(string  userId)
+        {
+			var roles =   _appDbContext.AspNetRoles.Where(v => v.AspNetUserRoles.Count(c => c.UserId == userId) > 0).ToList();
+			return  roles;
+        }
+		public AspNetUserRole AddUserRole(AspNetUserRole aspNetUserRole)
+		{
+			var testEntity = _appDbContext.AspNetUserRoles.Where(v => v.UserId == aspNetUserRole.UserId && v.RoleId == aspNetUserRole.RoleId).FirstOrDefault();
+			if (testEntity != null) return testEntity;
+			var addedEntity = _appDbContext.AspNetUserRoles.Add(aspNetUserRole);
+			_appDbContext.SaveChanges();
+			return addedEntity.Entity;
+
+		}
+
 	}
 }

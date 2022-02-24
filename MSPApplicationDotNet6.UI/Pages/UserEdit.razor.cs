@@ -23,6 +23,7 @@ namespace MSPApplicationDotNet6.UI.Pages
         public AspNetUser User { get; set; } = new AspNetUser();
         public string RoleId { get; set; }
         public List<AspNetRole> Roles { get; set; }
+        public List<AspNetRole> CurrentRoles { get; set; }
         //used to store state of screen
         protected string Message = string.Empty;
         protected string StatusClass = string.Empty;
@@ -41,8 +42,10 @@ namespace MSPApplicationDotNet6.UI.Pages
             else
             {
                 User = await UserDataService.GetUserById(id);
+                CurrentRoles = (await UserDataService.GetAllRolesForUser(id)).ToList();
             }
             Roles = (await RoleDataService.GetAllRoles()).OrderBy(v => v.Name).ToList();
+
         }
 
         protected async Task HandleValidSubmit()
@@ -102,27 +105,27 @@ namespace MSPApplicationDotNet6.UI.Pages
         }
         protected async Task AddUserRoleAsync()
         {
-            var item = User.AspNetUserRoles.FirstOrDefault(e => e.RoleId == RoleId);
-            if (item !=  null)
-            {
-                RoleMessage = "Failed to add a new role, cannot be duplicated.";
-                return;
-            }
-            if (!string.IsNullOrEmpty(RoleId))
-            {
-                AspNetRole role = (await RoleDataService.GetRoleById(RoleId));
-                AspNetUserRole aspNetUserRole = new AspNetUserRole { UserId = User.Id, RoleId = RoleId, Role = role };
-                User.AspNetUserRoles.Add(aspNetUserRole);
-            }
-            else
+            if (string.IsNullOrEmpty(RoleId))
             {
                 RoleMessage = "Please select a role first before adding!";
+                return;
             }
+            var result = await UserDataService.AddUserRole(User.Id, RoleId);
+
+            if (result == null)
+            {
+                RoleMessage = "Failed to add a new role, (cannot be duplicated.)";
+                return;
+            }
+            CurrentRoles = (await UserDataService.GetAllRolesForUser(id)).ToList();
         }
         protected async Task DeleteUserRole(string userId, string roleId)
         {
-            var item = User.AspNetUserRoles.Where(v => v.UserId == userId && v.RoleId == roleId).FirstOrDefault();
-            User.AspNetUserRoles.Remove(item);
+            var item = CurrentRoles.Where(v => v.Id == roleId).FirstOrDefault();
+            if (item!= null )
+            {
+                CurrentRoles.Remove(item); 
+            }
             await UserDataService.DeleteUserRole(userId, roleId);
         }
     }

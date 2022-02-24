@@ -12,7 +12,7 @@ else if (Employees.Count == 0)
 }
 else
 {
-	<div class="flex-container">
+	<div class="d-flex">
 		@foreach (var employee in Employees)
 		{
 			<div class="card mb-3" style="max-width: 540px;margin:3px;padding:3px">
@@ -25,7 +25,7 @@ else
 							<h5 class="card-title">@employee.FirstName @employee.LastName</h5>
 							<p class="card-text">@employee.PhoneNumber</p>
 							<p class="card-text">@employee.City</p>
-							<a class="btn btn-lg btn-primary" href="mailto:@employee.Email">Email: @employee.Email</a>
+							<a class="btn btn-primary" href="mailto:@employee.Email">Email: @employee.Email</a>
 						</div>
 					</div>
 				</div>

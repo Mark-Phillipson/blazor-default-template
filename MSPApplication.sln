@@ -11,11 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplication.Data", "MSPA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplication.Shared", "MSPApplication.Shared\MSPApplication.Shared.csproj", "{1F3CF81D-DE65-40A2-9102-88ADF1EC49CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplication.UI", "MSPApplication.UI\MSPApplication.UI.csproj", "{9B936462-745A-49FD-BE2B-0BE76EBBC095}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject", "XUnitTestProject\XUnitTestProject.csproj", "{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSPApplicationDotNet6.UI", "MSPApplicationDotNet6.UI\MSPApplicationDotNet6.UI.csproj", "{B3B013E1-5130-4888-838B-17E098CB8BFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSPApplicationDotNet6.UI", "MSPApplicationDotNet6.UI\MSPApplicationDotNet6.UI.csproj", "{B3B013E1-5130-4888-838B-17E098CB8BFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +35,6 @@ Global
 		{1F3CF81D-DE65-40A2-9102-88ADF1EC49CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F3CF81D-DE65-40A2-9102-88ADF1EC49CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F3CF81D-DE65-40A2-9102-88ADF1EC49CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B936462-745A-49FD-BE2B-0BE76EBBC095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B936462-745A-49FD-BE2B-0BE76EBBC095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B936462-745A-49FD-BE2B-0BE76EBBC095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B936462-745A-49FD-BE2B-0BE76EBBC095}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83B02DA4-81FD-45F8-A28C-C51673B6F1A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3B013E1-5130-4888-838B-17E098CB8BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3B013E1-5130-4888-838B-17E098CB8BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3B013E1-5130-4888-838B-17E098CB8BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU

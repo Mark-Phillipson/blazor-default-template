@@ -1,4 +1,6 @@
 using MSPApplication.Shared;
+using MSPApplication.Shared.ViewModels;
+using SendGrid;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -37,7 +39,13 @@ namespace MSPApplicationDotNet6.UI.Services
                 (await _httpClient.GetStreamAsync(url), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
+        public async Task<IEnumerable<AspNetRole>> GetAllRolesForUser(string userId)
+        {
+            var url = $"api/user/getallrolesforuser/{userId}";
+            return await JsonSerializer.DeserializeAsync<IEnumerable<AspNetRole>>
+                (await _httpClient.GetStreamAsync(url), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
+        }
 
         public async Task<AspNetUser> GetUserById(string id)
         {
@@ -79,6 +87,20 @@ namespace MSPApplicationDotNet6.UI.Services
                 throw new System.Exception($"Failed to delete:{result}");
             }
             System.Console.WriteLine(result);
+
+        }
+        public async Task<AspNetUserRole> AddUserRole(string userId, string roleId)
+        {
+            var roleUser = new AspNetUserRole() { UserId = userId, RoleId = roleId };
+            var roleUserJson =
+                new StringContent(JsonSerializer.Serialize(roleUser), Encoding.UTF8, "application/json");
+
+            var result = await _httpClient.PostAsync($"api/user/adduserrole", roleUserJson);
+            if (result.IsSuccessStatusCode)
+{
+                return await JsonSerializer.DeserializeAsync<AspNetUserRole>(await result.Content.ReadAsStreamAsync());
+            }
+            return null;
 
         }
 

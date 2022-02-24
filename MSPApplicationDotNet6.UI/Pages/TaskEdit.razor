@@ -20,7 +20,7 @@
 
 	<div class="form-group row">
 		<label for="taskStatus" class="col-sm-3">Status: </label>
-		<InputSelect id="taskStatus" class="form-control col-sm-8" @bind-Value=@Task.Status>
+		<InputSelect id="taskStatus" class="form-select col-sm-8" @bind-Value=@Task.Status>
 			<option value="@(HRTaskStatus.Open)">Open</option>
 			<option value="@(HRTaskStatus.InProgress)">In Progress</option>
 			<option value="@(HRTaskStatus.Assigned)">Assigned</option>
@@ -31,7 +31,7 @@
 
 	<div class="form-group row">
 		<label for="employee" class="col-sm-3">Assigned to: </label>
-		<InputSelect id="employee" class="form-control col-sm-8" @bind-Value="@EmployeeId">
+		<InputSelect id="employee" class="form-select col-sm-8" @bind-Value="@EmployeeId">
 			<option value="">-</option>
 			@foreach (var employee in Employees)
 			{
@@ -39,6 +39,7 @@
 			}
 		</InputSelect>
 	</div>
+	<br/>
 	<div class="btn-group">
 		@if (Task.HRTaskId > 0)
 		{

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MSPApplication.Api.Controllers;
+using MSPApplicationDotNet6.Api.Controllers;
 using MSPApplication.Data;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;

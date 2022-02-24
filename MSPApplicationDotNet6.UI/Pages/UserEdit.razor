@@ -1,7 +1,7 @@
 ﻿@page "/useredit"
 @page "/useredit/{id}"
 @using MSPApplication.Shared
-@attribute [Authorize(Roles ="Administration")]
+@attribute [Authorize(Roles = "Administration")]
 <section class="entity-edit">
     @if (!Saved)
     {
@@ -11,29 +11,40 @@
             <DataAnnotationsValidator />
             @*<ValidationSummary />*@
             <div class="form-group row">
-                <label for="EmailConfirmed" class="col-sm-3">Email Confirmed: </label>
-                <InputCheckbox @bind-Value="@User.EmailConfirmed" class="form-control col-sm-8" />
-                <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.EmailConfirmed)" /></div>
+                <div class="mb-4">
+                    <label for="EmailConfirmed" class="col-sm-3 form-label">Email Confirmed: </label>
+                    <InputCheckbox @bind-Value="@User.EmailConfirmed" class="form-check-input col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.EmailConfirmed)" /></div>
+                </div>
             </div>
             <div class="form-group row">
-                <label for="LockOutEnabled" class="col-sm-3">Lockout Enabled: </label>
-                <InputCheckbox @bind-Value="@User.LockoutEnabled" class="form-control col-sm-8" />
-                <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnabled)" /></div>
+                <div class="mb-4">
+                    <label for="LockOutEnabled" class="col-sm-3 form-label">Lockout Enabled: </label>
+                    <InputCheckbox @bind-Value="@User.LockoutEnabled" class="form-check-input col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnabled)" /></div>
+                </div>
             </div>
 
             <div class="form-group row">
-                <label for="LockoutEnd" class="col-sm-3">Lockout End: </label>
-                <InputDate id="LockoutEnd" class="form-control col-sm-8" @bind-Value="@User.LockoutEnd" placeholder="Enter Date Posted"></InputDate>
-                <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnd)" /></div>
+                <div class="mr-4">
+                    <label for="LockoutEnd" class="col-sm-3 form-label">Lockout End: </label>
+                    <InputDate id="LockoutEnd" class="form-control col-sm-8" @bind-Value="@User.LockoutEnd"
+                           placeholder="Enter Date Posted"></InputDate>
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.LockoutEnd)" /></div>
+                </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3">Phone Number</label>
-                <InputText class="form-control col-sm-3" placeholder="Enter valid phone number" @bind-Value="@User.PhoneNumber" />
+                <div class="mb-4">
+                    <label class="col-sm-3 form-label">Phone Number</label>
+                    <InputText class="form-control col-sm-3" placeholder="Enter valid phone number" @bind-Value="@User.PhoneNumber" />
+                </div>
             </div>
             <div class="form-group row">
-                <label for="PhoneNumberConfirmed" class="col-sm-3">Phone Number Confirmed: </label>
-                <InputCheckbox @bind-Value="@User.PhoneNumberConfirmed" class="form-control col-sm-8" />
-                <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.PhoneNumberConfirmed)" /></div>
+                <div class="mb-4">
+                    <label for="PhoneNumberConfirmed" class="col-sm-3 form-label">Phone Number Confirmed: </label>
+                    <InputCheckbox @bind-Value="@User.PhoneNumberConfirmed" class="form-check-input col-sm-8" />
+                    <div class="offset-sm-3 col-sm-8"><ValidationMessage style="color:red" For="@(() => User.PhoneNumberConfirmed)" /></div>
+                </div>
             </div>
             <h4>Roles</h4>
             @if (Roles != null && Roles.Count > 0)
@@ -41,50 +52,59 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label for="role" class="col-sm-3">Pick a Role to Add: </label>
-                            <InputSelect id="role" class="form-control col-sm-6" @bind-Value="@RoleId">
-                                <option value="">-</option>
-                                @foreach (var role in Roles)
-                                        {
-                                            <option value="@role.Id">@role.Name</option>
-                                        }
-                            </InputSelect>
-                            <button type="button" class="btn btn-sm btn-success col-sm-2" @onclick="@AddUserRoleAsync">Add</button>
-                            <span class="text-danger offset-sm-3">@RoleMessage</span>
-                        </div>
+                            <div class="mb-4">
+                                <label for="role" class="col-sm-3 form-label">Pick a Role to Add: </label>
+                                <InputSelect id="role" class="form-select col-sm-6" @bind-Value="@RoleId">
+                                    <option value="">-</option>
+                                    @foreach (var role in Roles)
+                                    {
+                                <option value="@role.Id">@role.Name</option>
+                                    }
+                        </InputSelect>
+
+                        <button type="button" class="btn btn-sm btn-success col-sm-2" @onclick="@AddUserRoleAsync">Add</button>
+                        <span class="text-danger offset-sm-3">@RoleMessage</span>
                     </div>
-                    <div class="col-md-6">
-                        <table class="table table-bordered table-striped" id="tableRoles">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (AspNetUserRole userRole in User.AspNetUserRoles)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped" id="tableRoles">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (AspNetRole role in CurrentRoles)
                                 {
                                     <tr>
                                         <td>
-                                            @userRole.Role.Name
+                                            @role.Name
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-danger" @onclick="@(() => DeleteUserRole(userRole.UserId,userRole.RoleId))">X</button>
+                                            <button type="button" class="btn btn-sm btn-danger"
+                                        @onclick="@(() => DeleteUserRole(User.Id,role.Id))">
+                                                X
+                                            </button>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
-                </div>      }
-            <button type="submit" class="btn btn-primary edit-btn">Save User</button>
-            <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
-            @if (!string.IsNullOrEmpty(User.Id))
-            {
-                <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
-                    Delete
-                </a>
+                </div>
             }
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary edit-btn">Save User</button>
+                <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+                @if (!string.IsNullOrEmpty(User.Id))
+                {
+                    <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
+                        Delete
+                    </a>
+                }
+            </div>
         </EditForm>
     }
     else

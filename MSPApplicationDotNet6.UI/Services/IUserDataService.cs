@@ -10,8 +10,10 @@ namespace MSPApplicationDotNet6.UI.Services
         Task DeleteUser(string id);
         Task<IEnumerable<AspNetUser>> GetAllUsers();
         Task<IEnumerable<AspNetUser>> GetAllUsersInRole(string id);
+        Task<IEnumerable<AspNetRole>> GetAllRolesForUser(string userId);
         Task<AspNetUser> GetUserById(string id);
         Task UpdateUser(AspNetUser user);
         Task DeleteUserRole(string userId, string roleId);
+        Task<AspNetUserRole> AddUserRole(string userId, string roleId);
     }
 }

@@ -31,7 +31,7 @@ else
     </div>
     <div class="form-group row">
         <label for="priority" class="col-sm-3">Priority: </label>
-        <InputSelect id="priority" class="form-control col-sm-8" @bind-Value=@Notice.Priority>
+        <InputSelect id="priority" class="form-select col-sm-8" @bind-Value=@Notice.Priority>
             <option value="@(NoticePriority.Low)">Low</option>
             <option value="@(NoticePriority.High)">High</option>
         </InputSelect>
@@ -45,19 +45,20 @@ else
     <div class="form-group row">
         <label class="col-sm-3">Show</label>
         <label for="show" class="col-sm-8">
-            <InputCheckbox class="form-control" id="show" @bind-Value="@Notice.Show"></InputCheckbox>
+            <InputCheckbox class="form-check-input" id="show" @bind-Value="@Notice.Show"></InputCheckbox>
         </label>
     </div>
 
-    <button type="submit" class="btn btn-primary edit-btn">Save Notice</button>
-    <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
-    @if (Notice.NoticeId > 0)
-    {
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary edit-btn">Save Notice</button>
+        <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+        @if (Notice.NoticeId > 0)
+        {
         <a class="btn btn-danger" @onclick="@ShowDeleteConfirmation">
             Delete
         </a>
-    }
-</EditForm>
+        }
+    </div></EditForm>
 }
 else
 {

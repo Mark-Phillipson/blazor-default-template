@@ -2,26 +2,32 @@
 <div class="widget">
     <h4>
         New Employees
+    </h4>
+    <div class="btn-group">
         <AuthorizeView>
             <Authorized>
-                <a href="employeeoverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">View All</a>
+                <div class="m-1">
+                    <a href="employeeoverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">View All</a>
+                </div>
             </Authorized>
         </AuthorizeView>
         <AuthorizeView Roles="Administration">
             <Authorized>
-                <a href="useroverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">Users</a>
+                <div class="m-1">
+                    <a href="useroverview/" class="d-none d-xl-block btn btn-info btn-sm mr-1 float-right">Users</a>
+                </div>
             </Authorized>
         </AuthorizeView>
-
-    </h4>
+    </div>
     <p>Make sure to say hello to our latest friends!</p>
-    @foreach (var employee in NewEmployees)
-    {
-        <div class="float-left employee-box">
-            <img src="images/Employee.png" class="rounded-circle mx-auto d-block" />
-            <p class="text-center"> @employee.FirstName @employee.LastName</p>
-        </div>
-    }
-
-    <p style="clear: both">Most recent employees!</p>
+    <div class="employee-box d-flex flex-row">
+        @foreach (var employee in NewEmployees)
+        {
+            <div class="p-2">
+                <img src="images/Employee.png" class="rounded-circle" />
+                <p class="text-center"> @employee.FirstName @employee.LastName</p>
+            </div>
+        }
+    </div>
+    <p>Most recent employees!</p>
 </div>

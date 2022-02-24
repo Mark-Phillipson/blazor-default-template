@@ -12,22 +12,29 @@
             <DataAnnotationsValidator />
             @*<ValidationSummary />*@
             <div class="form-group row">
-                <label for="JobCategoryName" class="col-sm-4">Job Category Name: </label>
-                <InputText id="JobCategoryName" class="form-control col-sm-8" @bind-Value="@JobCategory.JobCategoryName" placeholder="Enter Job Category Name"></InputText>
-                <div class="offset-sm-4 col-sm-8"><ValidationMessage style="color:red" For="@(() => JobCategory.JobCategoryName)" /></div>
+                <div class="mb-5">
+                    <label for="JobCategoryName" class="col-sm-4 form-label">Job Category Name: </label>
+                    <InputText id="JobCategoryName" class="form-control col-sm-8" @bind-Value="@JobCategory.JobCategoryName"
+                           placeholder="Enter Job Category Name"></InputText>
+                    <div class="offset-sm-4 col-sm-8">
+                        <ValidationMessage style="color:red" For="@(() => JobCategory.JobCategoryName)" />
+                    </div>
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-primary edit-btn">Save Job Category</button>
-            <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
-            @if (JobCategory.JobCategoryId > 0 && JobCategory.Employees.Count==0)
-            {
-                <a class="btn btn-danger" @onclick="@DeleteJobCategory">
-                    Delete
-                </a>
-            }
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary edit-btn">Save Job Category</button>
+                <a class="btn btn-outline-primary edit-outline-btn" @onclick="@NavigateToOverview">Cancel</a>
+                @if (JobCategory.JobCategoryId > 0 && JobCategory.Employees.Count == 0)
+                {
+                    <a class="btn btn-danger" @onclick="@DeleteJobCategory">
+                        Delete
+                    </a>
+                }
+            </div>
         </EditForm>
 
-        if (JobCategory!= null && JobCategory.JobCategoryId>0 )
+        if (JobCategory != null && JobCategory.JobCategoryId > 0)
         {
             <hr>
             <EmployeeOverview JobCategory="JobCategory" />

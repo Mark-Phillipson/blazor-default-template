@@ -34,7 +34,13 @@ namespace MSPApplication.Api.Controllers
             return Ok(result);
         }
 
-
+        [Route("[action]/{userId}")]
+        [HttpGet]
+        public IActionResult GetAllRolesForUser(string userId)
+        {
+            var result = _userRepository.GetAllRolesForUser(userId);
+            return Ok(result);
+        }
         // GET api/<UserController>/5
         [Route("[action]/{id}")]
         [HttpGet]
@@ -61,6 +67,30 @@ namespace MSPApplication.Api.Controllers
             var createdUser = _userRepository.AddUser(user);
             return Created("user", createdUser);
         }
+
+        // POST api/<UserController>
+        [Route("[action]")]
+        [HttpPost]
+        public IActionResult AddUserRole([FromBody] AspNetUserRole userRole)
+        {
+            if (userRole == null)
+            {
+                return BadRequest();
+            }
+            if (string.IsNullOrEmpty(userRole.UserId))
+            {
+                ModelState.AddModelError("UserId", "The User ID should not be empty! ");
+            }
+            if (string.IsNullOrEmpty(userRole.RoleId))
+            {
+                ModelState.AddModelError("RoleId", "The Role ID should not be empty! ");
+            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var createdUserRole = _userRepository.AddUserRole(userRole);
+            return Created("UserRole", createdUserRole);
+
+        }
+
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]

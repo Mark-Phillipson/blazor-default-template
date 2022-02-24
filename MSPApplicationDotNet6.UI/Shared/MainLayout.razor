@@ -18,17 +18,16 @@
 
     <div class="page">
         <div class="sidebar">
-                    <NavMenu />
-            @*<LeftNav DisplayStyle="@MenuDisplay" SidebarOpenedClass="@SidebarOpenedClass" />*@
+            <NavMenu />
         </div>
 
         <main>
             <div class="top-row px-4">
+                <div class="footer text-muted text-sm">
+                    <div class="copyright text-center" style="font-size:x-small">&copy; HR Template @DateTime.Now.Year, Powered by        @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription Blazor Server</div>
+                </div>
                 <LoginDisplay />
-@*                <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleMenu">
-                    <span class="navbar-toggler-icon">                    <img src="/images/Menu.png" width="30" /></span>
-                </button>
-*@            </div>
+            </div>
 
             <article class="content px-4">
                 @Body
