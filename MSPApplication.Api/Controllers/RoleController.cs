@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MSPApplication.Api.Controllers
 {
-    [Route("api/[controller]")]
+[Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administration")]
     public class RoleController : ControllerBase
     {
         private readonly IRoleRepository _roleRepository;

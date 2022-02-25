@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
@@ -11,6 +12,7 @@ namespace MSPApplication.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles ="Administration")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;

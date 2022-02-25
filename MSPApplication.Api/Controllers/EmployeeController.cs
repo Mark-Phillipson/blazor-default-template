@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MSPApplication.Data.Repositories;
 using MSPApplication.Shared;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace MSPApplication.Api.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles = "Production")]
 	public class EmployeeController : Controller
 	{
 		private readonly IEmployeeRepository _employeeRepository;
